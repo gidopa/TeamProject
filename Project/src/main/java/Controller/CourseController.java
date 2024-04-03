@@ -17,7 +17,6 @@ import VO.CoursesVO;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-
 @WebServlet("/Courses/*")
 public class CourseController extends HttpServlet {
 	

@@ -55,13 +55,13 @@ request.setCharacterEncoding("UTF-8");
 						</a>
 							<ul class="header-sublist">
 								<li class="header-subitem"><a class="header-sublink"
-									href="<%=contextPath%>/Courses/backend?category=4"> <span>BackEnd</span>
+									href="<%=contextPath%>/Courses/backend?category=backend"> <span>BackEnd</span>
 								</a></li>
 								<li class="header-subitem"><a class="header-sublink"
-									href="<%=contextPath%>/Courses/frontend?category=6"> <span>FrontEnd</span>
+									href="<%=contextPath%>/Courses/frontend?category=frontend"> <span>FrontEnd</span>
 								</a></li>
 								<li class="header-subitem"><a class="header-sublink"
-									href="<%=contextPath%>/Courses/AI?category=8"> <span>AI</span>
+									href="<%=contextPath%>/Courses/AI?category=ai"> <span>AI</span>
 								</a></li>
 
 							</ul></li>

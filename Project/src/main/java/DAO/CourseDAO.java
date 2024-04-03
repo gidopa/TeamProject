@@ -50,30 +50,30 @@ public class CourseDAO {
 
 	}
 //DB 작업 카테고리별 강의 조회
-	public List<CoursesVO> getCourseList(int category) {
+	public List<CoursesVO> getCourseList(String category) {
 		List<CoursesVO> list = new ArrayList<>();
 		CoursesVO vo = null;
 		try {
 			con = dataSource.getConnection();
-			String sql = "select * from courses where category_id = ?";
+			String sql = "select * from courses where course_category = ?";
 			pstmt = con.prepareStatement(sql);
-			pstmt.setInt(1, category);
+			pstmt.setString(1, category);
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
 				vo = new CoursesVO();
 				vo.setCourseId(rs.getInt("course_id"));
 				vo.setCourseTitle(rs.getString("course_title"));
 				vo.setCourseDescription(rs.getString("course_description"));
-				vo.setInstrtuctorId(rs.getInt("instructor_id"));
+				vo.setInstructorId(rs.getString("instructor_id"));
 				vo.setCoursePrice(rs.getInt("course_price"));
 				vo.setRegistrtionDate(rs.getDate("registration_date"));
 				vo.setEnrollCount(rs.getInt("enrollment_count"));
-				vo.setCategoryId(rs.getInt("category_id"));
+				vo.setCourseCategory(rs.getString("course_category"));
 				vo.setImgPath(rs.getString("img_path"));
 				list.add(vo);
 			}
 		} catch (Exception e) {
-			log.error("CourseDAO getCourseList Error : {}",e);
+			log.error("getCourseList Error : {}",e);
 		} finally {
 			resourceRelease();
 		}

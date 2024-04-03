@@ -15,10 +15,10 @@ public class CoursesVO {
 	private int courseId;
 	private String courseTitle;
 	private String courseDescription;
-	private int instrtuctorId;
+	private String instructorId;
 	private int coursePrice;
 	private Date registrtionDate;
 	private int enrollCount;
-	private int categoryId;
+	private String courseCategory;
 	private String imgPath;
 }

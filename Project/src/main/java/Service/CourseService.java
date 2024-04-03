@@ -21,7 +21,7 @@ public class CourseService {
 	public List<CoursesVO> getCourseList(HttpServletRequest request) {
 		List<CoursesVO> list = new ArrayList<>();
 		// category가 1-백엔드 , 2- 프론트엔드, 3-AI 
-		int category = Integer.parseInt(request.getParameter("category"));
+		String category = request.getParameter("category");
 		list = courseDAO.getCourseList(category);
 		return list;
 	}
