@@ -74,7 +74,7 @@ public class CourseDAO {
 			}
 		} catch (Exception e) {
 			log.error("getCourseList Error : {}",e);
-		} finally {
+		} finally { 
 			resourceRelease();
 		}
 		return list;
