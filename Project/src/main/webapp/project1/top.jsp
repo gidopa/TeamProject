@@ -55,13 +55,13 @@ request.setCharacterEncoding("UTF-8");
 						</a>
 							<ul class="header-sublist">
 								<li class="header-subitem"><a class="header-sublink"
-									href="<%=contextPath%>/Courses/backend?category=backend"> <span>BackEnd</span>
+									href="<%=contextPath%>/Courses/category?category=backend"> <span>BackEnd</span>
 								</a></li>
 								<li class="header-subitem"><a class="header-sublink"
-									href="<%=contextPath%>/Courses/frontend?category=frontend"> <span>FrontEnd</span>
+									href="<%=contextPath%>/Courses/category?category=frontend"> <span>FrontEnd</span>
 								</a></li>
 								<li class="header-subitem"><a class="header-sublink"
-									href="<%=contextPath%>/Courses/AI?category=ai"> <span>AI</span>
+									href="<%=contextPath%>/Courses/category?category=AI"> <span>AI</span>
 								</a></li>
 
 							</ul></li>
@@ -94,10 +94,12 @@ request.setCharacterEncoding("UTF-8");
 				</div>
 				<div class="header-search-form">
 					<div class="inputset inputset-line">
-						<button class="icon-right icon-search btn" type="button"
+					<form action="<%=contextPath%>/Courses/search" method="post">
+						<button class="icon-right icon-search btn" type="submit"
 							aria-label="아이콘"></button>
 						<input type="text" class="inputset-input form-control"
 							placeholder="검색어를 입력해주세요." aria-label="내용" />
+					</form>
 					</div>
 				</div>
 			</div>
