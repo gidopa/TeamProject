@@ -49,12 +49,15 @@ public class CourseController extends HttpServlet {
 		log.debug("action = {}",action);
 		if(action.equals("/main")) {
 			nextPage=main;
-		}else if(action.equals("/backend")) {
+		}else if(action.equals("/category")) {
 			// 서비스에 비즈니스 로직 요청
 			List<CoursesVO> list = courseService.getCourseList(request);
 			request.setAttribute("list", list);
 			request.setAttribute("center", "moving.jsp");
 			nextPage=main;
+		}
+		else { // getPathInfo 한 action 변수가 조건 아무것도 못타면 예외 발생
+			throw new IllegalArgumentException("doHandle .Unexpected value: " + action);
 		}
 		
 		RequestDispatcher rd = request.getRequestDispatcher(nextPage);
