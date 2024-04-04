@@ -100,7 +100,7 @@
                            <img src="${contextPath }/resources/images/img_shop_01_1.png">
                             <div class="course-info">
                                 <p><strong>강의명</strong> : ${list.courseTitle}</p>
-                                <p><i class="fas fa-tag fa-icon"></i><strong>강의</strong> 가격 : <fmt:formatNumber value="${list.coursePrice}" type="number" pattern="#,##0" />
+                                <p><i class="fas fa-tag fa-icon"></i><strong>강의</strong> 가격 : ₩<fmt:formatNumber value="${list.coursePrice}" type="number" pattern="#,##0" />
 </p>
                             </div>
                         </a>
