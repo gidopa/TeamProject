@@ -15,6 +15,8 @@
 <title>동영상 강의를 눌렀을때 나오는 화면</title>
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet">
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/css/bootstrap.min.css" rel="stylesheet">
+
 <style>
   <style>
   body {
@@ -60,23 +62,11 @@
     margin: 5px 0; /* 상하 간격 */
 }
     
-     
-  
-    .btn {
-        background-color: #007bff;
-        color: white;
-        padding: 10px 20px;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        text-decoration: none;
-    }
-    .btn:hover {
-        background-color: #0056b3;
-    }
+
     .fa-icon {
         margin-right: 5px;
     }
+
 </style>
 </style>
 </head>
@@ -112,6 +102,11 @@
             </c:if>
         </c:forEach>
     </table>
+    <!-- 강의를 검색하는 기능 구현 추가 예정 강의이름, 강사이름, 카테고리명으로 검색할 수 있도록  -->
+   
+</div>
+
+    
 </center>
 </body>
 </html>
