@@ -4,14 +4,7 @@
     $(".hooms-N54").each(function() {
       const $block = $(this);
       const $dim = $block.find(".header-dim");
-      // Header Scroll
-      $(window).on("load scroll", function() {
-        const $thisTop = $(this).scrollTop();
-        if ($thisTop > 0) {
-          $block.addClass("header-top-active");
-        } else {
-          $block.removeClass("header-top-active");
-        }
+  
       });
       // Gnb DecoLine
       $block.find(".header-gnbitem").each(function() {
@@ -67,4 +60,4 @@
       }
     });
   });
-})();
+

@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 
 <script>
-	//CarMain.jsp메인화면 재요청 
+// Team
 	location.href="main.jsp";
 
 </script>    

@@ -11,11 +11,11 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class CoursesVO {
+public class CourseVO {
 	private int courseId;
 	private String courseTitle;
 	private String courseDescription;
-	private String instructorId;
+	private String userId;
 	private int coursePrice;
 	private Date registrtionDate;
 	private int enrollCount;

@@ -1,6 +1,7 @@
 package Controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -13,7 +14,7 @@ import javax.servlet.http.HttpSession;
 
 import DAO.CourseDAO;
 import Service.CourseService;
-import VO.CoursesVO;
+import VO.CourseVO;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -25,7 +26,6 @@ public class CourseController extends HttpServlet {
 	@Override
 	public void init() throws ServletException {
 		courseService = new CourseService();
-		log.debug("courseService : {}",courseService);
 	}
 
 	@Override
@@ -33,7 +33,7 @@ public class CourseController extends HttpServlet {
 		doHandle(request, response);
 	}
 
-	@Override
+	@Override 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doHandle(request, response);
 	}
@@ -44,6 +44,7 @@ public class CourseController extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 		response.setContentType("text/html;charset=utf-8");
 		// 재요청할 VIEW 또는 서블릿 주소를 저장할 변수
+		HttpSession session = request.getSession(); 
 		String nextPage = null;
 		String action = request.getPathInfo();
 		log.debug("action = {}",action);
@@ -51,12 +52,33 @@ public class CourseController extends HttpServlet {
 			nextPage=main;
 		}else if(action.equals("/category")) {
 			// 서비스에 비즈니스 로직 요청
-			List<CoursesVO> list = courseService.getCourseList(request);
+			List<CourseVO> list = courseService.getCourseList(request);
 			request.setAttribute("list", list);
 			request.setAttribute("center", "moving.jsp");
 			nextPage=main;
+		}else if(action.equals("/detail")) {
+			//상세페이지 보여주는 화면
+			//강의 VO 받아오는 메소드
+			CourseVO courseVO = courseService.getDetail(request);
+			request.setAttribute("courseVO", courseVO);
+			request.setAttribute("center", "CourseDetail.jsp");
+			nextPage=main;
+		}else if(action.equals("/lecture")) {
+//			String id1 = (String)session.getAttribute("id");
+			String id = "user01";
+			List<CourseVO> list = new ArrayList<>(); 
+			// 회원이 구매한 강의를 받아올 메소드
+			list = courseService.getCoursePurchased(id);
+			request.setAttribute("list", list);
+			request.setAttribute("center", "SelectCourse.jsp");
+			nextPage=main;
+		}else if(action.equals("/modules")) {
+			String courseId = request.getParameter("courseId"); 
+			log.debug("courseId = {}",courseId); 
+			// 쿼리 파라미터로 어떤 강의 인지 넘겨주고 해당 강의에 대한 정보를 coursemodules 테이블에서 받아와서 템플릿 만들고 뿌려줘야함 
 		}
 		else { // getPathInfo 한 action 변수가 조건 아무것도 못타면 예외 발생
+			response.setStatus(HttpServletResponse.SC_NOT_FOUND);
 			throw new IllegalArgumentException("doHandle .Unexpected value: " + action);
 		}
 		
