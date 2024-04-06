@@ -21,7 +21,7 @@
         line-height: 1.75; /* 줄 높이를 증가시킵니다 */
     }
     .lecture-title {
-        font-size: 1.25rem; /* 글자 크기를 키웁니다 */
+        font-size: 1.75rem; /* 글자 크기를 키웁니다 */
     }
 </style>
 </head>
