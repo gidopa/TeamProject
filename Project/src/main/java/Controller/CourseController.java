@@ -15,6 +15,7 @@ import javax.servlet.http.HttpSession;
 import DAO.CourseDAO;
 import Service.CourseService;
 import VO.CourseVO;
+import VO.LectureVO;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -45,6 +46,7 @@ public class CourseController extends HttpServlet {
 		response.setContentType("text/html;charset=utf-8");
 		// 재요청할 VIEW 또는 서블릿 주소를 저장할 변수
 		HttpSession session = request.getSession(); 
+		LectureVO lecturesVO = null;
 		String nextPage = null;
 		String action = request.getPathInfo();
 		log.debug("action = {}",action);
@@ -72,10 +74,9 @@ public class CourseController extends HttpServlet {
 			request.setAttribute("list", list);
 			request.setAttribute("center", "SelectCourse.jsp");
 			nextPage=main;
-		}else if(action.equals("/modules")) {
-			String courseId = request.getParameter("courseId"); 
-			log.debug("courseId = {}",courseId); 
-			// 쿼리 파라미터로 어떤 강의 인지 넘겨주고 해당 강의에 대한 정보를 coursemodules 테이블에서 받아와서 템플릿 만들고 뿌려줘야함 
+		}else if(action.equals("/lectures")) {
+			
+		
 		}
 		else { // getPathInfo 한 action 변수가 조건 아무것도 못타면 예외 발생
 			response.setStatus(HttpServletResponse.SC_NOT_FOUND);

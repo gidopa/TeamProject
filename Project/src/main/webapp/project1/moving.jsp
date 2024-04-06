@@ -86,7 +86,7 @@
             
                 <td>
                     <div class="course-container">
-                        <a href="${contextPath}/Courses/detail?courses_id='1'">
+                        <a href="${contextPath}/Courses/detail?courseId=${list.courseId}">
                            <img src="${contextPath }/resources/images/img_shop_01_1.png">
                             <div class="course-info">
                                 <p><strong>강의명</strong> : ${list.courseTitle}</p>

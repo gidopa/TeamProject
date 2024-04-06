@@ -76,9 +76,8 @@
             %>
               <br><br><br><br><br>
             <c:set var="contextPath"   value="${pageContext.request.contextPath}"/> 
-            <h1 class="center1">강의 정보</h1>
          <c:if test="${not empty requestScope.list}">
-    <h1><i class="fas fa-video fa-icon"></i>${requestScope.list[0].courseCategory} 강의</h1>
+    <h1><i class="fas fa-video fa-icon"></i>나의 강의</h1>
 </c:if>
     <table width="1000" height="470">
         <c:set var="j" value="0"/>
@@ -91,7 +90,7 @@
             %>
                 <td>
                     <div class="course-container">
-                        <a href="${contextPath}/Courses/modules?courseId=${list.courseId}">
+                        <a href="${contextPath}/Lecture/lectures?courseId=${list.courseId}">
                            <img src="${contextPath }/resources/images/img_shop_01_1.png">
                            <br><br>
                             <div class="course-info">

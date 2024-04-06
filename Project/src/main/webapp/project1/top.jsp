@@ -67,7 +67,7 @@ request.setCharacterEncoding("UTF-8");
 							</ul></li>
 
 						<li class="header-gnbitem"><a class="header-gnblink"
-							href="<%=contextPath%>/Courses/lecture"> <span>강의</span>
+							href="<%=contextPath%>/Courses/lecture"> <span>내 강의</span>
 						</a></li>
 						<li class="header-gnbitem"><a class="header-gnblink"
 							href="javascript:void(0)"> <span>로드맵</span>

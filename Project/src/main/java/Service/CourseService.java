@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import DAO.CourseDAO;
 import VO.CourseVO;
+import VO.LectureVO;
 
 public class CourseService {
 	
@@ -14,7 +15,8 @@ public class CourseService {
 	
 	public CourseService() {
 		courseDAO = new CourseDAO();
-	}
+		
+	} 
 	
 	
 	// request에서 쿼라파라미터 추출 후 DAO에 DB작업 요청
@@ -29,7 +31,7 @@ public class CourseService {
 	//상세페이지 뿌려주기 위해 강의데이터 조회 요청
 	public CourseVO getDetail(HttpServletRequest request) {
 		
-		return courseDAO.getDetail(Integer.parseInt(request.getParameter("coursesId")));
+		return courseDAO.getDetail(Integer.parseInt(request.getParameter("courseId")));
 	}
 
 // 로그인한 id를 매개변수로 받아서 구매한 강의 정보 받아오는 메소드
@@ -38,6 +40,12 @@ public class CourseService {
 		System.out.println(id);
 		list = courseDAO.getCoursePurchased(id);
 		return list;
+	}
+
+
+	public LectureVO getLectureInfo(String courseId) {
+		
+		return null;
 	}
 
 

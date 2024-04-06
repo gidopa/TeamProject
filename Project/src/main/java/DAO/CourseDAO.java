@@ -132,6 +132,8 @@ public class CourseDAO {
 		}
 		}catch (Exception e) {
 			log.error("getCoursePurchased error : {}",e);
+		}finally {
+			resourceRelease();
 		}
 		return list;
 	}
