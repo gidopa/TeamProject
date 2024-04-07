@@ -29,6 +29,7 @@ public class LectureService {
 	public String getVideoLink(int courseId, int lectureId) { //video링크에 대한 추가 작업이 필요해 getLectureInfo에서 말고 따로 받아옴 
 		String videoLink = lectureDAO.getVideoLink(courseId, lectureId);
 		// 일반 youtube url을 비디오로 실행할 수 있는 url로 변경
+		// embed responsively를 이용해 반응형 iframe 생성하고 유튜브 영상 주소를 외부에서 사용할 수 있는 주소로 변경
 		videoLink = videoLink.replace("/watch?v=", "/embed/");
 		log.debug("videoLink ={}",videoLink);
 		return videoLink;
