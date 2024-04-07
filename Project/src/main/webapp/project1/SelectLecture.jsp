@@ -26,6 +26,7 @@
 </style>
 </head>
 <body class="bg-gray-100">
+
      <div class="container mx-auto p-4">
         <h1 class="text-2xl font-bold text-center text-gray-800 mb-5">강의 목록</h1>
         <div class="space-y-4">

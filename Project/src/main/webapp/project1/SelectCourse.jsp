@@ -1,3 +1,4 @@
+<%@page import="VO.LectureVO"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" isELIgnored="false"%>
@@ -67,7 +68,31 @@
 </style>
 </head>
 <body>
-
+<%
+					//Session내장객체 메모리 영역에 session값 얻기
+					String id = (String)session.getAttribute("id");
+					//Session에 값이 저장되어 있지 않으면?
+					if(id == null){
+						System.out.println("id : " + id);
+%>
+	<script>
+    alert("로그인 해주세요.");
+    history.back(); // 브라우저의 이전 페이지로 이동
+</script>
+<%
+    }
+%>
+<%
+					//Session내장객체 메모리 영역에 session값 얻기
+					List<LectureVO> lectureList = (List<LectureVO>)session.getAttribute("lectureList");
+					//Session에 값이 저장되어 있지 않으면?
+					if(lectureList == null){
+%>
+	<br><br><br><br>
+	<h3 align="center">수강중인 강의가 없습니다.</h3>
+<%
+    }
+%>
  <div class="center-container">
         <div class="course-info">
             <%
