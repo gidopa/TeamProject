@@ -20,7 +20,7 @@ public class LectureService {
 		lectureDAO = new LectureDAO();
 	}
 	// 강의 하나하나의 정보들을 받아오는 메소드
-	public List<LectureVO> getLectureInfo(int courseId) {
+	public List<LectureVO> getLecturesInfo(int courseId) {
 		List<LectureVO> lectureList = new ArrayList<>();
 		lectureList = lectureDAO.getLecturesInfo(courseId);
 		return lectureList;
@@ -32,6 +32,12 @@ public class LectureService {
 		videoLink = videoLink.replace("/watch?v=", "/embed/");
 		log.debug("videoLink ={}",videoLink);
 		return videoLink;
+	}
+	 //lectureId 로 특정 강의에 대한 정보만 가져오는 메소드 
+	public LectureVO getLectureInfo(int courseId,int lectureId) {
+		LectureVO lectureInfo = new LectureVO();
+		lectureInfo = lectureDAO.getLectureInfo(courseId,lectureId);
+		return lectureInfo;
 	}
 	
 	

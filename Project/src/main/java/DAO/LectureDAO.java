@@ -51,7 +51,7 @@ public class LectureDAO {
 		}
 
 	}
-	// DB의 강의 하나하나의 정보들을 list로 받아옴
+	// DB의 강좌 하나하나의 정보들을 list로 받아옴
 	public List<LectureVO> getLecturesInfo(int courseId) {
 		List<LectureVO> lectureList = new ArrayList<LectureVO>();
 		try {
@@ -79,7 +79,7 @@ public class LectureDAO {
 		}
 		return lectureList;
 	}
-// DB의 videoLink를 받아옴
+// DB의 강의의 videoLink를 받아옴
 	public String getVideoLink(int courseId, int lectureId) {
 		String videoLink = null;
 		try {
@@ -98,6 +98,28 @@ public class LectureDAO {
 			resourceRelease();
 		}
 		return videoLink;
+	}
+	// DB에서 courseId와 lectureId 로 특정 강의에 대한 정보만 가져오는 메소드 
+	public LectureVO getLectureInfo(int courseId, int lectureId) {
+		LectureVO lectureInfo = new LectureVO();
+		try {
+			con = dataSource.getConnection();
+			String sql = "select * from lectures where course_Id = ? and lecture_id= ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, courseId);
+			pstmt.setInt(2, lectureId);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				lectureInfo.setLectureNumber(rs.getInt("lecture_number"));
+				lectureInfo.setLectureTitle(rs.getString("lecture_title"));
+				lectureInfo.setLectureSummary(rs.getString("lecture_summary"));
+			}
+		}catch(Exception e) {
+			log.error("getLectureInfo 하나만 찾는 메소드 error : {}", e);
+		}finally {
+			resourceRelease();
+		}
+		return lectureInfo;
 	}
 
 

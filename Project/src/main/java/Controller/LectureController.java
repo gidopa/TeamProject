@@ -54,10 +54,10 @@ public class LectureController extends HttpServlet {
 		if(action.equals("/lectures")) {
 			int courseId = Integer.parseInt(request.getParameter("courseId")); 
 			log.debug("courseId = {}",courseId); 
-			// 쿼리 파라미터로 어떤 강의 인지 넘겨주고 해당 강의에 대한 정보를 coursemodules 테이블에서 받아와서 템플릿 만들고 뿌려줘야함 
+			// 쿼리 파라미터로 어떤 강좌 인지 넘겨주고 해당 강의에 대한 정보를 lecture 테이블에서 받아와서 템플릿 만들고 뿌려줘야함 
 			List<LectureVO> lectureList = new ArrayList<>();
-			// 특정 강의에 대한 세부 강의 정보를 받아오는 메소드
-			lectureList = lectureService.getLectureInfo(courseId);
+			// 특정 강좌에 대한 세부 강의 정보를 받아오는 메소드
+			lectureList = lectureService.getLecturesInfo(courseId);
 			request.setAttribute("courseId", courseId);
 			request.setAttribute("lectureList", lectureList);
 			request.setAttribute("center", "SelectLecture.jsp");
@@ -65,9 +65,14 @@ public class LectureController extends HttpServlet {
 		}else if(action.equals("/play")){ // 강의 선택했을때 실행시켜줄 화면 만들고 db에서 링크 받아와서 켜줘야함
 			// iframe 링크 어떻게 파싱할지 생각
 			String videoLink = null;
+			LectureVO lectureInfo = new LectureVO();
+			// 특정 강의에 대한 세부 정보를 받아오는 메소드
+			
 			int courseId = Integer.parseInt(request.getParameter("courseId"));
 			int lectureId = Integer.parseInt(request.getParameter("lectureId"));
+			lectureInfo = lectureService.getLectureInfo(courseId,lectureId);
 			videoLink = lectureService.getVideoLink(courseId, lectureId);
+			request.setAttribute("lectureInfo", lectureInfo);
 			request.setAttribute("videoLink", videoLink);
 			request.setAttribute("center", "LecturePlay.jsp"); 
 			nextPage = main;
