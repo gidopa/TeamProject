@@ -31,14 +31,17 @@ request.setCharacterEncoding("UTF-8");
 <link rel="stylesheet" href="../resources/css/common.css" />
 <link rel="stylesheet" href="../resources/css/style.css" />
 <link rel="stylesheet" href="../resources/css/style2.css" />
+
+
 </head>
 
 <%
 	String contextPath = request.getContextPath();
 	Logger log = LoggerFactory.getLogger(getClass());
-	String id = (String)session.getAttribute("id");
+	
 %>
 <body>
+	<!-- [S]hooms-N54 -->
 	<!-- [S]hooms-N54 -->
 	<header class="hooms-N54 header-top-active" data-bid="aTlUHy5F8Z">
 		<div class="header-inner">
@@ -87,8 +90,39 @@ request.setCharacterEncoding("UTF-8");
 				</div>
 				<div class="header-right">
 					<div class="header-utils">
-						<a href="javascript:void(0);" class="btn-profile header-utils-btn"
-							title="profile"></a>
+						<!-- 회원 로그인 / 회원가입 -->
+				<%
+					//Session내장객체 메모리 영역에 session값 얻기
+					String id = (String)session.getAttribute("id");
+					//Session에 값이 저장되어 있지 않으면?
+					if(id == null){
+				%>
+					<ul>
+						<li><a href="javascript:void(0)" class="btn-profile header-utils-btn"
+							title="회원 로그인 / 회원가입">
+						</a>
+							<ul class="header-loginreg">
+								<li><a href="<%=contextPath%>/user/login.jsp">로그인</a></li>
+								<li><a href="<%=contextPath%>/user/register.jsp">회원가입</a></li>
+							</ul>
+							
+						</li>
+					</ul>	
+				<%
+					}else{
+				%>
+					<ul>
+						<li><a href="javascript:void(0)" class="btn-profile header-utils-btn"
+							title="회원 로그인 / 회원가입">
+						</a>
+							<ul class="header-loginreg">
+								<li><a href="<%=contextPath%>/users/logout.me">로그아웃</a></li>
+								<li><a href="<%=contextPath%>/user/modUser.jsp">회원정보수정</a></li>
+							</ul>
+							
+						</li>
+					</ul>
+				<%} %>	
 						<button class="btn-search header-utils-btn" title="search"></button>
 					</div>
 				</div>

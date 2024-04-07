@@ -22,7 +22,7 @@ public class LectureService {
 	// 강의 하나하나의 정보들을 받아오는 메소드
 	public List<LectureVO> getLecturesInfo(int courseId) {
 		List<LectureVO> lectureList = new ArrayList<>();
-		lectureList = lectureDAO.getLecturesInfo(courseId);
+		lectureList = lectureDAO.getLecturesInfo(courseId); 
 		return lectureList;
 	}
 

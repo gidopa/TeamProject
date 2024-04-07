@@ -66,8 +66,8 @@ public class CourseController extends HttpServlet {
 			request.setAttribute("center", "CourseDetail.jsp");
 			nextPage=main;
 		}else if(action.equals("/lecture")) {
-//			String id1 = (String)session.getAttribute("id");
-			String id = "user01";
+			String id = (String)session.getAttribute("id");
+//			String id = "user01";
 			List<CourseVO> list = new ArrayList<>(); 
 			// 회원이 구매한 강의를 받아올 메소드
 			list = courseService.getCoursePurchased(id);
