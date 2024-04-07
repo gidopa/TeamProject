@@ -62,21 +62,18 @@ public class LectureController extends HttpServlet {
 			request.setAttribute("lectureList", lectureList);
 			request.setAttribute("center", "SelectLecture.jsp");
 			nextPage = main; // 세부 강의 정보에서 duration의 시간 정보를 유튜브 API로 어떻게 받아오는지 알아보기 
-		}else if(action.equals("/play")){ // 강의 선택했을때 실행시켜줄 화면 만들고 db에서 링크 받아와서 켜줘야함
-			// iframe 링크 어떻게 파싱할지 생각
+		}else if(action.equals("/play")){
 			String videoLink = null;
 			LectureVO lectureInfo = new LectureVO();
 			List<LectureVO> lectureList = new ArrayList<>();
 			// 특정 강의에 대한 세부 정보를 받아오는 메소드
-			
 			int courseId = Integer.parseInt(request.getParameter("courseId"));
 			int lectureId = Integer.parseInt(request.getParameter("lectureId"));
+			// 강좌내에 있는 모든 강의들의 정보를 List로 받아오고
 			lectureList = lectureService.getLecturesInfo(courseId);
+			// courseId, lectureId 모두 줘서 하나의 강의에 대한 정보를 LectureVO로 받아옴
 			lectureInfo = lectureService.getLectureInfo(courseId,lectureId);
 			videoLink = lectureService.getVideoLink(courseId, lectureId);
-			for(LectureVO vo : lectureList) {
-				System.out.println(vo.toString());
-			}
 			request.setAttribute("lectureList", lectureList);
 			request.setAttribute("lectureInfo", lectureInfo);
 			request.setAttribute("videoLink", videoLink);

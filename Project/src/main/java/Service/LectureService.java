@@ -26,7 +26,7 @@ public class LectureService {
 		return lectureList;
 	}
 
-	public String getVideoLink(int courseId, int lectureId) {
+	public String getVideoLink(int courseId, int lectureId) { //video링크에 대한 추가 작업이 필요해 getLectureInfo에서 말고 따로 받아옴 
 		String videoLink = lectureDAO.getVideoLink(courseId, lectureId);
 		// 일반 youtube url을 비디오로 실행할 수 있는 url로 변경
 		videoLink = videoLink.replace("/watch?v=", "/embed/");

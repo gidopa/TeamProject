@@ -80,7 +80,7 @@ body {
 String videoPath = (String) request.getAttribute("videoLink");
 %>
 
-
+<!-- 시청 하는 동영상 옆에 사이드바를 띄워 바로 다른 강의로 이동할 수 있도록 함 -->
 <div class="sidebar">
     <h2 class="text-lg font-semibold">메뉴</h2>
     <ul>
