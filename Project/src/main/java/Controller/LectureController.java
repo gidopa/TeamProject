@@ -58,13 +58,19 @@ public class LectureController extends HttpServlet {
 			List<LectureVO> lectureList = new ArrayList<>();
 			// 특정 강의에 대한 세부 강의 정보를 받아오는 메소드
 			lectureList = lectureService.getLectureInfo(courseId);
+			request.setAttribute("courseId", courseId);
 			request.setAttribute("lectureList", lectureList);
 			request.setAttribute("center", "SelectLecture.jsp");
 			nextPage = main; // 세부 강의 정보에서 duration의 시간 정보를 유튜브 API로 어떻게 받아오는지 알아보기 
 		}else if(action.equals("/play")){ // 강의 선택했을때 실행시켜줄 화면 만들고 db에서 링크 받아와서 켜줘야함
 			// iframe 링크 어떻게 파싱할지 생각
+			String videoLink = null;
+			int courseId = Integer.parseInt(request.getParameter("courseId"));
 			int lectureId = Integer.parseInt(request.getParameter("lectureId"));
-			
+			videoLink = lectureService.getVideoLink(courseId, lectureId);
+			request.setAttribute("videoLink", videoLink);
+			request.setAttribute("center", "LecturePlay.jsp"); 
+			nextPage = main;
 		}else {
 			throw new IllegalArgumentException("LectureController doHandle .Unexpected value: " + action);
 		}

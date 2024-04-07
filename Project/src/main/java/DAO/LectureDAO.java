@@ -51,13 +51,13 @@ public class LectureDAO {
 		}
 
 	}
-
+	// DB의 강의 하나하나의 정보들을 list로 받아옴
 	public List<LectureVO> getLecturesInfo(int courseId) {
 		List<LectureVO> lectureList = new ArrayList<LectureVO>();
 		try {
 		con = dataSource.getConnection();
 		String sql = "select * from lectures where course_Id = ?";
-		pstmt = con.prepareStatement(sql);
+		pstmt = con.prepareStatement(sql); 
 		pstmt.setInt(1, courseId);
 		rs = pstmt.executeQuery();
 		while(rs.next()) {
@@ -78,6 +78,26 @@ public class LectureDAO {
 			resourceRelease();
 		}
 		return lectureList;
+	}
+// DB의 videoLink를 받아옴
+	public String getVideoLink(int courseId, int lectureId) {
+		String videoLink = null;
+		try {
+			con = dataSource.getConnection();
+			String sql = "select video_link from lectures where course_Id = ? and lecture_id= ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, courseId);
+			pstmt.setInt(2, lectureId);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				videoLink = rs.getString("video_link");
+			}
+		}catch(Exception e) {
+			log.error("getVideoLink error : {}", e);
+		}finally {
+			resourceRelease();
+		}
+		return videoLink;
 	}
 
 

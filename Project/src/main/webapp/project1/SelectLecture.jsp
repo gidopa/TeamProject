@@ -31,7 +31,7 @@
         <div class="space-y-4">
             <c:forEach items="${lectureList}" var="lecture">
                 <div class="lecture-item bg-white rounded-lg shadow hover:shadow-md transition-shadow duration-300 ease-in-out max-w-7xl mx-auto">
-                    <a href="${pageContext.request.contextPath}/play?videoId=${lecture.videoLink}" class="lecture-link flex items-center justify-between text-gray-800 hover:text-blue-600">
+                    <a href="${pageContext.request.contextPath}/Lecture/play?courseId=${lecture.courseId}&lectureId=${lecture.lectureId}" class="lecture-link flex items-center justify-between text-gray-800 hover:text-blue-600">
                         <div class="flex items-center">
                             <span class="font-semibold text-xl">${lecture.lectureNumber}강</span> <!-- 강의 번호 글자 크기 조정 -->
                             <span class="lecture-title ml-2 mr-4 truncate">${lecture.lectureTitle}</span> <!-- 강의 제목 글자 크기 조정 -->
