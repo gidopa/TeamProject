@@ -66,12 +66,18 @@ public class LectureController extends HttpServlet {
 			// iframe 링크 어떻게 파싱할지 생각
 			String videoLink = null;
 			LectureVO lectureInfo = new LectureVO();
+			List<LectureVO> lectureList = new ArrayList<>();
 			// 특정 강의에 대한 세부 정보를 받아오는 메소드
 			
 			int courseId = Integer.parseInt(request.getParameter("courseId"));
 			int lectureId = Integer.parseInt(request.getParameter("lectureId"));
+			lectureList = lectureService.getLecturesInfo(courseId);
 			lectureInfo = lectureService.getLectureInfo(courseId,lectureId);
 			videoLink = lectureService.getVideoLink(courseId, lectureId);
+			for(LectureVO vo : lectureList) {
+				System.out.println(vo.toString());
+			}
+			request.setAttribute("lectureList", lectureList);
 			request.setAttribute("lectureInfo", lectureInfo);
 			request.setAttribute("videoLink", videoLink);
 			request.setAttribute("center", "LecturePlay.jsp"); 

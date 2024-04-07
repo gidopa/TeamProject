@@ -113,6 +113,7 @@ public class LectureDAO {
 				lectureInfo.setLectureNumber(rs.getInt("lecture_number"));
 				lectureInfo.setLectureTitle(rs.getString("lecture_title"));
 				lectureInfo.setLectureSummary(rs.getString("lecture_summary"));
+				lectureInfo.setCourseId(rs.getInt("course_id"));
 			}
 		}catch(Exception e) {
 			log.error("getLectureInfo 하나만 찾는 메소드 error : {}", e);
