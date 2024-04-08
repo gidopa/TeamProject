@@ -12,7 +12,7 @@ import org.json.simple.parser.JSONParser;
 
 // 영상 주소로부터 YoutubeAPI 관련 로직 구현
 public class YoutubeAPI {
-	
+	// 영상 주소
 	private final String path;
 	private static final String apiKey = "Youtube DATA API v3 키 넣기";
 	

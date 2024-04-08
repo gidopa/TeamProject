@@ -8,8 +8,8 @@ public class test {
 		YoutubeAPI youtube = new YoutubeAPI(path);
 		videoId = youtube.getVideoId();
 		String jsonData = youtube.getData(videoId);
-		String time = youtube.getDuration(jsonData);
-		String duration = youtube.formatDuration(time);
+		String unformattedDuration = youtube.getDuration(jsonData);
+		String duration = youtube.formatDuration(unformattedDuration);
 		System.out.println(duration);
 	}
 
