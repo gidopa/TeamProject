@@ -14,13 +14,13 @@ import org.json.simple.parser.JSONParser;
 public class YoutubeAPI {
 	
 	private final String path;
-	private static final String apiKey = "YoutubeAPI key 넣으세요";
+	private static final String apiKey = "Youtube DATA API v3 키 넣기";
 	
 	public YoutubeAPI(String path) {
 		this.path = path;
 	}
 	// 영상 주소로부터 ID만 추출
-	public String getVideoId(String path) {
+	public String getVideoId() {
 		String videoPath = path;
 		videoPath = videoPath.replace("https://www.youtube.com/watch?v=","");
 		return videoPath;
@@ -57,22 +57,22 @@ public class YoutubeAPI {
 	}
 	// json 데이터 받아서 Duration 부분 파싱
 	public String getDuration(String Json) {
-		 String jsonStr = Json;
+		String jsonStr = Json;
 		JSONParser parser = new JSONParser();
+		String duration = null;
         try {
             JSONObject rootObject = (JSONObject) parser.parse(jsonStr); // 전체 JSON 객체를 파싱합니다.
             JSONArray items = (JSONArray) rootObject.get("items"); // "items" 배열을 가져옵니다.
             if (items != null && !items.isEmpty()) {
                 JSONObject firstItem = (JSONObject) items.get(0); // "items" 배열의 첫 번째 객체를 가져옵니다.
                 JSONObject contentDetails = (JSONObject) firstItem.get("contentDetails"); // "contentDetails" 객체를 가져옵니다.
-                String duration = (String) contentDetails.get("duration"); // "duration" 값을 가져옵니다.
+                duration = (String) contentDetails.get("duration"); // "duration" 값을 가져옵니다.
                 
-                System.out.println("Video Duration: " + duration); // "duration" 값을 출력합니다.
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-		return null;
+		return duration;
 	}
 	//  ISO 8601 형식으로 표현되어 있는 Duration을 mm:ss 형식으로 포맷팅
 	public String formatDuration(String duration) {
