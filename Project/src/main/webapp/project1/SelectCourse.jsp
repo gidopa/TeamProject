@@ -83,9 +83,8 @@
     }
 %>
 <%
-					//Session내장객체 메모리 영역에 session값 얻기
-					List<LectureVO> lectureList = (List<LectureVO>)session.getAttribute("lectureList");
-					//Session에 값이 저장되어 있지 않으면?
+					// 수강 중인 강의가 없을떄 
+					List<LectureVO> lectureList = (List<LectureVO>)request.getAttribute("list");
 					if(lectureList == null){
 %>
 	<br><br><br><br>
@@ -102,7 +101,7 @@
               <br><br><br><br><br>
             <c:set var="contextPath"   value="${pageContext.request.contextPath}"/> 
          <c:if test="${not empty requestScope.list}">
-    <h1><i class="fas fa-video fa-icon"></i>나의 강의</h1>
+    <h1><i class="fas fa-video fa-icon"></i>내 강의</h1>
 </c:if>
     <table width="1000" height="470">
         <c:set var="j" value="0"/>
