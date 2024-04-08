@@ -2,7 +2,9 @@ package Controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -13,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import Service.RoadMapService;
+import VO.CourseVO;
 import VO.LectureVO;
 import VO.RoadMapVO;
 import lombok.extern.slf4j.Slf4j;
@@ -57,6 +60,20 @@ public class RoadMapController extends HttpServlet {
 			request.setAttribute("roadMapList", list);
 			request.setAttribute("center", "RoadMapList.jsp");
 			nextPage = main;
+			break;
+		case "/detail":
+			int roadMapId = Integer.parseInt(request.getParameter("roadMapId")) ;
+			RoadMapVO roadMapVO = new RoadMapVO();
+			List<CourseVO> courseVOList = new ArrayList<>();
+			Map<String, Object> map  = new HashMap<String, Object>();
+			map = roadMapService.getRoadMapDetail(roadMapId);
+			// HashMap으로 받아온 값들을 꺼내서 바인딩 jsp에서 꺼내는것보다 여기서 하는거 명시적으로 편할것같아서 ,,,
+			roadMapVO = (RoadMapVO)map.get("roadMapVO");
+			courseVOList = (List<CourseVO>)map.get("courseVO");
+			request.setAttribute("roadMapVo", roadMapVO);
+			request.setAttribute("courseVOList", courseVOList);
+			request.setAttribute("center", "RoadMapDetail.jsp");
+			nextPage=main; //RoadMapDetail.jsp 만져야함 
 			break;
 		default:
 			throw new IllegalArgumentException("RoadMapController Unexpected value: " + action);

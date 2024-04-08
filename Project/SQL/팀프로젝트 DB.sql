@@ -292,6 +292,44 @@ nocycle
 nocache
 noorder;
 
+CREATE TABLE RoadMap (
+    RoadMap_Id NUMBER NOT NULL,
+    RoadMap_Title VARCHAR2(255),
+    RoadMap_Description CLOB,
+    Img_Path VARCHAR2(500),
+    user_ID VARCHAR2(255),
+    CONSTRAINT pk_RoadMap PRIMARY KEY (RoadMap_id)
+);
+
+ALTER TABLE courses
+ADD roadmap_id NUMBER;
+
+ALTER TABLE courses
+ADD CONSTRAINT fk_course_roadmap FOREIGN KEY (roadmap_id)
+REFERENCES roadmap (roadmap_id);
+
+ALTER TABLE enrollments
+ADD roadmap_id NUMBER;
+
+ALTER TABLE enrollments
+ADD CONSTRAINT fk_enrollment_roadmap FOREIGN KEY (roadmap_id)
+REFERENCES roadmap (roadmap_id);
+
+insert into roadmap (roadmap_id, roadmap_title, roadmap_description, img_path, user_id) 
+values (ROADMAP_ROADMAP_ID.nextval,'백엔드 완성', '백엔드 완성을 위한 로드맵', '/Project/project1/images/backend.png', 'user02');
+
+
+update courses set roadmap_id = 1 where course_id=1;
+update courses set roadmap_id = 1 where course_id=4;
+create sequence RoadMap_roadmap_id
+increment BY 1
+start with 1
+minvalue 1
+maxvalue 9999
+nocycle
+nocache
+noorder;
+
 commit;
 
 select * from users;
@@ -303,3 +341,5 @@ select * from enrollments;
 select * from payments;
 select * from reviews;
 select * from books;
+select * from roadmap;
+desc roadmap;
