@@ -4,20 +4,17 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.text.ParseException;
 import java.time.Duration;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
-import lombok.AllArgsConstructor;
-import lombok.RequiredArgsConstructor;
 // 영상 주소로부터 YoutubeAPI 관련 로직 구현
 public class YoutubeAPI {
 	
 	private final String path;
-	private static final String apiKey = "AIzaSyAZrJrDJxa6mewUMUPpClpDJ_46pZ6T_1U";
+	private static final String apiKey = "YoutubeAPI key 넣으세요";
 	
 	public YoutubeAPI(String path) {
 		this.path = path;
