@@ -195,15 +195,15 @@ ALTER TABLE Payments MODIFY phone_number not null;
 ALTER TABLE Payments MODIFY email not null;
 ALTER TABLE Payments MODIFY course_title not null;
 
-CREATE TABLE CourseModules (
-    module_id NUMBER PRIMARY KEY,
+CREATE TABLE lectures (
+    lecture_id NUMBER PRIMARY KEY,
     course_id NUMBER,
-    module_number NUMBER,        -- 강의 순서
-    module_title VARCHAR2(200),  -- 강의 제목 또는 소제목
-    module_summary VARCHAR2(1000), -- 강의 요약
+    lecture_number NUMBER,        -- 강의 순서
+    lecture_title VARCHAR2(200),  -- 강의 제목 또는 소제목
+    lecture_summary VARCHAR2(1000), -- 강의 요약
     video_link VARCHAR2(1000),     -- 강의 영상 링크
     duration NUMBER,               -- 강의 시간 (예: 분 단위)
-    CONSTRAINT fk_coursemodules_courses FOREIGN KEY (course_id) REFERENCES Courses(course_id) ON DELETE CASCADE
+    CONSTRAINT fk_lectures_courses FOREIGN KEY (course_id) REFERENCES Courses(course_id) ON DELETE CASCADE
 );
 
 
@@ -228,16 +228,16 @@ INSERT INTO Categories (course_category) VALUES ('backend');
 INSERT INTO Categories (course_category) VALUES ('frontend');
 INSERT INTO Categories (course_category) VALUES ('ai');
 
-INSERT INTO CourseModules (module_id, course_id, module_number, module_title, module_summary, video_link, duration) VALUES (1, 1, 1, 'Introduction to Backend', 'Overview of backend technologies.', 'https://www.youtube.com/watch?v=example1', 30);
-INSERT INTO CourseModules (module_id, course_id, module_number, module_title, module_summary, video_link, duration) VALUES (2, 1, 2, 'Setting Up Your Environment', 'How to set up development environment for backend.', 'https://www.youtube.com/watch?v=example2', 45);
+INSERT INTO lectures (lecture_id, course_id, lecture_number, lecture_title, lecture_summary, video_link, duration) VALUES (1, 1, 1, 'Introduction to Backend', 'Overview of backend technologies.', 'https://www.youtube.com/watch?v=example1', 30);
+INSERT INTO lectures (lecture_id, course_id, lecture_number, lecture_title, lecture_summary, video_link, duration) VALUES (2, 1, 2, 'Setting Up Your Environment', 'How to set up development environment for backend.', 'https://www.youtube.com/watch?v=example2', 45);
 
 -- 강의 2에 대한 모듈들
-INSERT INTO CourseModules (module_id, course_id, module_number, module_title, module_summary, video_link, duration) VALUES (3, 2, 1, 'Introduction to Frontend', 'Overview of frontend development.', 'https://www.youtube.com/watch?v=example3', 30);
-INSERT INTO CourseModules (module_id, course_id, module_number, module_title, module_summary, video_link, duration) VALUES (4, 2, 2, 'HTML Basics', 'Introduction to HTML.', 'https://www.youtube.com/watch?v=example4', 45);
+INSERT INTO lecturees (lecture_id, course_id, lecture_number, lecture_title, lecture_summary, video_link, duration) VALUES (3, 2, 1, 'Introduction to Frontend', 'Overview of frontend development.', 'https://www.youtube.com/watch?v=example3', 30);
+INSERT INTO lectures (lecture_id, course_id, lecture_number, lecture_title, lecture_summary, video_link, duration) VALUES (4, 2, 2, 'HTML Basics', 'Introduction to HTML.', 'https://www.youtube.com/watch?v=example4', 45);
 
 -- 강의 3에 대한 모듈들
-INSERT INTO CourseModules (module_id, course_id, module_number, module_title, module_summary, video_link, duration) VALUES (5, 3, 1, 'What is AI?', 'Understanding Artificial Intelligence basics.', 'https://www.youtube.com/watch?v=example5', 30);
-INSERT INTO CourseModules (module_id, course_id, module_number, module_title, module_summary, video_link, duration) VALUES (6, 3, 2, 'AI Applications', 'Exploring applications of AI in various fields.', 'https://www.youtube.com/watch?v=example6', 45);
+INSERT INTO lectures (lecture_id, lecture_id, lecture_number, lecture_title, lecture_summary, video_link, duration) VALUES (5, 3, 1, 'What is AI?', 'Understanding Artificial Intelligence basics.', 'https://www.youtube.com/watch?v=example5', 30);
+INSERT INTO lectures (lecture_id, lecture_id, lecture_number, lecture_title, lecture_summary, video_link, duration) VALUES (6, 3, 2, 'AI Applications', 'Exploring applications of AI in various fields.', 'https://www.youtube.com/watch?v=example6', 45);
 
 INSERT INTO Enrollments (enrollment_id, user_id, course_id, enrollment_date) VALUES (1, 'user01', 2, TO_DATE('2024-04-10', 'YYYY-MM-DD'));
 INSERT INTO Enrollments (enrollment_id, user_id, course_id, enrollment_date) VALUES (2, 'user02', 1, TO_DATE('2024-04-11', 'YYYY-MM-DD'));
@@ -276,17 +276,21 @@ INSERT INTO Books (book_id, course_id, book_price, book_title) VALUES (4, 4, 20,
 INSERT INTO Books (book_id, course_id, book_price, book_title) VALUES (5, 5, 25, 'Creative Frontend Design Patterns');
 INSERT INTO Books (book_id, course_id, book_price, book_title) VALUES (6, 6, 30, 'Machine Learning from Scratch');
 
-RENAME COurseModules TO lectures;
+
 ALTER TABLE lectures
 ADD (img_path VARCHAR2(255));
 
-ALTER TABLE lectures RENAME COLUMN module_id TO lecture_id;
-ALTER TABLE lectures RENAME COLUMN module_number TO lecture_number;
-ALTER TABLE lectures RENAME COLUMN module_title TO lecture_title;
-ALTER TABLE lectures RENAME COLUMN module_summary TO lecture_summary;
 update lectures set video_link = 'https://www.youtube.com/watch?v=G3Y9FXZdM8U' where lecture_id=1 and course_id=1;
 update lectures set video_link = 'https://www.youtube.com/watch?v=z1h1tUlqErM' where lecture_id=2 and course_id=1;
-
+-- 시퀀스 생성
+create sequence Courses_course_id
+increment BY 1
+start with 1
+minvalue 1
+maxvalue 9999
+nocycle
+nocache
+noorder;
 
 commit;
 
