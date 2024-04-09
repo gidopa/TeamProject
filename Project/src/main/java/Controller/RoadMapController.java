@@ -70,6 +70,11 @@ public class RoadMapController extends HttpServlet {
 			// HashMap으로 받아온 값들을 꺼내서 바인딩 jsp에서 꺼내는것보다 여기서 하는게 편할것같아서 ,,,
 			roadMapVO = (RoadMapVO)map.get("roadMapVO");
 			courseVOList = (List<CourseVO>)map.get("courseVO");
+			log.debug("roadMapVO : {}", roadMapVO.toString());
+			log.debug("list : {}", courseVOList.size());
+			for(CourseVO vo : courseVOList) {
+				System.out.println(vo.getCourseTitle());
+			}
 			request.setAttribute("roadMapVo", roadMapVO);
 			request.setAttribute("courseVOList", courseVOList);
 			request.setAttribute("center", "RoadMapDetail.jsp");

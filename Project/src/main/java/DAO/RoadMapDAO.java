@@ -69,7 +69,7 @@ public class RoadMapDAO {
 			roadMapVO.setRoadMapId(rs.getInt("roadmap_id"));
 			roadMapVO.setRoadMapTitle(rs.getString("roadmap_title"));
 			roadMapVO.setRoadMapDescription(rs.getString("roadmap_description"));
-			roadMapVO.setImgPath(rs.getString("img_path"));
+			roadMapVO.setImgPath(rs.getString("roadmap_img"));
 			roadMapVO.setUserId(rs.getString("user_id"));
 			list.add(roadMapVO);
 		}
@@ -86,28 +86,29 @@ public class RoadMapDAO {
 		Map<String, Object> map  = new HashMap<String, Object>();
 		RoadMapVO roadMapVO = null;
 		CourseVO courseVO = null;
+		List<CourseVO> list = new ArrayList<>();
 		try {
 			con = dataSource.getConnection(); 
 			// roadmap_id가 1인 행에 대해 join 해서 select , roadmap 테이블과 courses 테이블의 값을 모두 불러옴 
-			String sql = "select * from roadmap inner join courses on roadmap.roadmap_id = courses.roadmap_id where roadmap.roadmap_id = 1";
+			String sql = "select * from roadmap inner join courses on roadmap.roadmap_id = courses.roadmap_id where roadmap.roadmap_id = ?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, roadMapId);
 			rs = pstmt.executeQuery();
-			if(rs.next()) {
+			while(rs.next()) {
 				// map을 반환하는데 key 값으로는 String value로는 roadMapVO와 courseVO를 담은 list를 바인딩 
 				roadMapVO = new RoadMapVO();
 				courseVO = new CourseVO();
-				List<CourseVO> list = new ArrayList<>();
 				roadMapVO.setRoadMapTitle(rs.getString("roadmap_title"));
 				roadMapVO.setRoadMapDescription(rs.getString("roadmap_description")); // roadMapVO 값 세팅
+				courseVO.setCourseId(rs.getInt("course_id"));
 				courseVO.setCourseDescription(rs.getString("course_description"));
 				courseVO.setCourseTitle(rs.getString("course_title"));
 				courseVO.setCoursePrice(rs.getInt("course_price"));
-				courseVO.setImgPath(rs.getString("img_path_1")); // courseVO 값 세팅
+				courseVO.setImgPath(rs.getString("img_path")); // courseVO 값 세팅
 				list.add(courseVO); // courseVO는 list에 담아 map에 바인딩
 				map.put("roadMapVO", roadMapVO); // roadMapVO는 두번 바인딩 되지만 같은 키 값에 put 되므로 덮어쓰기 된다.
-				map.put("courseVO", list);
 			}
+			map.put("courseVO", list);
 		}catch (Exception e) {
 			log.debug("getRoadMapDetail error : {}",e);
 		}finally {
