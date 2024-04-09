@@ -1,9 +1,15 @@
+<%@page import="VO.CourseVO"%>
+<%@page import="java.util.List"%>
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
 <title>강좌 로드맵</title>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet">
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/css/bootstrap.min.css" rel="stylesheet">
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <style>
 body {
 	font-family: 'Arial', sans-serif;
@@ -12,7 +18,7 @@ body {
 
 .toolbar {
 	position: fixed;
-	top: 250px; /* 위에서부터의 간격 */
+	top: 260px; /* 위에서부터의 간격 */
 	right: 50px; /* 오른쪽에서부터의 간격 */
 	width: 200px; /* 툴바의 너비 */
 	background-color: #f1f1f1;
@@ -78,7 +84,7 @@ body {
 }
 
 .course-img {
-	width: 50px; /* 이미지 크기, 필요에 따라 조정 */
+	width:175px; /* 이미지 크기, 필요에 따라 조정 */
 	height: auto; /* 이미지 비율 유지 */
 	margin-right: 10px; /* 텍스트와의 간격 */
 }
@@ -121,11 +127,18 @@ body {
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 </head>
 <body>
-
+<%
+	List<CourseVO> courseVOList = (List<CourseVO>)request.getAttribute("courseVOList");
+	int roadMapPrice = 0;
+	for(CourseVO vo : courseVOList){
+		roadMapPrice += vo.getCoursePrice();
+	}
+%>
 	<div class="purchase-button-container">
+	 <div class="roadmap-price-display"><strong>로드맵 가격</strong> : ₩<fmt:formatNumber value="<%=roadMapPrice%>" type="number" pattern="#,##0" /></div>
 	<form action="post" action="#">
-		<input type="hidden" name="courseTitle" value="${courseVO.courseTitle}"> 
-		<input type="submit" class="purchase-btn" value="결제하기">
+		<input type="hidden" name="roadMapPrice" value="<%=roadMapPrice%>"> 
+		<input type="submit" class="purchase-btn" value="로드맵 결제">
 		</form>
 	</div>
 	<div class="toolbar">
@@ -141,7 +154,8 @@ body {
 		<div class="roadMap">
 			<h1>${roadMapVO.roadMapTitle }</h1>
 			<div class="roadMapDescription">
-				<h2>${roadMapVO.roadMapDescription }</h2>
+				<br>
+				<h3>${roadMapVO.roadMapDescription }</h2>
 			</div>
 		</div>
 		<div class="main-content">
@@ -151,12 +165,13 @@ body {
 						<div class="course-image-text">
 							<a
 								href="${contextPath}/Courses/detail?courseId=${course.courseId}">
-								<img alt="강의 이미지" src="${course.imgPath}" class="course-img">
+								<img alt="강의 이미지" src="${contextPath }/project1/images/${course.imgPath}" class="course-img">
 							</a>
 							<div class="text-container">
 								<!-- 새로운 div로 감싸 텍스트와 설명을 세로로 정렬 -->
 								<div class="course-text">${course.courseTitle}</div>
 								<div class="course-price">${course.courseDescription}</div>
+								<div class="course-price">₩<fmt:formatNumber value="${course.coursePrice }" type="number" pattern="#,##0" /></div>
 							</div>
 						</div>
 					</div>

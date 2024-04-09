@@ -87,7 +87,7 @@
                 <td>
                     <div class="course-container">
                         <a href="${contextPath}/Courses/detail?courseId=${list.courseId}">
-                           <img src="${contextPath }/resources/images/img_shop_01_1.png">
+                           <img src="${contextPath}/project1/images/${list.imgPath}">
                             <div class="course-info">
                                 <p><strong>강의명</strong> : ${list.courseTitle}</p>
                                 <p><i class="fas fa-tag fa-icon"></i><strong>강의</strong> 가격 : ₩<fmt:formatNumber value="${list.coursePrice}" type="number" pattern="#,##0" />

@@ -1,7 +1,9 @@
  <%@page import="VO.CourseVO"%>
             <%@ page language="java" contentType="text/html; charset=UTF-8"
                 pageEncoding="UTF-8"%>
+                <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
             <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+            <c:set var="contextPath"   value="${pageContext.request.contextPath}"/> 
 <!DOCTYPE html>
 <html>
 <head>
@@ -19,13 +21,13 @@
                 CourseVO courseVO = (CourseVO)request.getAttribute("courseVO");
             %>
               <br><br><br><br><br>
-            <c:set var="contextPath"   value="${pageContext.request.contextPath}"/> 
+            
             <h1 class="center1">강의 정보</h1>
           
             <form action="<%=contextPath%>/Pay/check" method="post">
                 <table>
                     <tr>
-                        <td rowspan="4" class="center1"><a href="<%=contextPath%>/Courses/lecture"><img src=" <%=contextPath%>/resources/images/img_shop_01_1.png" alt="강의 이미지"  width="500"></a></td>
+                        <td rowspan="4" class="center1"><a href="<%=contextPath%>/Courses/lecture"><img src="${contextPath}/project1/images/${courseVO.imgPath}" alt="강의 이미지"  width="500"></a></td>
                         <th>강의 카테고리</th>
                         <td>${courseVO.courseCategory}</td>
                     </tr>
