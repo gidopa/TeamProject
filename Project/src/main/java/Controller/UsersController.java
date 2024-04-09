@@ -120,11 +120,32 @@ public class UsersController extends HttpServlet {
 					out.write("none");
 					return;
 				}
-				
 			
+			case "/modPwdCheck.me":
 				
-			default:	
+				int result2 = usersService.serviceOverLappedPwd(request);
+				
+				if(result2 == 1) {		// 아이디가 일치하고 기존 비밀번호와 일치하면
+					out.write("usable");
+					return;
+				} else if(result2 == 0) {	// 아이디가 일치하지 않거나 기존 비밀번호와 일치하지 않으면
+					out.write("not_usable");	
+					return;
+				}
+				
+			case "/modUserPro.me":
+				
+				usersService.serviceModUser(request);
+				
+				nextPage="/project1/main.jsp";
 				break;
+			case "/aboutus":
+				request.setAttribute("center", "KakaoMap.jsp");
+				nextPage="/project1/main.jsp";
+				break;	
+				
+			default:
+				throw new IllegalArgumentException("UsersController Unexpected value: " + action);
 		}
 		
 		

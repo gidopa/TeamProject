@@ -3,11 +3,14 @@ package Service;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.slf4j.Logger;
 
 import DAO.CourseDAO;
 import DAO.LectureDAO;
 import VO.LectureVO;
+import api.YoutubeAPI;
 import lombok.extern.java.Log;
 import lombok.extern.slf4j.Slf4j;
 
@@ -40,6 +43,22 @@ public class LectureService {
 		lectureInfo = lectureDAO.getLectureInfo(courseId,lectureId);
 		return lectureInfo;
 	}
+	
+	public List<LectureVO> registration(HttpServletRequest request) {
+		int courseID =  Integer.parseInt(request.getParameter("courseID"));
+		int lectureNumber = Integer.parseInt(request.getParameter("lectureNumber"));
+		String lectureTitle = request.getParameter("lectureTitle");
+		String lectureSummary = request.getParameter("lectureSummary");
+		String videoLink = request.getParameter("videoLink");
+		String imgpath = request.getParameter("imgpath");
+		YoutubeAPI youtube = new YoutubeAPI(videoLink);
+		String videoId = youtube.getVideoId();
+		String jsonData = youtube.getData(videoId);
+		String unformattedDuration = youtube.getDuration(jsonData);
+		String duration = youtube.formatDuration(unformattedDuration);
+		
+	return lectureDAO.registration(courseID,lectureNumber,duration,lectureTitle,lectureSummary,videoLink,imgpath);
+}
 	
 	
 	

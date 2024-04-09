@@ -78,7 +78,7 @@
        		//입력한 아이디가 DB에 저장되어 있는지 없는지 확인 요청
     		//Ajax기술을 이용 하여 비동기 방식으로 MemberController로 합니다.
     		$.ajax({  
-    			url : "http://localhost:8081/Project/users/joinIdCheck.me", //요청할 주소
+    			url : "http://localhost:8081/Project_3/users/joinIdCheck.me", //요청할 주소
     			type : "post",  //전송요청방식 설정! get 또는 post 둘중 하나를 작성
     			async : true,  //true는 비동기방식 , false는 동기방식 으로 서버페이지 요청!
     			data : {id : id}, //서버 페이지로 요청할 변수명 : 값
@@ -176,17 +176,17 @@
                                                 </div>--%>
                                                 
                                                 <fieldset>
-												  <legend>관심사들을 선택하세요</legend>
+												  <legend>관심사를 선택하세요</legend>
 												  <div>
-												    <input type="checkbox" id="frontEnd" name="categories" value="frontEnd" />
+												    <input type="radio" id="frontEnd" name="categories" value="frontEnd" />
 												    <label for="frontEnd">프론트엔드</label>
 												  </div>
 												  <div>
-												    <input type="checkbox" id="backEnd" name="categories" value="backEnd" />
+												    <input type="radio" id="backEnd" name="categories" value="backEnd" />
 												    <label for="backEnd">백엔드</label>
 												  </div>
 												  <div>
-												    <input type="checkbox" id="ai" name="categories" value="ai" />
+												    <input type="radio" id="ai" name="categories" value="ai" />
 												    <label for="ai">AI</label>
 												  </div>
 												</fieldset>

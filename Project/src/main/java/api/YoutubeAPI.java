@@ -14,7 +14,7 @@ import org.json.simple.parser.JSONParser;
 public class YoutubeAPI {
 	// 영상 주소
 	private final String path;
-	private static final String apiKey = "Youtube DATA API v3 키 넣기";
+	private static final String apiKey = "AIzaSyAZrJrDJxa6mewUMUPpClpDJ_46pZ6T_1U";
 	
 	public YoutubeAPI(String path) {
 		this.path = path;

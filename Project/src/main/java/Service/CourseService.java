@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import DAO.CourseDAO;
 import VO.CourseVO;
@@ -46,6 +47,17 @@ public class CourseService {
 	public LectureVO getLectureInfo(String courseId) {
 		
 		return null;
+	}
+	
+	public CourseVO registration(HttpServletRequest request, HttpSession session) {
+		String userId = (String)session.getAttribute("id");
+		int coursePrice =  Integer.parseInt(request.getParameter("price"));
+		String courseCategory = request.getParameter("category");
+		String courseTitle = request.getParameter("title");
+		String courseDescription = request.getParameter("description");
+		String imgPath = request.getParameter("img");
+		
+		return courseDAO.registration(userId,coursePrice,courseCategory,courseTitle,courseDescription,imgPath);
 	}
 
 

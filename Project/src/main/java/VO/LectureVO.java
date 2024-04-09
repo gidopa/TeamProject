@@ -16,6 +16,6 @@ public class LectureVO {
 	private String lectureTitle;
 	private String lectureSummary;
 	private String videoLink; // 강의 영상 링크
-	private int duration; // 강의 총 길이
+	private String duration; // 강의 총 길이
 	private String imgPath;
 }

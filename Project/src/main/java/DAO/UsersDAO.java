@@ -69,42 +69,44 @@ public class UsersDAO {
 		int result = 0;
 
 		try {
-			if(id.equals("")) {
+			if (id.equals("")) {
 				result = -1;
 			} else {
-			// db접속
-			con = dataSource.getConnection();
-			// 오라클의 decode함수를 이용해서
-			// 서블릿에서 전달되는 입력한 ID에 해당하는 행데이터를 검색하여 검색한 행갯수가 1이면 'true'반환
-			// 1이 아니면 'false'문자열을 반환해서 조회결과를 얻습니다.
-			String sql = "select decode(count(*), 1, '1', '0') as result from users where user_id=?";
-			
-			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, id);
-			
-			rs = pstmt.executeQuery();
-			
-			rs.next();	// 조회된 줄의 위치를 한 줄 내려줌
-			String value = rs.getString("result");
-			
-			result = Integer.parseInt(value);
+				// db접속
+				con = dataSource.getConnection();
+				// 오라클의 decode함수를 이용해서
+				// 서블릿에서 전달되는 입력한 ID에 해당하는 행데이터를 검색하여 검색한 행갯수가 1이면 'true'반환
+				// 1이 아니면 'false'문자열을 반환해서 조회결과를 얻습니다.
+				String sql = "select decode(count(*), 1, '1', '0') as result from users where user_id=?";
+
+				pstmt = con.prepareStatement(sql);
+				pstmt.setString(1, id);
+
+				rs = pstmt.executeQuery();
+
+				rs.next(); // 조회된 줄의 위치를 한 줄 내려줌
+				String value = rs.getString("result");
+
+				result = Integer.parseInt(value);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			ResourceClose();
 		}
-		
+
 		return result;
 	}
 
 	public void insertUser(UsersVO usersVO) {
+		
+		
 		try {
 			con = dataSource.getConnection();
-			
-			String sql = "insert into users(user_id, user_name, email, password, phone_number, address)"
-					+ " values(?,?,?,?,?,?)";
-			
+
+			String sql = "insert into users(user_id, user_name, email, password, phone_number, address, interest)"
+					+ " values(?,?,?,?,?,?,?)";
+
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, usersVO.getUser_id());
 			pstmt.setString(2, usersVO.getUser_name());
@@ -112,7 +114,8 @@ public class UsersDAO {
 			pstmt.setString(4, usersVO.getPassword());
 			pstmt.setString(5, usersVO.getPhone_number());
 			pstmt.setString(6, usersVO.getAddress());
-			
+			pstmt.setString(7, usersVO.getInterest());
+
 			pstmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -122,34 +125,139 @@ public class UsersDAO {
 	}
 
 	public int userCheck(String login_id, String login_pwd) {
-int check = -1;
-		
+		int check = -1;
+
 		try {
 			con = dataSource.getConnection();
-			//매개변수 login_id로 받는 입력한 아이디에 해당되는 행을 조회  SELECT
+			// 매개변수 login_id로 받는 입력한 아이디에 해당되는 행을 조회 SELECT
 			String sql = "select * from users where user_id=?";
-			
+
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, login_id);
 			rs = pstmt.executeQuery();
-			
-			if(rs.next()) {//입력한 아이디로 조회한 행이 있으면?(아이디가 저장되어 있으면?)				
-				//입력한 비밀번호 또한 DB에 저장된 조회된 비밀번호와 같으면?
-				if(login_pwd.equals(rs.getString("password"))) {
-					
-					check = 1; //아이디 OK, 비밀번호 OK
-			
-				}else {//아이디 OK, 비밀번호 NO
+
+			if (rs.next()) {// 입력한 아이디로 조회한 행이 있으면?(아이디가 저장되어 있으면?)
+				// 입력한 비밀번호 또한 DB에 저장된 조회된 비밀번호와 같으면?
+				if (login_pwd.equals(rs.getString("password"))) {
+
+					check = 1; // 아이디 OK, 비밀번호 OK
+
+				} else {// 아이디 OK, 비밀번호 NO
 					check = 0;
 				}
-			}else {//입력한 아이디로 조회되지 않으면?(아이디가 저장되어 있지 않음)
-				check = -1; //아이디 NO
+			} else {// 입력한 아이디로 조회되지 않으면?(아이디가 저장되어 있지 않음)
+				check = -1; // 아이디 NO
 			}
 		} catch (Exception e) {
 			System.out.println("MemberDAO의 userCheck메소드에서 오류 : " + e);
 		} finally {
 			ResourceClose();
 		}
-		return check;// 1 또는 0 또는 -1 을 반화	
+		return check;// 1 또는 0 또는 -1 을 반화
 	}
+	
+	public UsersVO selectUser(String id) {
+		UsersVO vo = null;
+		
+		try {
+			con = dataSource.getConnection();
+			
+			String sql = "select * from users where user_id=?";
+			
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, id);
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				vo = new UsersVO();
+				
+				vo.setUser_id(rs.getString("user_id"));
+				vo.setUser_name(rs.getString("user_name"));
+				vo.setPassword(rs.getString("password"));
+				vo.setPhone_number(rs.getString("phone_number"));
+				vo.setEmail(rs.getString("email"));
+				vo.setAddress(rs.getString("address"));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			ResourceClose();
+		}
+		
+		return vo;
+	}
+
+	public int overlappedPwd(String id, String pre_pwd) {
+		int result = 0;
+
+		try {
+			if (id.equals("")) {
+				result = 0;
+			} else {
+				// db접속
+				con = dataSource.getConnection();
+				// 오라클의 decode함수를 이용해서
+				// 서블릿에서 전달되는 입력한 ID에 해당하는 행데이터를 검색하여 검색한 행갯수가 1이면 '1'반환
+				// 1이 아니면 '0'문자열을 반환해서 조회결과를 얻습니다.
+				String sql = "select decode(count(*), 1, '1', '0') as result from users where user_id=? and password=?";
+
+				pstmt = con.prepareStatement(sql);
+				pstmt.setString(1, id);
+				pstmt.setString(2, pre_pwd);
+
+				rs = pstmt.executeQuery();
+
+				rs.next(); // 조회된 줄의 위치를 한 줄 내려줌
+				String value = rs.getString("result");
+
+				result = Integer.parseInt(value);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			ResourceClose();
+		}
+
+		return result;
+	}
+
+	public void ModUser(String name, String pwd, String phone_number, String email, String address, String interest, String id, String pre_pwd) {
+		String sql = "";
+		
+		try {
+			con = dataSource.getConnection();
+			if(pwd.length()!=0 || !pwd.equals("")) {
+				sql = "update users set user_name=?, email=?, password=?, phone_number=?, address=?, interest=? where user_id=? and password=?";
+				
+				pstmt = con.prepareStatement(sql);
+				pstmt.setString(1, name);
+				pstmt.setString(2, email);
+				pstmt.setString(3, pwd);
+				pstmt.setString(4, phone_number);
+				pstmt.setString(5, address);
+				pstmt.setString(6, interest);
+				pstmt.setString(7, id);
+				pstmt.setString(8, pre_pwd);
+			} else {
+				sql = "update users set user_name=?, email=?, phone_number=?, address=?, interest=? where user_id=? and password=?";
+				
+				pstmt = con.prepareStatement(sql);
+				pstmt.setString(1, name);
+				pstmt.setString(2, email);
+				pstmt.setString(3, phone_number);
+				pstmt.setString(4, address);
+				pstmt.setString(5, interest);
+				pstmt.setString(6, id);
+				pstmt.setString(7, pre_pwd);
+			}
+			pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			ResourceClose();
+		}
+	}
+
+	
 }

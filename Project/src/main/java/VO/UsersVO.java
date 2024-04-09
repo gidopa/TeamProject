@@ -10,5 +10,5 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UsersVO {
-	String user_id, user_name, email, password, phone_number, address;
+	String user_id, user_name, email, password, phone_number, address, interest;
 }

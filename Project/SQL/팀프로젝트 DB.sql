@@ -318,7 +318,7 @@ REFERENCES roadmap (roadmap_id);
 insert into roadmap (roadmap_id, roadmap_title, roadmap_description, img_path, user_id) 
 values (ROADMAP_ROADMAP_ID.nextval,'백엔드 완성', '백엔드 완성을 위한 로드맵', '/Project/project1/images/backend.png', 'user02');
 
-
+ALTER TABLE roadmap RENAME COLUMN img_path TO roadmap_img;
 update courses set roadmap_id = 1 where course_id=1;
 update courses set roadmap_id = 1 where course_id=4;
 create sequence RoadMap_roadmap_id
@@ -329,9 +329,14 @@ maxvalue 9999
 nocycle
 nocache
 noorder;
-
+update courses
+set img_path = 'java.png'
+where course_id = 1;
+update courses
+set img_path = 'BootAndJPA.png'
+where course_id = 4;
 commit;
-
+select * from roadmap inner join courses on roadmap.roadmap_id = courses.roadmap_id where roadmap.roadmap_id = 1;   
 select * from users;
 select * from categories;
 select * from lectures;
@@ -343,3 +348,17 @@ select * from reviews;
 select * from books;
 select * from roadmap;
 desc roadmap;
+desc lectures;
+
+delete from lectures;
+delete from courses;
+ALTER TABLE lectures MODIFY (duration VARCHAR2(100));
+
+create sequence lectures_lecture_id
+increment BY 1
+start with 1
+minvalue 1
+maxvalue 9999
+nocycle
+nocache
+noorder;

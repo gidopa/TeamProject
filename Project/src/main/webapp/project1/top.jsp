@@ -31,7 +31,19 @@ request.setCharacterEncoding("UTF-8");
 <link rel="stylesheet" href="../resources/css/common.css" />
 <link rel="stylesheet" href="../resources/css/style.css" />
 <link rel="stylesheet" href="../resources/css/style2.css" />
-
+<style type="text/css">
+.header-right .header-utils > ul > li > ul {
+		display: none;
+		position: absolute;
+	}	
+	.header-right .header-utils > ul > li:hover > ul {
+		width: 100px;
+		height: 60px;
+		text-align: center;
+		background-color: white;
+		display: block;
+	} 
+</style>
 
 </head>
 
@@ -73,6 +85,9 @@ request.setCharacterEncoding("UTF-8");
 							href="<%=contextPath%>/Courses/lecture"> <span>내 강의</span>
 						</a></li>
 						<li class="header-gnbitem"><a class="header-gnblink"
+							href="<%=contextPath%>/Courses/enroll"> <span>강의 등록</span>
+						</a></li>
+						<li class="header-gnbitem"><a class="header-gnblink"
 							href="<%=contextPath%>/RoadMap/"> <span>로드맵</span>
 						</a></li>
 						<li class="header-gnbitem"><a class="header-gnblink"
@@ -88,41 +103,39 @@ request.setCharacterEncoding("UTF-8");
 						</a></li>
 					</ul>
 				</div>
-				<div class="header-right">
+			<div class="header-right">
 					<div class="header-utils">
 						<!-- 회원 로그인 / 회원가입 -->
-				<%
-					//Session내장객체 메모리 영역에 session값 얻기
-					String id = (String)session.getAttribute("id");
-					//Session에 값이 저장되어 있지 않으면?
-					if(id == null){
-				%>
-					<ul>
-						<li><a href="javascript:void(0)" class="btn-profile header-utils-btn"
-							title="회원 로그인 / 회원가입">
-						</a>
-							<ul class="header-loginreg">
-								<li><a href="<%=contextPath%>/user/login.jsp">로그인</a></li>
-								<li><a href="<%=contextPath%>/user/register.jsp">회원가입</a></li>
-							</ul>
-							
-						</li>
-					</ul>	
-				<%
-					}else{
-				%>
-					<ul>
-						<li><a href="javascript:void(0)" class="btn-profile header-utils-btn"
-							title="회원 로그인 / 회원가입">
-						</a>
-							<ul class="header-loginreg">
-								<li><a href="<%=contextPath%>/users/logout.me">로그아웃</a></li>
-								<li><a href="<%=contextPath%>/user/modUser.jsp">회원정보수정</a></li>
-							</ul>
-							
-						</li>
-					</ul>
-				<%} %>	
+						<%
+						//Session내장객체 메모리 영역에 session값 얻기
+						String id = (String) session.getAttribute("id");
+						//Session에 값이 저장되어 있지 않으면?
+						if (id == null) {
+						%>
+						<ul>
+							<li><a href="javascript:void(0)"
+								class="btn-profile header-utils-btn" title="회원 로그인 / 회원가입">
+							</a>
+								<ul class="header-loginreg">
+									<li><a href="<%=contextPath%>/user/login.jsp">로그인</a></li>
+									<li><a href="<%=contextPath%>/user/register.jsp">회원가입</a></li>
+								</ul></li>
+						</ul>
+						<%
+						} else {
+						%>
+						<ul>
+							<li><a href="javascript:void(0)"
+								class="btn-profile header-utils-btn" title="로그아웃 / 회원정보수정">
+							</a>
+								<ul class="header-loginreg">
+									<li><a href="<%=contextPath%>/users/logout.me">로그아웃</a></li>
+									<li><a href="<%=contextPath%>/user/modUser.jsp">회원정보수정</a></li>
+								</ul></li>
+						</ul>
+						<%
+						}
+						%>
 						<button class="btn-search header-utils-btn" title="search"></button>
 					</div>
 				</div>

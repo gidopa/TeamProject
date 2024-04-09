@@ -79,6 +79,12 @@ public class LectureController extends HttpServlet {
 			request.setAttribute("videoLink", videoLink);
 			request.setAttribute("center", "LecturePlay.jsp"); 
 			nextPage = main;
+		}else if(action.equals("/registraion")){
+			//강의 등록 후 상세 강의 내용을 인서트하는 메소드(1강,2강,3강,...) 
+			ArrayList<LectureVO> list = (ArrayList<LectureVO>)lectureService.registration(request);
+			request.setAttribute("center", "lectureList.jsp");
+			request.setAttribute("list", list);
+			nextPage=main;
 		}else {
 			throw new IllegalArgumentException("LectureController doHandle .Unexpected value: " + action);
 		}

@@ -34,10 +34,11 @@ public class UsersService {
 		String password = request.getParameter("pwd");
 		String phone_number = request.getParameter("tel");
 		String address = request.getParameter("addr");
+		String interest = request.getParameter("categories");	
 		
 //		String job = request.getParameter("job");
 		
-		UsersVO usersVO = new UsersVO(id, name, email, password, phone_number, address);
+		UsersVO usersVO = new UsersVO(id, name, email, password, phone_number, address, interest);
 		usersDAO.insertUser(usersVO);
 		
 		
@@ -64,4 +65,26 @@ public class UsersService {
 		HttpSession session = request.getSession();
 		session.invalidate();
 	}
+
+	public int serviceOverLappedPwd(HttpServletRequest request) {
+		String id = request.getParameter("id");
+		String pre_pwd = request.getParameter("pre_pwd");
+		
+		return usersDAO.overlappedPwd(id, pre_pwd);
+	}
+
+	public void serviceModUser(HttpServletRequest request) {
+		String name = request.getParameter("name");
+		String pwd = request.getParameter("pwd");
+		String phone_number = request.getParameter("tel");
+		String email = request.getParameter("email");
+		String address = request.getParameter("addr");
+		String interest = request.getParameter("categories");
+		
+		String id = request.getParameter("id");
+		String pre_pwd = request.getParameter("pre_pwd");
+		usersDAO.ModUser(name,pwd,phone_number,email,address,interest,id,pre_pwd);
+	}
+	
+	
 }
