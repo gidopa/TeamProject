@@ -60,7 +60,7 @@
     document.addEventListener('DOMContentLoaded', function() {
         var text = "404, page not found.";
         var i = 0;
-        var speed = 150; // Speed in milliseconds
+        var speed = 50; // Speed in milliseconds
 
         function typeWriter() {
             if (i < text.length) {

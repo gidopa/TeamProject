@@ -60,7 +60,7 @@
     document.addEventListener('DOMContentLoaded', function() {
         var text = "Sorry 500, It's me not You .";
         var i = 0;
-        var speed = 150; // Speed in milliseconds
+        var speed = 50; // Speed in milliseconds
 
         function typeWriter() {
             if (i < text.length) {
