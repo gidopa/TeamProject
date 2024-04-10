@@ -38,9 +38,9 @@ public class LectureService {
 		return videoLink;
 	}
 	 //lectureId 로 특정 강의에 대한 정보만 가져오는 메소드 
-	public LectureVO getLectureInfo(int courseId,int lectureId) {
+	public LectureVO getLectureInfo(int lectureId) {
 		LectureVO lectureInfo = new LectureVO();
-		lectureInfo = lectureDAO.getLectureInfo(courseId,lectureId);
+		lectureInfo = lectureDAO.getLectureInfo(lectureId);
 		return lectureInfo;
 	}
 	
@@ -59,6 +59,20 @@ public class LectureService {
 				String duration = youtube.formatDuration(unformattedDuration);
 			
 			return lectureDAO.registration(courseId,lectureNumber,duration,lectureTitle,lectureSummary,videoLink,imgpath);
+		}
+		public List<LectureVO> modifyLecture(HttpServletRequest request) {
+			int courseId = Integer.parseInt(request.getParameter("courseId"));
+			int lectureId = Integer.parseInt(request.getParameter("lectureId")) ;
+			int lectureNumber = Integer.parseInt(request.getParameter("lectureNumber"));
+			String lectureTitle = request.getParameter("lectureTitle");
+			String lectureSummary = request.getParameter("lectureSummary");
+			String imgPath = request.getParameter("imgPath");
+			String videoLink = request.getParameter("videoLink");
+			return lectureDAO.modifyLecture(lectureId,lectureNumber,lectureTitle, lectureSummary, imgPath, videoLink,courseId);
+		}
+		public void deleteLecture(HttpServletRequest request) {
+			int lectureId = Integer.parseInt(request.getParameter("lectureId"));
+			lectureDAO.deleteLecture(lectureId);
 		}
 
 	

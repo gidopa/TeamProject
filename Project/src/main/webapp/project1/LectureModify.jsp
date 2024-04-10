@@ -72,33 +72,33 @@
 <body>
 
 <div class="container">
-    <form action="${contextPath}/Lecture/registraion" method="post">
+    <form action="${contextPath}/Lecture/modifyPost" method="post">
         <h1 style="text-align:center">강의 상세 등록</h1>
         <br><br>
-      
-        <input type="hidden" name="courseId" value="${requestScope.vo.courseId}">
+       		<input type="hidden" name="lectureId" value="${lectureVO.lectureId}">
+       		<input type="hidden" name="courseId" value="${lectureVO.courseId}">
         <div class="form-group">
             <label for="lectureNumber">강의 번호</label>
-            <input type="text" id="lectureNumber" name="lectureNumber">
+            <input type="text" value="${lectureVO.lectureNumber}" name="lectureNumber">
         </div>
         <div class="form-group">
             <label for="lectureTitle">상세 강의 제목</label>
-            <input type="text" id="lectureTitle" name="lectureTitle">
+            <input type="text" value="${lectureVO.lectureTitle}" name="lectureTitle">
         </div>
         <div class="form-group">
             <label for="lectureSummary">상세 강의 내용</label>
-            <input type="text" id="lectureSummary" name="lectureSummary">
+            <input type="text" value="${lectureVO.lectureSummary}" name="lectureSummary">
         </div>
         <div class="form-group">
             <label for="imgpath">강의 이미지</label>
-            <input type="text" id="imgpath" name="imgpath" placeholder="example.png">
+            <input type="text" value="${lectureVO.imgPath}" name="imgPath" placeholder="example.png">
         </div>
         <div class="form-group">
             <label for="videoLink">강의 링크</label>
-            <input type="text" id="videoLink" name="videoLink" placeholder="https://www.youtube.com/watch?v=P--ED5rmlqI">
+            <input type="text" value="${lectureVO.videoLink}" name="videoLink" placeholder="https://www.youtube.com/watch?v=P--ED5rmlqI">
         </div>
         <div class="form-group text-center">
-            <input type="submit" value="강의 등록">
+            <input type="submit" value="강의 수정">
             <input type="reset" value="다시입력">
         </div>
     </form>

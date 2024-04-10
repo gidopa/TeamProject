@@ -100,16 +100,17 @@ public class LectureDAO {
 		return videoLink;
 	}
 	// DB에서 courseId와 lectureId 로 특정 강의에 대한 정보만 가져오는 메소드 
-	public LectureVO getLectureInfo(int courseId, int lectureId) {
+	public LectureVO getLectureInfo( int lectureId) {
 		LectureVO lectureInfo = new LectureVO();
 		try {
 			con = dataSource.getConnection();
-			String sql = "select * from lectures where course_Id = ? and lecture_id= ?";
+			String sql = "select * from lectures where  lecture_id= ?";
 			pstmt = con.prepareStatement(sql);
-			pstmt.setInt(1, courseId);
-			pstmt.setInt(2, lectureId);
+			pstmt.setInt(1, lectureId);
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
+				lectureInfo.setCourseId(rs.getInt("course_id"));
+				lectureInfo.setLectureId(lectureId);
 				lectureInfo.setLectureNumber(rs.getInt("lecture_number"));
 				lectureInfo.setLectureTitle(rs.getString("lecture_title"));
 				lectureInfo.setLectureSummary(rs.getString("lecture_summary"));
@@ -174,6 +175,63 @@ public class LectureDAO {
 		}
 	return lectureList;
 }
+
+	public List<LectureVO> modifyLecture(int lectureId, int lectureNumber, String lectureTitle, String lectureSummary,
+			String imgPath, String videoLink, int courseId) {
+		int res = 0;
+		List<LectureVO> lectureList = new ArrayList<LectureVO>();	
+		try {
+			con = dataSource.getConnection();
+			String sql="update lectures set lecture_number = ? , lecture_title = ?, lecture_Summary = ?, img_path=?, video_link=?"
+					+ " where lecture_id = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, lectureNumber);
+			pstmt.setString(2, lectureTitle);
+			pstmt.setString(3, lectureSummary);
+			pstmt.setString(4, imgPath);
+			pstmt.setString(5, videoLink);
+			pstmt.setInt(6, lectureId);
+			pstmt.executeUpdate();
+			
+			 sql = "select * from lectures where course_id=?";
+			    pstmt = con.prepareStatement(sql);
+			    pstmt.setInt(1, courseId);
+			    	rs = pstmt.executeQuery();
+			    	while(rs.next()) {
+						lectureVO = new LectureVO();
+						lectureVO.setCourseId(courseId);
+						lectureVO.setDuration(rs.getString("duration"));
+						lectureVO.setLectureId(rs.getInt("lecture_id"));
+						lectureVO.setLectureNumber(rs.getInt("lecture_number"));
+						lectureVO.setLectureTitle(rs.getString("lecture_title"));
+						lectureVO.setLectureSummary(rs.getString("lecture_summary"));
+						lectureVO.setVideoLink(rs.getString("video_link"));
+						lectureVO.setImgPath(rs.getString("img_path"));
+					lectureList.add(lectureVO);
+					}
+			
+			
+		}catch (Exception e) {
+			log.debug("modifyLecture error : {}",e);
+		}finally {
+			resourceRelease();
+		}
+		return lectureList;
+	}
+
+	public void deleteLecture(int lectureId) {
+		try {
+		con = dataSource.getConnection();
+		String sql="delete from lectures where lecture_id = ?";
+		pstmt = con.prepareStatement(sql);
+		pstmt.setInt(1, lectureId);
+		pstmt.executeUpdate();
+		}catch (Exception e) {
+			log.debug("deleteLecture error : {}",e);
+		}finally {
+			resourceRelease();
+		}
+	}
 	
 	
 	

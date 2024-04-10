@@ -71,8 +71,8 @@ public class LectureController extends HttpServlet {
 			int lectureId = Integer.parseInt(request.getParameter("lectureId"));
 			// 강좌내에 있는 모든 강의들의 정보를 List로 받아오고
 			lectureList = lectureService.getLecturesInfo(courseId);
-			// courseId, lectureId 모두 줘서 하나의 강의에 대한 정보를 LectureVO로 받아옴
-			lectureInfo = lectureService.getLectureInfo(courseId,lectureId);
+			//  lectureId 모두 줘서 하나의 강의에 대한 정보를 LectureVO로 받아옴
+			lectureInfo = lectureService.getLectureInfo(lectureId);
 			videoLink = lectureService.getVideoLink(courseId, lectureId);
 			request.setAttribute("lectureList", lectureList);
 			request.setAttribute("lectureInfo", lectureInfo);
@@ -85,7 +85,22 @@ public class LectureController extends HttpServlet {
 			request.setAttribute("center", "lectureList.jsp");
 			request.setAttribute("list", list);
 			nextPage=main;
-		}else {
+		}else if(action.equals("/modify")){
+			int lectureId = Integer.parseInt(request.getParameter("lectureId")) ;
+			LectureVO lecturevo = lectureService.getLectureInfo(lectureId);
+			request.setAttribute("lectureVO", lecturevo);
+			request.setAttribute("center", "LectureModify.jsp");
+			nextPage = main;
+		}else if(action.equals("/modifyPost")){
+			List<LectureVO> lectureList = lectureService.modifyLecture(request);
+			request.setAttribute("center", "lectureList.jsp");
+			request.setAttribute("list", lectureList);
+			nextPage=main;
+		}else if(action.equals("/delete")){
+			lectureService.deleteLecture(request);
+			request.setAttribute("center", "lectureList.jsp");
+			nextPage=main;
+		}else { // lectureList.jsp를 확인해볼 수 있는 페이지가 필요함 지금은 강의등록완료후에 확인하는 거 말곤 방법이 없음
 			throw new IllegalArgumentException("LectureController doHandle .Unexpected value: " + action);
 		}
 		

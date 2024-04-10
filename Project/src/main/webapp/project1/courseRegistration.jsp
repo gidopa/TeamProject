@@ -127,7 +127,7 @@
                 <input type="radio" id="frontend" name="category" value="frontend">
                 <label for="frontend">프론트엔드</label>
                 
-                <input type="radio" id="ai" name="category" value="AI">
+                <input type="radio" id="ai" name="category" value="ai">
                 <label for="ai">인공지능 (AI)</label>
             </div>
         </div>

@@ -8,6 +8,8 @@ drop table courses;
 drop table categories;
 drop table users;
 drop table instructors;
+drop table roadmap;
+drop table lectures;
 
 -- 강사 정보 테이블 생성
 --CREATE TABLE Instructors (
@@ -282,7 +284,13 @@ ADD (img_path VARCHAR2(255));
 
 update lectures set video_link = 'https://www.youtube.com/watch?v=G3Y9FXZdM8U' where lecture_id=1 and course_id=1;
 update lectures set video_link = 'https://www.youtube.com/watch?v=z1h1tUlqErM' where lecture_id=2 and course_id=1;
+select Courses_course_id.nextval from courses;
+select Courses_course_id.currval from courses;
+
+ALTER SEQUENCE Courses_course_id MINVALUE 1 START WITH 1 INCREMENT BY 1;
+
 -- 시퀀스 생성
+drop sequence courses_course_id
 create sequence Courses_course_id
 increment BY 1
 start with 1
@@ -321,6 +329,7 @@ values (ROADMAP_ROADMAP_ID.nextval,'백엔드 완성', '백엔드 완성을 위�
 ALTER TABLE roadmap RENAME COLUMN img_path TO roadmap_img;
 update courses set roadmap_id = 1 where course_id=1;
 update courses set roadmap_id = 1 where course_id=4;
+
 create sequence RoadMap_roadmap_id
 increment BY 1
 start with 1
@@ -329,14 +338,32 @@ maxvalue 9999
 nocycle
 nocache
 noorder;
+
+delete from lectures;
+delete from courses;
+ALTER TABLE lectures MODIFY (duration VARCHAR2(100));
+DROP SEQUENCE lectures_lecture_id;
+create sequence lectures_lecture_id
+increment BY 1
+start with 1
+minvalue 1
+maxvalue 9999
+nocycle
+nocache
+noorder;
+
+
 update courses
 set img_path = 'java.png'
 where course_id = 1;
 update courses
 set img_path = 'BootAndJPA.png'
 where course_id = 4;
+alter table users rename column instruct_course to interest;
+commit;
 commit;
 select * from roadmap inner join courses on roadmap.roadmap_id = courses.roadmap_id where roadmap.roadmap_id = 1;   
+select course_id from courses where user_id='user' and course_title='eeeee';
 select * from users;
 select * from categories;
 select * from lectures;
@@ -350,15 +377,3 @@ select * from roadmap;
 desc roadmap;
 desc lectures;
 
-delete from lectures;
-delete from courses;
-ALTER TABLE lectures MODIFY (duration VARCHAR2(100));
-
-create sequence lectures_lecture_id
-increment BY 1
-start with 1
-minvalue 1
-maxvalue 9999
-nocycle
-nocache
-noorder;
