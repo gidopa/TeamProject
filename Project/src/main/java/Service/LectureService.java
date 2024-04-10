@@ -45,7 +45,7 @@ public class LectureService {
 	}
 	
 	public List<LectureVO> registration(HttpServletRequest request) {
-		int courseID =  Integer.parseInt(request.getParameter("courseID"));
+		int courseId =  Integer.parseInt(request.getParameter("courseId"));
 		int lectureNumber = Integer.parseInt(request.getParameter("lectureNumber"));
 		String lectureTitle = request.getParameter("lectureTitle");
 		String lectureSummary = request.getParameter("lectureSummary");
@@ -57,7 +57,7 @@ public class LectureService {
 		String unformattedDuration = youtube.getDuration(jsonData);
 		String duration = youtube.formatDuration(unformattedDuration);
 		
-	return lectureDAO.registration(courseID,lectureNumber,duration,lectureTitle,lectureSummary,videoLink,imgpath);
+	return lectureDAO.registration(courseId,lectureNumber,duration,lectureTitle,lectureSummary,videoLink,imgpath);
 }
 	
 	

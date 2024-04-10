@@ -123,7 +123,7 @@ public class LectureDAO {
 		return lectureInfo;
 	}
 
-	public List<LectureVO> registration(int courseID, int lectureNumber, String duration, String lectureTitle, String lectureSummary,
+	public List<LectureVO> registration(int courseId, int lectureNumber, String duration, String lectureTitle, String lectureSummary,
 			String videoLink, String imgpath) {
 	String sql=null;    
 	List<LectureVO> lectureList = new ArrayList<LectureVO>();	
@@ -139,7 +139,7 @@ public class LectureDAO {
 					+ "img_path)"
 					+ " values(Lectures_lecture_id.nextVal,?,?,?,?,?,?,?)";
 		pstmt = con.prepareStatement(sql);
-			pstmt.setInt(1 ,courseID);
+			pstmt.setInt(1 ,courseId);
 			pstmt.setInt(2,lectureNumber);
 			pstmt.setString(3,lectureTitle);
 			pstmt.setString(4,lectureSummary);
@@ -150,7 +150,7 @@ public class LectureDAO {
 			
 	    sql = "select * from lectures where course_id=?";
 		    pstmt = con.prepareStatement(sql);
-		    pstmt.setInt(1, courseID);
+		    pstmt.setInt(1, courseId);
 		    	rs = pstmt.executeQuery();
 		    	while(rs.next()) {
 					lectureVO = new LectureVO();

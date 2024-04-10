@@ -74,8 +74,7 @@
     <form action="${contextPath}/Lecture/registraion" method="post">
         <h1 style="text-align:center">강의 상세 등록</h1>
         <br><br>
-        <input type="hidden" name="courseID" value="${requestScope.vo.courseID}">
-        <input type="hidden" name="courseTitle" value="${requestScope.vo.courseTitle}">
+        <input type="hidden" name="courseId" value="${requestScope.vo.courseId}">
         <div class="form-group">
             <label for="lectureNumber">강의 번호</label>
             <input type="text" id="lectureNumber" name="lectureNumber">
