@@ -1,3 +1,4 @@
+<%@page import="VO.CourseVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <% request.setCharacterEncoding("UTF-8"); %>
@@ -74,6 +75,10 @@
     <form action="${contextPath}/Lecture/registraion" method="post">
         <h1 style="text-align:center">강의 상세 등록</h1>
         <br><br>
+        <%
+        CourseVO vo = (CourseVO)request.getAttribute("vo");
+        System.out.println("jsp에서 찍음" + vo.getCourseId());
+        %>
         <input type="hidden" name="courseId" value="${requestScope.vo.courseId}">
         <div class="form-group">
             <label for="lectureNumber">강의 번호</label>

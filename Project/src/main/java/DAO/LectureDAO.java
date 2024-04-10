@@ -137,7 +137,7 @@ public class LectureDAO {
 					+ "video_link,"
 					+ "duration,"
 					+ "img_path)"
-					+ " values(Lectures_lecture_id.nextVal,?,?,?,?,?,?,?)";
+					+ " values(lectures_lecture_id.nextval,?,?,?,?,?,?,?)";
 		pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1 ,courseId);
 			pstmt.setInt(2,lectureNumber);
@@ -146,7 +146,7 @@ public class LectureDAO {
 			pstmt.setString(5,videoLink);
 			pstmt.setString(6,duration);
 			pstmt.setString(7,imgpath);
-		 pstmt.executeUpdate();
+		     pstmt.executeUpdate();
 			
 	    sql = "select * from lectures where course_id=?";
 		    pstmt = con.prepareStatement(sql);
@@ -154,7 +154,7 @@ public class LectureDAO {
 		    	rs = pstmt.executeQuery();
 		    	while(rs.next()) {
 					lectureVO = new LectureVO();
-					lectureVO.setCourseId(courseID);
+					lectureVO.setCourseId(courseId);
 					lectureVO.setDuration(rs.getString("duration"));
 					lectureVO.setLectureId(rs.getInt("lecture_id"));
 					lectureVO.setLectureNumber(rs.getInt("lecture_number"));
@@ -162,7 +162,7 @@ public class LectureDAO {
 					lectureVO.setLectureSummary(rs.getString("lecture_summary"));
 					lectureVO.setVideoLink(rs.getString("video_link"));
 					lectureVO.setImgPath(rs.getString("img_path"));
-					lectureList.add(lectureVO);
+				lectureList.add(lectureVO);
 				}
 			
 			

@@ -44,21 +44,23 @@ public class LectureService {
 		return lectureInfo;
 	}
 	
-	public List<LectureVO> registration(HttpServletRequest request) {
-		int courseId =  Integer.parseInt(request.getParameter("courseId"));
-		int lectureNumber = Integer.parseInt(request.getParameter("lectureNumber"));
-		String lectureTitle = request.getParameter("lectureTitle");
-		String lectureSummary = request.getParameter("lectureSummary");
-		String videoLink = request.getParameter("videoLink");
-		String imgpath = request.getParameter("imgpath");
-		YoutubeAPI youtube = new YoutubeAPI(videoLink);
-		String videoId = youtube.getVideoId();
-		String jsonData = youtube.getData(videoId);
-		String unformattedDuration = youtube.getDuration(jsonData);
-		String duration = youtube.formatDuration(unformattedDuration);
-		
-	return lectureDAO.registration(courseId,lectureNumber,duration,lectureTitle,lectureSummary,videoLink,imgpath);
-}
+	//강의 등록 후 상세 강의 내용을 인서트하는 메소드(1강,2강,3강,...) 
+		public List<LectureVO> registration(HttpServletRequest request) {
+				int courseId =  Integer.parseInt(request.getParameter("courseId"));
+				int lectureNumber = Integer.parseInt(request.getParameter("lectureNumber"));
+				String lectureTitle = request.getParameter("lectureTitle");
+				String lectureSummary = request.getParameter("lectureSummary");
+				String videoLink = request.getParameter("videoLink");
+				String imgpath = request.getParameter("imgpath");
+				YoutubeAPI youtube = new YoutubeAPI(videoLink);
+				String videoId = youtube.getVideoId();
+				String jsonData = youtube.getData(videoId);
+				String unformattedDuration = youtube.getDuration(jsonData);
+				String duration = youtube.formatDuration(unformattedDuration);
+			
+			return lectureDAO.registration(courseId,lectureNumber,duration,lectureTitle,lectureSummary,videoLink,imgpath);
+		}
+
 	
 	
 	

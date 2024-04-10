@@ -80,7 +80,7 @@ public class CourseController extends HttpServlet {
 		}else if(action.equals("/enroll")) {//강의등록하는 메뉴 클릭시 보여줄 화면
 			request.setAttribute("center", "courseRegistration.jsp");
 			nextPage=main;
-		}else if(action.equals("/registration")){ /// 여기나 lectureController 어디에서 안됨 강의등록할때 에러남
+		}else if(action.equals("/registration")){
 			 //강의 등록 내용을 인서트할 메소드
 			 CourseVO vo = courseService.registration(request,session);
 			 request.setAttribute("center", "lectureRegistration.jsp");

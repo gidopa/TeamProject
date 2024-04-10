@@ -142,33 +142,41 @@ public class CourseDAO {
 
 	public CourseVO registration(String userId, int coursePrice, String courseCategory, String courseTitle,
 			String courseDescription, String imgPath) {
-		String sql;
+		String sql; 
 		try {
 			con = dataSource.getConnection();
-			sql = "insert into courses(course_id," + "user_id," + "COURSE_PRICE," + "COURSE_CATEGORY," + "COURSE_TITLE,"
-					+ "COURSE_DESCRIPTION," + "IMG_PATH," + "REGISTRATION_DATE," + "ENROLLMENT_COUNT)"
-					+ " values(Courses_course_id.nextVal,?,?,?,?,?,?,sysdate,0)";
+			sql="insert into courses(course_id,"
+			 			+ "user_id,"
+						+ "COURSE_PRICE,"
+						+ "COURSE_CATEGORY,"
+						+ "COURSE_TITLE," 
+						+ "COURSE_DESCRIPTION,"
+						+ "IMG_PATH,"
+						+ "REGISTRATION_DATE,"
+						+ "ENROLLMENT_COUNT)"
+						+ " values(Courses_course_id.nextVal,?,?,?,?,?,?,sysdate,0)";
 			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, userId);
-			pstmt.setInt(2, coursePrice);
-			pstmt.setString(3, courseCategory);
-			pstmt.setString(4, courseTitle);
-			pstmt.setString(5, courseDescription);
-			pstmt.setString(6, imgPath);
-			pstmt.executeUpdate();
-			sql = "select course_id from courses where user_id=? and course_title=?";
-			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, userId);
-			pstmt.setString(2, courseTitle);
-			rs = pstmt.executeQuery();
-			if (rs.next()) {
+			pstmt.setString(1 ,userId);
+			pstmt.setInt(2,coursePrice);
+			pstmt.setString(3,courseCategory);
+			pstmt.setString(4,courseTitle);
+			pstmt.setString(5,courseDescription);
+			pstmt.setString(6,imgPath);
+				pstmt.executeUpdate();
+		    sql = "select course_id from courses where user_id=? and course_title=?";
+		    pstmt = con.prepareStatement(sql);
+		    pstmt.setString(1, userId);
+		    pstmt.setString(2, courseTitle);
+		    	rs = pstmt.executeQuery();
+			if(rs.next()) {
 				courseVO = new CourseVO();
 				courseVO.setCourseId(rs.getInt("course_id"));
+				courseVO.setCourseTitle(courseTitle);
 			}
-		} catch (Exception e) {
-			log.error("CourseDAO의 registration error : {}", e);
+		}catch (Exception e) {
+			log.error("CourseDAO의 registration error : {}",e);
 			e.printStackTrace();
-		} finally {
+		}finally {
 			resourceRelease();
 		}
 		return courseVO;

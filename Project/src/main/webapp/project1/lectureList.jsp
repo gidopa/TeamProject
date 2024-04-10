@@ -1,3 +1,6 @@
+<%@page import="ch.qos.logback.core.recovery.ResilientSyslogOutputStream"%>
+<%@page import="VO.LectureVO"%>
+<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
@@ -108,15 +111,20 @@
     	
 </div>     
            <br><br>
-           
-          <div class="form-group text-center">
-          <form action="${contextPath}/Lecture/addmore?courseId=${list.courseId}">
-				 <button type="submit">강의 추가 등록</button>
-				</form>
-				   <form action="${contextPath}/Course/main">
-          		 <button type="button">강의 등록 완료</button>
-          		  </form>
-		 </div>		
+<%--            <% --%>
+//            	List<LectureVO> lectureList = (List<LectureVO>)request.getAttribute("list");
+//             LectureVO vo = lectureList.get(0);
+// 			System.out.println("lectureList.get0 ? " + vo.getCourseId());
+//             int courseId =  vo.getCourseId();
+<%--            %> --%>
+<!--           <div class="form-group text-center"> -->
+<%--           <form action="${contextPath}/Lecture/addmore?courseId="<%=courseId%>"> --%>
+<!-- 				 <button type="submit">강의 추가 등록</button> -->
+<!-- 				</form> -->
+<%-- 				   <form action="${contextPath}/Course/main"> --%>
+<!--           		 <button type="button">강의 등록 완료</button> -->
+<!--           		  </form> -->
+<!-- 		 </div>		 -->
 
 </body>
 </html>
