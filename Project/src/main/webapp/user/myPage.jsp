@@ -327,12 +327,19 @@
                 회원정보 수정하기
               </a>
             </li>
+             <li class="nav-item">
+              <a class="nav-link d-flex align-items-center gap-2" href="<%=contextPath%>/Lecture/list">
+                <svg class="bi"><use xlink:href="#door-closed"/></svg>
+                강의 수정
+              </a>
+            </li>
             <li class="nav-item">
               <a class="nav-link d-flex align-items-center gap-2" href="<%=contextPath%>/users/logout.me">
                 <svg class="bi"><use xlink:href="#door-closed"/></svg>
                 로그아웃
               </a>
             </li>
+           
             <!-- 회원탈퇴하기 구현중 -->
             <li class="nav-item">
               <a class="nav-link d-flex align-items-center gap-2" href="<%=contextPath%>/user/delUser.jsp">

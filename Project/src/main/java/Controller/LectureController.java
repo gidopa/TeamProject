@@ -14,6 +14,7 @@ import javax.servlet.http.HttpSession;
 
 import DAO.LectureDAO;
 import Service.LectureService;
+import VO.CourseVO;
 import VO.LectureVO;
 import lombok.extern.slf4j.Slf4j;
 
@@ -84,7 +85,7 @@ public class LectureController extends HttpServlet {
 			ArrayList<LectureVO> list = (ArrayList<LectureVO>)lectureService.registration(request);
 			request.setAttribute("center", "lectureList.jsp");
 			request.setAttribute("list", list);
-			// 여기서부터 3줄 4.11 15:54분에 삽입 
+			// 여기서부터 3줄 4.11 15:54분에 삽
 			request.setAttribute("courseTitle", request.getParameter("courseTitle"));
 			request.setAttribute("courseCategory", request.getParameter("courseCategory"));
 			request.setAttribute("courseId", list.get(0).getCourseId());
@@ -110,6 +111,9 @@ public class LectureController extends HttpServlet {
 			request.setAttribute("courseCategory",request.getParameter("courseCategory"));
 			request.setAttribute("center", "addLectureRegistration.jsp");
 	        nextPage=main;
+		}else if(action.equals("/list")){
+			String id = (String)session.getAttribute("id");
+			List<CourseVO> courseList = lectureService.getCoursesList(id); // 여기
 		}else { // lectureList.jsp를 확인해볼 수 있는 페이지가 필요함 지금은 강의등록완료후에 확인하는 거 말곤 방법이 없음
 			throw new IllegalArgumentException("LectureController doHandle .Unexpected value: " + action);
 		}

@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 
 import DAO.CourseDAO;
 import DAO.LectureDAO;
+import VO.CourseVO;
 import VO.LectureVO;
 import api.YoutubeAPI;
 import lombok.extern.java.Log;
@@ -73,6 +74,10 @@ public class LectureService {
 		public void deleteLecture(HttpServletRequest request) {
 			int lectureId = Integer.parseInt(request.getParameter("lectureId"));
 			lectureDAO.deleteLecture(lectureId);
+		}
+		public List<CourseVO> getCoursesList(String id) {
+			CourseDAO courseDAO = new CourseDAO();
+			return courseDAO.getCourseListById(); // 여기부터
 		}
 
 	
