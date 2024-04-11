@@ -86,7 +86,7 @@ request.setCharacterEncoding("UTF-8");
 		<table class="lecture-table">
 			<br>
 			<br>
-			<h1 align="center">${courseTitle}</h1>
+<%-- 			<h1 align="center">${courseTitle}</h1> --%>
 	<br>
 			<thead>
 				<tr>

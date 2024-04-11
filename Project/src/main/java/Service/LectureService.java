@@ -27,7 +27,7 @@ public class LectureService {
 	public List<LectureVO> getLecturesInfo(int courseId) {
 		List<LectureVO> lectureList = new ArrayList<>();
 		lectureList = lectureDAO.getLecturesInfo(courseId); 
-		return lectureList;
+		return lectureList; 
 	}
 
 	public String getVideoLink(int courseId, int lectureId) { //video링크에 대한 추가 작업이 필요해 getLectureInfo에서 말고 따로 받아옴 
@@ -74,10 +74,10 @@ public class LectureService {
 		public void deleteLecture(HttpServletRequest request) {
 			int lectureId = Integer.parseInt(request.getParameter("lectureId"));
 			lectureDAO.deleteLecture(lectureId);
-		}
+		} 
 		public List<CourseVO> getCoursesList(String id) {
 			CourseDAO courseDAO = new CourseDAO();
-			return courseDAO.getCourseListById(); // 여기부터
+			return courseDAO.getCourseListById(id); // 여기부터
 		}
 
 	

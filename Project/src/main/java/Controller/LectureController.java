@@ -114,6 +114,14 @@ public class LectureController extends HttpServlet {
 		}else if(action.equals("/list")){
 			String id = (String)session.getAttribute("id");
 			List<CourseVO> courseList = lectureService.getCoursesList(id); // 여기
+			request.setAttribute("courseList", courseList);
+			request.setAttribute("center", "modLecture.jsp");
+			nextPage="/project1/modLecture.jsp";
+		}else if(action.equals("/myList")){
+			int courseId = Integer.parseInt(request.getParameter("courseId")) ;
+		    List<LectureVO> list = lectureService.getLecturesInfo(courseId);
+		    request.setAttribute("list", list);
+		    nextPage = "/project1/lectureList.jsp";
 		}else { // lectureList.jsp를 확인해볼 수 있는 페이지가 필요함 지금은 강의등록완료후에 확인하는 거 말곤 방법이 없음
 			throw new IllegalArgumentException("LectureController doHandle .Unexpected value: " + action);
 		}

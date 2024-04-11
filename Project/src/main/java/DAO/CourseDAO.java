@@ -183,4 +183,29 @@ public class CourseDAO {
 		return courseVO;
 	}
 
+	public List<CourseVO> getCourseListById(String id) {
+		List<CourseVO> list = new ArrayList<CourseVO>();
+		CourseVO vo = null;
+		try {
+		con = dataSource.getConnection();
+		String sql = "select * from courses where user_id = ?";
+		pstmt = con.prepareStatement(sql);
+		pstmt.setString(1, id);
+		rs = pstmt.executeQuery();
+		while(rs.next()) {
+			vo=new CourseVO();
+			vo.setCourseId(rs.getInt("course_id"));
+			vo.setCourseTitle(rs.getString("course_title"));
+			
+			list.add(vo);
+		}
+		}catch (Exception e) {
+			log.debug("getCourseListById error : {}", e);
+		}finally {
+			resourceRelease();
+		}
+		
+		return list;
+	}
+
 }
