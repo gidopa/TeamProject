@@ -7,6 +7,7 @@
 
 <%
 request.setCharacterEncoding("UTF-8");
+
 %>
 
 <!DOCTYPE html>
@@ -38,7 +39,7 @@ request.setCharacterEncoding("UTF-8");
 	}	
 	.header-right .header-utils > ul > li:hover > ul {
 		width: 100px;
-		height: 60px;
+		height: auto;
 		text-align: center;
 		background-color: white;
 		display: block;
@@ -131,6 +132,8 @@ request.setCharacterEncoding("UTF-8");
 								<ul class="header-loginreg">
 									<li><a href="<%=contextPath%>/users/logout.me">로그아웃</a></li>
 									<li><a href="<%=contextPath%>/user/modUser.jsp">회원정보수정</a></li>
+									<!-- 새로 추가함 -->
+									<li><a href="<%=contextPath%>/user/myPage.jsp">마이페이지</a></li>
 								</ul></li>
 						</ul>
 						<%
@@ -141,7 +144,7 @@ request.setCharacterEncoding("UTF-8");
 				</div>
 				<div class="header-search-form">
 					<div class="inputset inputset-line">
-					<form action="<%=contextPath%>/Courses/search" method="post">
+					<form action="<%=contextPath%>/Courses/search.me" method="post">
 						<button class="icon-right icon-search btn" type="submit"
 							aria-label="아이콘"></button>
 						<input type="text" class="inputset-input form-control"

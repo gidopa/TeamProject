@@ -49,7 +49,7 @@ public class LectureService {
 				int courseId =  Integer.parseInt(request.getParameter("courseId"));
 				int lectureNumber = Integer.parseInt(request.getParameter("lectureNumber"));
 				String lectureTitle = request.getParameter("lectureTitle");
-				String lectureSummary = request.getParameter("lectureSummary");
+				String lectureSummary = request.getParameter("lectureSummary"); 
 				String videoLink = request.getParameter("videoLink");
 				String imgpath = request.getParameter("imgpath");
 				YoutubeAPI youtube = new YoutubeAPI(videoLink);

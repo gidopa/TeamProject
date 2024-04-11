@@ -82,14 +82,12 @@ request.setCharacterEncoding("UTF-8");
 	<br>
 	<br>
 	<br>
-	<br>
-	<br>
-
 	<div class="lecture-container">
 		<table class="lecture-table">
 			<br>
 			<br>
-			<h1>${courseTitle}</h1>
+			<h1 align="center">${courseTitle}</h1>
+	<br>
 			<thead>
 				<tr>
 					<th>강의 순서</th>
@@ -131,25 +129,32 @@ request.setCharacterEncoding("UTF-8");
 	</div>
 	<br>
 	<br>
-<%-- 	<% --%>
-<!-- // 	List<LectureVO> lectureList = (List<LectureVO>) request.getAttribute("list"); -->
-<!-- // 	LectureVO vo = lectureList.get(0); -->
-<!-- // 	System.out.println("lectureList.get0 ? " + vo.getCourseId()); -->
-<!-- // 	int courseId = vo.getCourseId(); -->
-<%-- 	%> --%>
-<!-- 	<div class="form-group text-center"> -->
-<!-- 		--> -->
-<%-- 		<form action="${contextPath}/Lecture/addmore?courseId="<%=courseId%>"> --%>
-<!-- 			<button type="submit">강의 추가 등록</button> -->
-<!-- 			--> -->
-<!-- 		</form> -->
-<!-- 		--> -->
-<%-- 		<form action="${contextPath}/Course/main"> --%>
-<!-- 			<button type="button">강의 등록 완료</button> -->
-<!-- 			--> -->
-<!-- 		</form> -->
-<!-- 		--> -->
-<!-- 	</div> -->
+<form action="${contextPath}/Lecture/addRegistraion">
+ 		<input type="hidden" name="courseId" value="${courseId}">
+        <input type="hidden" name="courseTitle" value="${courseTitle}">
+        <input type="hidden" name="courseCategory" value="${courseCategory}">
+ <div class="form-group text-center">
+				 <button type="submit">강의 추가 등록</button>
+          		 <button id="myButton" type="button">강의 등록 완료>메인페이지로 이동</button>
+		 </div>		
 
+</form>  	  
+			
+			
+		<script type="text/javascript">
+		
+	    
+		
+			 function moveToNextPage() {
+		           
+		            var nextPageUrl = "<%=request.getContextPath()%>/Courses/main"; 
+		  
+		            window.location.href = nextPageUrl;
+		        }
+			
+			 document.getElementById("myButton").onclick = moveToNextPage;
+			 
+		</script>	
+			
 </body>
 </html>

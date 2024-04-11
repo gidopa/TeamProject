@@ -96,7 +96,7 @@ input {
         	
         	    		//입력한 비밀번호와 기존 비밀번호가 일치하는지 확인
         	    		$.ajax({  
-        	    			url : "http://localhost:8083/Project/project1/users/modPwdCheck.me", //요청할 주소
+        	    			url : "http://localhost:8081/Project/users/modPwdCheck.me", //요청할 주소
         	    			type : "post",  //전송요청방식 설정! get 또는 post 둘중 하나를 작성
         	    			async : true,  //true는 비동기방식 , false는 동기방식 으로 서버페이지 요청!
         	    			data : {id : $("#id").val(),

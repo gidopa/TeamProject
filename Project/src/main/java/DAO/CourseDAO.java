@@ -163,7 +163,7 @@ public class CourseDAO {
 			pstmt.setString(5,courseDescription);
 			pstmt.setString(6,imgPath);
 				pstmt.executeUpdate();
-		    sql = "select course_id from courses where user_id=? and course_title=?";
+		    sql = "select * from courses where user_id=? and course_title=?";
 		    pstmt = con.prepareStatement(sql);
 		    pstmt.setString(1, userId);
 		    pstmt.setString(2, courseTitle);
@@ -171,7 +171,8 @@ public class CourseDAO {
 			if(rs.next()) {
 				courseVO = new CourseVO();
 				courseVO.setCourseId(rs.getInt("course_id"));
-				courseVO.setCourseTitle(courseTitle);
+				courseVO.setCourseCategory(rs.getString("course_category"));
+				courseVO.setCourseTitle(rs.getString("course_title")); 
 			}
 		}catch (Exception e) {
 			log.error("CourseDAO의 registration error : {}",e);

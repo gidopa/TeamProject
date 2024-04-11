@@ -84,6 +84,10 @@ public class LectureController extends HttpServlet {
 			ArrayList<LectureVO> list = (ArrayList<LectureVO>)lectureService.registration(request);
 			request.setAttribute("center", "lectureList.jsp");
 			request.setAttribute("list", list);
+			// 여기서부터 3줄 4.11 15:54분에 삽입 
+			request.setAttribute("courseTitle", request.getParameter("courseTitle"));
+			request.setAttribute("courseCategory", request.getParameter("courseCategory"));
+			request.setAttribute("courseId", list.get(0).getCourseId());
 			nextPage=main;
 		}else if(action.equals("/modify")){
 			int lectureId = Integer.parseInt(request.getParameter("lectureId")) ;
@@ -100,6 +104,12 @@ public class LectureController extends HttpServlet {
 			lectureService.deleteLecture(request);
 			request.setAttribute("center", "lectureList.jsp");
 			nextPage=main;
+		}else if(action.equals("/addRegistraion")){
+			request.setAttribute("courseId", Integer.parseInt(request.getParameter("courseId")));
+			request.setAttribute("courseTitle",request.getParameter("courseTitle"));
+			request.setAttribute("courseCategory",request.getParameter("courseCategory"));
+			request.setAttribute("center", "addLectureRegistration.jsp");
+	        nextPage=main;
 		}else { // lectureList.jsp를 확인해볼 수 있는 페이지가 필요함 지금은 강의등록완료후에 확인하는 거 말곤 방법이 없음
 			throw new IllegalArgumentException("LectureController doHandle .Unexpected value: " + action);
 		}
