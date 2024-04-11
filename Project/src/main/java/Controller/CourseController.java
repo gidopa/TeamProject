@@ -14,6 +14,7 @@ import javax.servlet.http.HttpSession;
 
 import DAO.CourseDAO;
 import Service.CourseService;
+import Service.LectureService;
 import VO.CourseVO;
 import VO.LectureVO;
 import lombok.extern.slf4j.Slf4j;
@@ -75,9 +76,24 @@ public class CourseController extends HttpServlet {
 			request.setAttribute("list", list);
 			request.setAttribute("center", "SelectCourse.jsp");
 			nextPage=main;
-		}else if(action.equals("/lectures")) {
-			
-		
+		}else if(action.equals("/myPage")) {
+			String id = (String)session.getAttribute("id");
+			System.out.println("현재 id" + id);
+			LectureService lectureService = new LectureService();
+//			String id = "user01";
+			List<CourseVO> purchasedList = new ArrayList<>(); 
+			// 회원이 구매한 강의를 받아올 메소드
+			purchasedList = courseService.getCoursePurchased(id);
+			// 회원이 구매한 강의의 강사 명을 select 해옴
+			String name = courseService.getInstructorNameById(id);
+			List<CourseVO> registeredList = new ArrayList<CourseVO>();
+			// 회원이 등록한 강좌 리스트를 받아옴
+			registeredList = lectureService.getCoursesListById(id);
+			System.out.println(purchasedList.toString());
+			request.setAttribute("purchasedList", purchasedList);
+			request.setAttribute("registeredList", registeredList);
+			request.setAttribute("name", name);
+			nextPage = "/user/myPage.jsp";
 		}else if(action.equals("/enroll")) {//강의등록하는 메뉴 클릭시 보여줄 화면
 			request.setAttribute("center", "courseRegistration.jsp");
 			nextPage=main;

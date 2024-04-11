@@ -61,5 +61,10 @@ public class CourseService {
 	}
 
 
+	public String getInstructorNameById(String id) {
+		return courseDAO.getInstructorNameById(id);
+	}
+
+
 	
 }

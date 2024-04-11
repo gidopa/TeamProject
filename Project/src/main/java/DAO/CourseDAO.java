@@ -139,73 +139,92 @@ public class CourseDAO {
 		}
 		return list;
 	}
+
 // 강의 등록하면서 입력한 내용들로 DB에 insert
 	public CourseVO registration(String userId, int coursePrice, String courseCategory, String courseTitle,
 			String courseDescription, String imgPath) {
-		String sql; 
+		String sql;
 		try {
 			con = dataSource.getConnection();
-			sql="insert into courses(course_id,"
-			 			+ "user_id,"
-						+ "COURSE_PRICE,"
-						+ "COURSE_CATEGORY,"
-						+ "COURSE_TITLE," 
-						+ "COURSE_DESCRIPTION,"
-						+ "IMG_PATH,"
-						+ "REGISTRATION_DATE,"
-						+ "ENROLLMENT_COUNT)"
-						+ " values(Courses_course_id.nextVal,?,?,?,?,?,?,sysdate,0)";
+			sql = "insert into courses(course_id," + "user_id," + "COURSE_PRICE," + "COURSE_CATEGORY," + "COURSE_TITLE,"
+					+ "COURSE_DESCRIPTION," + "IMG_PATH," + "REGISTRATION_DATE," + "ENROLLMENT_COUNT)"
+					+ " values(Courses_course_id.nextVal,?,?,?,?,?,?,sysdate,0)";
 			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1 ,userId);
-			pstmt.setInt(2,coursePrice);
-			pstmt.setString(3,courseCategory);
-			pstmt.setString(4,courseTitle);
-			pstmt.setString(5,courseDescription);
-			pstmt.setString(6,imgPath);
-				pstmt.executeUpdate();
-		    sql = "select * from courses where user_id=? and course_title=?";
-		    pstmt = con.prepareStatement(sql);
-		    pstmt.setString(1, userId);
-		    pstmt.setString(2, courseTitle);
-		    	rs = pstmt.executeQuery();
-			if(rs.next()) {
+			pstmt.setString(1, userId);
+			pstmt.setInt(2, coursePrice);
+			pstmt.setString(3, courseCategory);
+			pstmt.setString(4, courseTitle);
+			pstmt.setString(5, courseDescription);
+			pstmt.setString(6, imgPath);
+			pstmt.executeUpdate();
+			sql = "select * from courses where user_id=? and course_title=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, userId);
+			pstmt.setString(2, courseTitle);
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
 				courseVO = new CourseVO();
 				courseVO.setCourseId(rs.getInt("course_id"));
 				courseVO.setCourseCategory(rs.getString("course_category"));
-				courseVO.setCourseTitle(rs.getString("course_title")); 
+				courseVO.setCourseTitle(rs.getString("course_title"));
 			}
-		}catch (Exception e) {
-			log.error("CourseDAO의 registration error : {}",e);
+		} catch (Exception e) {
+			log.error("CourseDAO의 registration error : {}", e);
 			e.printStackTrace();
-		}finally {
+		} finally {
 			resourceRelease();
 		}
 		return courseVO;
 	}
+
 // 로그인한 id로 어떤 course를 등록했는지 조회
 	public List<CourseVO> getCourseListById(String id) {
 		List<CourseVO> list = new ArrayList<CourseVO>();
 		CourseVO vo = null;
 		try {
-		con = dataSource.getConnection();
-		String sql = "select * from courses where user_id = ?";
-		pstmt = con.prepareStatement(sql);
-		pstmt.setString(1, id);
-		rs = pstmt.executeQuery();
-		while(rs.next()) {
-			vo=new CourseVO();
-			vo.setCourseId(rs.getInt("course_id"));
-			vo.setCourseTitle(rs.getString("course_title"));
-			
-			list.add(vo);
-		}
-		}catch (Exception e) {
+			con = dataSource.getConnection();
+			String sql = "select * from courses where user_id = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, id);
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				vo = new CourseVO();
+				vo.setCourseCategory(rs.getString("course_category"));
+				vo.setCourseId(rs.getInt("course_id"));
+				vo.setCourseTitle(rs.getString("course_title"));
+				vo.setEnrollCount(rs.getInt("enrollment_count"));
+				list.add(vo);
+			}
+		} catch (Exception e) {
 			log.debug("getCourseListById error : {}", e);
-		}finally {
+		} finally {
 			resourceRelease();
 		}
-		
+
 		return list;
 	}
 
+	public String getInstructorNameById(String id) {
+		String name = null;
+		try {
+			con = dataSource.getConnection();
+			String sql = "SELECT U.user_name "
+					+ "FROM Enrollments E "
+					+ "JOIN Courses C ON E.course_id = C.course_id "
+					+ "JOIN Users U ON C.user_id = U.user_id "
+					+ "WHERE E.student_id = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, id);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				name = rs.getString("user_name");
+			}
+		} catch (Exception e) {
+			log.error("getNameById error : {}", e);
+		} finally {
+			resourceRelease();
+		}
+
+		return name;
+	}
 }

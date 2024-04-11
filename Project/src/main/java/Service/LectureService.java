@@ -76,7 +76,8 @@ public class LectureService {
 			int lectureId = Integer.parseInt(request.getParameter("lectureId"));
 			lectureDAO.deleteLecture(lectureId);
 		} 
-		public List<CourseVO> getCoursesList(String id) {
+		// user_id가 id 인 회원이 등록한 강의를 조회 
+		public List<CourseVO> getCoursesListById(String id) {
 			CourseDAO courseDAO = new CourseDAO();
 			return courseDAO.getCourseListById(id); // 여기부터
 		}

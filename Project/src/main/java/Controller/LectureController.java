@@ -113,7 +113,7 @@ public class LectureController extends HttpServlet {
 	        nextPage=main;
 		}else if(action.equals("/list")){ // 로그인한 사람이 등록한 강좌들을 List에 받아옴
 			String id = (String)session.getAttribute("id");
-			List<CourseVO> courseList = lectureService.getCoursesList(id); // 여기
+			List<CourseVO> courseList = lectureService.getCoursesListById(id); // 여기
 			request.setAttribute("courseList", courseList);
 			request.setAttribute("center", "modLecture.jsp");
 			nextPage="/project1/modLecture.jsp";
