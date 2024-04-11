@@ -133,7 +133,7 @@ request.setCharacterEncoding("UTF-8");
 									<li><a href="<%=contextPath%>/users/logout.me">로그아웃</a></li>
 									<li><a href="<%=contextPath%>/user/modUser.jsp">회원정보수정</a></li>
 									<!-- 새로 추가함 -->
-									<li><a href="<%=contextPath%>/user/myPage.jsp">마이페이지</a></li>
+									<li><a href="<%=contextPath%>/Courses/myPage">마이페이지</a></li>
 								</ul></li>
 						</ul>
 						<%
