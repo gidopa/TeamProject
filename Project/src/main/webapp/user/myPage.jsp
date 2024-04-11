@@ -318,7 +318,7 @@
         <table class="table table-striped table-sm">
           <thead>
             <tr>
-              <th scope="col">번호</th>
+              <th scope="col">강의 식별 번호</th>
               <th scope="col">강의명</th>
               <th scope="col">강사명</th>
               <th scope="col">강의 카테고리</th>
@@ -345,7 +345,7 @@
         <table class="table table-striped table-sm">
           <thead>
             <tr>
-              <th scope="col">번호</th>
+              <th scope="col">강의 식별 번호</th>
               <th scope="col">강의명</th>
               <th scope="col">수강 중인 학생 수</th>
               <th scope="col">강의 카테고리</th>
