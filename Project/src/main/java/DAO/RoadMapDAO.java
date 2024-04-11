@@ -106,7 +106,7 @@ public class RoadMapDAO {
 				courseVO.setCoursePrice(rs.getInt("course_price"));
 				courseVO.setImgPath(rs.getString("img_path")); // courseVO 값 세팅
 				list.add(courseVO); // courseVO는 list에 담아 map에 바인딩
-				map.put("roadMapVO", roadMapVO); // roadMapVO는 두번 바인딩 되지만 같은 키 값에 put 되므로 덮어쓰기 된다.
+				map.put("roadMapVO", roadMapVO); // roadMapVO는 두번 바인딩 되지만 같은 키 값으로 put 되므로 덮어쓰기 된다.
 			}
 			map.put("courseVO", list);
 		}catch (Exception e) {

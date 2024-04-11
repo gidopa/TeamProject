@@ -90,34 +90,34 @@ public class LectureController extends HttpServlet {
 			request.setAttribute("courseCategory", request.getParameter("courseCategory"));
 			request.setAttribute("courseId", list.get(0).getCourseId());
 			nextPage=main;
-		}else if(action.equals("/modify")){
+		}else if(action.equals("/modify")){ // 강의 수정을 위해 정보 select 해옴
 			int lectureId = Integer.parseInt(request.getParameter("lectureId")) ;
 			LectureVO lecturevo = lectureService.getLectureInfo(lectureId);
 			request.setAttribute("lectureVO", lecturevo);
 			request.setAttribute("center", "LectureModify.jsp");
 			nextPage = main;
-		}else if(action.equals("/modifyPost")){
+		}else if(action.equals("/modifyPost")){ // 강의 수정 로직 실행 하는 부분
 			List<LectureVO> lectureList = lectureService.modifyLecture(request);
 			request.setAttribute("center", "lectureList.jsp");
 			request.setAttribute("list", lectureList);
 			nextPage=main;
-		}else if(action.equals("/delete")){
+		}else if(action.equals("/delete")){ // 강의 삭제
 			lectureService.deleteLecture(request);
 			request.setAttribute("center", "lectureList.jsp");
 			nextPage=main;
-		}else if(action.equals("/addRegistraion")){
+		}else if(action.equals("/addRegistraion")){ // 추가로 등록하는 부분
 			request.setAttribute("courseId", Integer.parseInt(request.getParameter("courseId")));
 			request.setAttribute("courseTitle",request.getParameter("courseTitle"));
 			request.setAttribute("courseCategory",request.getParameter("courseCategory"));
 			request.setAttribute("center", "addLectureRegistration.jsp");
 	        nextPage=main;
-		}else if(action.equals("/list")){
+		}else if(action.equals("/list")){ // 로그인한 사람이 등록한 강좌들을 List에 받아옴
 			String id = (String)session.getAttribute("id");
 			List<CourseVO> courseList = lectureService.getCoursesList(id); // 여기
 			request.setAttribute("courseList", courseList);
 			request.setAttribute("center", "modLecture.jsp");
 			nextPage="/project1/modLecture.jsp";
-		}else if(action.equals("/myList")){
+		}else if(action.equals("/myList")){ // ajax로 여기로 요청 보냄
 			int courseId = Integer.parseInt(request.getParameter("courseId")) ;
 		    List<LectureVO> list = lectureService.getLecturesInfo(courseId);
 		    request.setAttribute("list", list);

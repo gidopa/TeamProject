@@ -139,7 +139,7 @@ public class CourseDAO {
 		}
 		return list;
 	}
-
+// 강의 등록하면서 입력한 내용들로 DB에 insert
 	public CourseVO registration(String userId, int coursePrice, String courseCategory, String courseTitle,
 			String courseDescription, String imgPath) {
 		String sql; 
@@ -182,7 +182,7 @@ public class CourseDAO {
 		}
 		return courseVO;
 	}
-
+// 로그인한 id로 어떤 course를 등록했는지 조회
 	public List<CourseVO> getCourseListById(String id) {
 		List<CourseVO> list = new ArrayList<CourseVO>();
 		CourseVO vo = null;

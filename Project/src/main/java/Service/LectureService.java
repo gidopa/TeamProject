@@ -61,6 +61,7 @@ public class LectureService {
 			
 			return lectureDAO.registration(courseId,lectureNumber,duration,lectureTitle,lectureSummary,videoLink,imgpath);
 		}
+		// 강의 수정 하는 로직 
 		public List<LectureVO> modifyLecture(HttpServletRequest request) {
 			int courseId = Integer.parseInt(request.getParameter("courseId"));
 			int lectureId = Integer.parseInt(request.getParameter("lectureId")) ;

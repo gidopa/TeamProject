@@ -175,12 +175,13 @@ public class LectureDAO {
 		}
 	return lectureList;
 }
-
+	// 강의 수정하는 로직 
 	public List<LectureVO> modifyLecture(int lectureId, int lectureNumber, String lectureTitle, String lectureSummary,
 			String imgPath, String videoLink, int courseId) {
 		int res = 0;
 		List<LectureVO> lectureList = new ArrayList<LectureVO>();	
 		try {
+			//강의 DB에 update하고
 			con = dataSource.getConnection();
 			String sql="update lectures set lecture_number = ? , lecture_title = ?, lecture_Summary = ?, img_path=?, video_link=?"
 					+ " where lecture_id = ?";
@@ -192,7 +193,7 @@ public class LectureDAO {
 			pstmt.setString(5, videoLink);
 			pstmt.setInt(6, lectureId);
 			pstmt.executeUpdate();
-			
+			// 수정된 정보를 다시 뿌려주기 위해 강의 정보 전체 가져옴
 			 sql = "select * from lectures where course_id=?";
 			    pstmt = con.prepareStatement(sql);
 			    pstmt.setInt(1, courseId);
@@ -218,7 +219,7 @@ public class LectureDAO {
 		}
 		return lectureList;
 	}
-
+// DB에서 강의 정보 삭제
 	public void deleteLecture(int lectureId) {
 		try {
 		con = dataSource.getConnection();

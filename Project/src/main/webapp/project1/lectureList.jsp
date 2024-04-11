@@ -19,63 +19,63 @@ request.setCharacterEncoding("UTF-8");
 <title>강의 목록</title>
 <style>
 /* 스타일링 */
-.lecture-container {
-	margin: 0 auto;
-	width: 80%;
-}
-
-.lecture-table {
-	width: 100%;
-	border-collapse: collapse;
-}
-
-.lecture-table th, .lecture-table td {
-	border: 1px solid black;
-	padding: 8px;
-	text-align: center;
-}
-
-.lecture-table th {
-	background-color: lightgreen;
-	font-weight: bold;
-}
-
-.lecture-table tr:nth-child(even) {
-	background-color: #f2f2f2;
-}
-
-.lecture-table tr:hover {
-	background-color: #ddd;
-}
-
-.form-group button {
-	padding: 8px 20px; /* 버튼 내부 여백 설정 */
-	background-color: #007bff; /* 배경색 */
-	color: #fff; /* 텍스트 색상 */
-	border: none; /* 테두리 없음 */
-	border-radius: 3px; /* 테두리 둥글게 처리 */
-	cursor: pointer; /* 마우스 오버 시 커서 모양 */
-	outline: none; /* 클릭 시 포커스 효과 제거 */
-	transition: background-color 0.3s, color 0.3s; /* 변화에 부드러운 효과 적용 */
-}
-
-.form-group button[type="button"] {
-	background-color: #dc3545; /* 리셋 버튼의 배경색 */
-}
-
-.form-group button[type="submit"]:hover, .form-group button[type="button"]:hover
-	{
-	opacity: 0.8; /* 마우스 호버 시 투명도 조정 */
-}
-
-.form-group.text-center {
-	text-align: center; /* 텍스트 가운데 정렬 */
-}
-
-.form-group.text-center button {
-	display: inline-block; /* 인라인 블록 요소로 변경 */
-	margin: 0 auto; /* 가운데 정렬 */
-}
+ body {
+        font-family: 'Arial', sans-serif;
+        background-color: #f8f9fa;
+        padding-top: 20px;
+    }
+    .lecture-container {
+        margin: auto;
+        width: 90%;
+        background: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    .lecture-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+    .lecture-table th, .lecture-table td {
+        border: 1px solid #dee2e6;
+        padding: 12px;
+        text-align: center;
+        color: #495057;
+    }
+    .lecture-table th {
+        background-color: #007bff;
+        color: #ffffff;
+        font-weight: bold;
+    }
+    .lecture-table tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+    .lecture-table tr:hover {
+        background-color: #ddd;
+    }
+    .form-group button {
+        padding: 10px 20px;
+        background-color: #28a745;
+        color: #fff;
+        border-radius: 5px;
+        border: none;
+        cursor: pointer;
+        transition: background-color 0.3s, transform 0.3s;
+    }
+    .form-group button[type="button"] {
+        background-color: #dc3545;
+    }
+    .form-group button:hover {
+        background-color: #218838;
+        transform: scale(1.05);
+    }
+    .form-group button[type="button"]:hover {
+        background-color: #c82333;
+    }
+    .form-group.text-center {
+        margin-top: 20px;
+    }
 </style>
 </head>
 <body>

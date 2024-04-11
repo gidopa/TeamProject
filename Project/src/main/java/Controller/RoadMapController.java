@@ -54,6 +54,7 @@ public class RoadMapController extends HttpServlet {
 		String action = request.getPathInfo();
 		log.debug("action = {}", action);
 		switch (action) {
+		// 로드맵 조회
 		case "/":
 			List<RoadMapVO> list = new ArrayList<RoadMapVO>();
 			list = roadMapService.getRoadMapList();
@@ -61,6 +62,7 @@ public class RoadMapController extends HttpServlet {
 			request.setAttribute("center", "RoadMapList.jsp");
 			nextPage = main;
 			break;
+			// 특정 로드맵 클릭했을때 로드맵 세부 내용을 조회
 		case "/detail":
 			int roadMapId = Integer.parseInt(request.getParameter("roadMapId")) ;
 			RoadMapVO roadMapVO = new RoadMapVO();

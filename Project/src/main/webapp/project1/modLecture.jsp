@@ -368,7 +368,7 @@
         </div> -->
       </div>
 
-
+<!-- ajax로 lectureList.jsp를 통째로 뿌려줘서 강의 조회 및 수정/삭제 모두 가능하도록 구현 -->
 <script>
 $(document).ready(function() {
     $('#courseDropdown').change(function() {
@@ -376,8 +376,8 @@ $(document).ready(function() {
         $.ajax({
             url: 'myList', // 서블릿 URL
             type: 'GET',
-            data: {courseId: selectedCourse},
-            dataType: 'html',
+            data: {courseId: selectedCourse}, // 드롭 다운 메뉴로 선택한 courseId를 기반으로 select 
+            dataType: 'html', //lectureList.jsp의 html을 통째로 떄려박을거라 dataType은 html
             success: function(response) {
                 $('#lectureContent').html(response);
             },error: function(xhr, status, error) {
