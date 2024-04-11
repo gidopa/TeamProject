@@ -210,84 +210,12 @@ CREATE TABLE lectures (
 
 
 
-
-
-INSERT INTO Users (user_id, user_name, email, password, phone_number, address, instruct_course) VALUES ('user01', 'John Doe', 'johndoe@example.com', 'password123', '010-1234-5678', '123 John Street, Seoul', 'backend');
-INSERT INTO Users (user_id, user_name, email, password, phone_number, address, instruct_course) VALUES ('user02', 'Jane Smith', 'janesmith@example.com', 'password123', '010-2345-6789', '234 Jane Road, Seoul', 'frontend');
-INSERT INTO Users (user_id, user_name, email, password, phone_number, address, instruct_course) VALUES ('user03', 'Mike Brown', 'mikebrown@example.com', 'password123', '010-3456-7890', '345 Mike Ave, Seoul', 'ai');
-INSERT INTO Users (user_id, user_name, email, password, phone_number, address, instruct_course) VALUES ('user04', 'Sarah Connor', 'sarahconnor@example.com', 'password123', '010-4567-8901', '456 Sarah Blvd, Seoul', 'backend');
-INSERT INTO Users (user_id, user_name, email, password, phone_number, address, instruct_course) VALUES ('user05', 'James Lee', 'jameslee@example.com', 'password123', '010-5678-9012', '567 James Lane, Seoul', 'frontend');
-INSERT INTO Users (user_id, user_name, email, password, phone_number, address, instruct_course) VALUES ('user06', 'Emily Park', 'emilypark@example.com', 'password123', '010-6789-0123', '678 Emily Path, Seoul', 'ai');
-
-INSERT INTO Courses (course_id, course_title, course_description, course_category, user_id, course_price, registration_date, enrollment_count, img_path) VALUES (1, 'Backend Development Basics', 'Learn the basics of server-side development.', 'backend', 'user01', 100, TO_DATE('2024-04-01', 'YYYY-MM-DD'), 0, 'img/backend_basics.jpg');
-INSERT INTO Courses (course_id, course_title, course_description, course_category, user_id, course_price, registration_date, enrollment_count, img_path) VALUES (2, 'Frontend for Beginners', 'An introduction to frontend technologies.', 'frontend', 'user02', 100, TO_DATE('2024-04-02', 'YYYY-MM-DD'), 0, 'img/frontend_beginners.jpg');
-INSERT INTO Courses (course_id, course_title, course_description, course_category, user_id, course_price, registration_date, enrollment_count, img_path) VALUES (3, 'AI for Everyone', 'Understanding AI without heavy math.', 'ai', 'user03', 150, TO_DATE('2024-04-03', 'YYYY-MM-DD'), 0, 'img/ai_everyone.jpg');
-INSERT INTO Courses (course_id, course_title, course_description, course_category, user_id, course_price, registration_date, enrollment_count, img_path) VALUES (4, 'Advanced Backend Techniques', 'Dive deeper into backend development.', 'backend', 'user04', 200, TO_DATE('2024-04-04', 'YYYY-MM-DD'), 0, 'img/backend_advanced.jpg');
-INSERT INTO Courses (course_id, course_title, course_description, course_category, user_id, course_price, registration_date, enrollment_count, img_path) VALUES (5, 'Interactive Frontend Development', 'Creating interactive web applications.', 'frontend', 'user05', 150, TO_DATE('2024-04-05', 'YYYY-MM-DD'), 0, 'img/frontend_interactive.jpg');
-INSERT INTO Courses (course_id, course_title, course_description, course_category, user_id, course_price, registration_date, enrollment_count, img_path) VALUES (6, 'Machine Learning Basics', 'Introduction to machine learning concepts.', 'ai', 'user06', 200, TO_DATE('2024-04-06', 'YYYY-MM-DD'), 0, 'img/ml_basics.jpg');
-
 INSERT INTO Categories (course_category) VALUES ('backend');
 INSERT INTO Categories (course_category) VALUES ('frontend');
 INSERT INTO Categories (course_category) VALUES ('ai');
 
-INSERT INTO lectures (lecture_id, course_id, lecture_number, lecture_title, lecture_summary, video_link, duration) VALUES (1, 1, 1, 'Introduction to Backend', 'Overview of backend technologies.', 'https://www.youtube.com/watch?v=example1', 30);
-INSERT INTO lectures (lecture_id, course_id, lecture_number, lecture_title, lecture_summary, video_link, duration) VALUES (2, 1, 2, 'Setting Up Your Environment', 'How to set up development environment for backend.', 'https://www.youtube.com/watch?v=example2', 45);
-
--- 강의 2에 대한 모듈들
-INSERT INTO lecturees (lecture_id, course_id, lecture_number, lecture_title, lecture_summary, video_link, duration) VALUES (3, 2, 1, 'Introduction to Frontend', 'Overview of frontend development.', 'https://www.youtube.com/watch?v=example3', 30);
-INSERT INTO lectures (lecture_id, course_id, lecture_number, lecture_title, lecture_summary, video_link, duration) VALUES (4, 2, 2, 'HTML Basics', 'Introduction to HTML.', 'https://www.youtube.com/watch?v=example4', 45);
-
--- 강의 3에 대한 모듈들
-INSERT INTO lectures (lecture_id, lecture_id, lecture_number, lecture_title, lecture_summary, video_link, duration) VALUES (5, 3, 1, 'What is AI?', 'Understanding Artificial Intelligence basics.', 'https://www.youtube.com/watch?v=example5', 30);
-INSERT INTO lectures (lecture_id, lecture_id, lecture_number, lecture_title, lecture_summary, video_link, duration) VALUES (6, 3, 2, 'AI Applications', 'Exploring applications of AI in various fields.', 'https://www.youtube.com/watch?v=example6', 45);
-
-INSERT INTO Enrollments (enrollment_id, user_id, course_id, enrollment_date) VALUES (1, 'user01', 2, TO_DATE('2024-04-10', 'YYYY-MM-DD'));
-INSERT INTO Enrollments (enrollment_id, user_id, course_id, enrollment_date) VALUES (2, 'user02', 1, TO_DATE('2024-04-11', 'YYYY-MM-DD'));
-INSERT INTO Enrollments (enrollment_id, user_id, course_id, enrollment_date) VALUES (3, 'user03', 4, TO_DATE('2024-04-12', 'YYYY-MM-DD'));
-INSERT INTO Enrollments (enrollment_id, user_id, course_id, enrollment_date) VALUES (4, 'user04', 5, TO_DATE('2024-04-13', 'YYYY-MM-DD'));
-INSERT INTO Enrollments (enrollment_id, user_id, course_id, enrollment_date) VALUES (5, 'user05', 3, TO_DATE('2024-04-14', 'YYYY-MM-DD'));
-INSERT INTO Enrollments (enrollment_id, user_id, course_id, enrollment_date) VALUES (6, 'user06', 6, TO_DATE('2024-04-15', 'YYYY-MM-DD'));
-
-INSERT INTO Payments (payment_id, user_id, course_id, payment_date, payment_amount, payment_status, user_name, phone_number, email, course_title) VALUES (1, 'user01', 2, TO_DATE('2024-04-10', 'YYYY-MM-DD'), 100, 'Completed', 'John Doe', '010-1234-5678', 'johndoe@example.com', 'Frontend for Beginners');
-INSERT INTO Payments (payment_id, user_id, course_id, payment_date, payment_amount, payment_status, user_name, phone_number, email, course_title) VALUES (2, 'user02', 1, TO_DATE('2024-04-11', 'YYYY-MM-DD'), 100, 'Completed', 'Jane Smith', '010-2345-6789', 'janesmith@example.com', 'Backend Development Basics');
-INSERT INTO Payments (payment_id, user_id, course_id, payment_date, payment_amount, payment_status, user_name, phone_number, email, course_title) VALUES (3, 'user03', 3, TO_DATE('2024-04-12', 'YYYY-MM-DD'), 150, 'Completed', 'Mike Brown', '010-3456-7890', 'mikebrown@example.com', 'AI for Everyone');
-INSERT INTO Payments (payment_id, user_id, course_id, payment_date, payment_amount, payment_status, user_name, phone_number, email, course_title) VALUES (4, 'user04', 4, TO_DATE('2024-04-13', 'YYYY-MM-DD'), 200, 'Completed', 'Sarah Connor', '010-4567-8901', 'sarahconnor@example.com', 'Advanced Backend Techniques');
-INSERT INTO Payments (payment_id, user_id, course_id, payment_date, payment_amount, payment_status, user_name, phone_number, email, course_title) VALUES (5, 'user05', 5, TO_DATE('2024-04-14', 'YYYY-MM-DD'), 150, 'Completed', 'James Lee', '010-5678-9012', 'jameslee@example.com', 'Interactive Frontend Development');
-INSERT INTO Payments (payment_id, user_id, course_id, payment_date, payment_amount, payment_status, user_name, phone_number, email, course_title) VALUES (6, 'user06', 6, TO_DATE('2024-04-15', 'YYYY-MM-DD'), 200, 'Completed', 'Emily Park', '010-6789-0123', 'emilypark@example.com', 'Machine Learning Basics');
-
-
-
-
-INSERT INTO Delivery (delivery_id, payment_id, delivery_status) VALUES (1, 1, '배송 준비 중');
-INSERT INTO Delivery (delivery_id, payment_id, delivery_status) VALUES (2, 2, '배송 중');
-INSERT INTO Delivery (delivery_id, payment_id, delivery_status) VALUES (3, 3, '배송 완료');
-INSERT INTO Delivery (delivery_id, payment_id, delivery_status) VALUES (4, 4, '배송 준비 중');
-INSERT INTO Delivery (delivery_id, payment_id, delivery_status) VALUES (5, 5, '배송 중');
-INSERT INTO Delivery (delivery_id, payment_id, delivery_status) VALUES (6, 6, '배송 완료');
-INSERT INTO Reviews (review_id, user_id, course_id, review_content, review_score, review_date) VALUES (1, 'user01', 2, 'Great course for beginners!', 5, TO_DATE('2024-04-20', 'YYYY-MM-DD'));
-INSERT INTO Reviews (review_id, user_id, course_id, review_content, review_score, review_date) VALUES (2, 'user02', 1, 'Very informative and well structured.', 4, TO_DATE('2024-04-21', 'YYYY-MM-DD'));
-INSERT INTO Reviews (review_id, user_id, course_id, review_content, review_score, review_date) VALUES (3, 'user03', 4, 'Helpful for understanding advanced concepts.', 5, TO_DATE('2024-04-22', 'YYYY-MM-DD'));
-INSERT INTO Reviews (review_id, user_id, course_id, review_content, review_score, review_date) VALUES (4, 'user04', 5, 'Interactive and engaging content.', 4, TO_DATE('2024-04-23', 'YYYY-MM-DD'));
-INSERT INTO Reviews (review_id, user_id, course_id, review_content, review_score, review_date) VALUES (5, 'user05', 3, 'A good introduction to AI for non-experts.', 5, TO_DATE('2024-04-24', 'YYYY-MM-DD'));
-INSERT INTO Reviews (review_id, user_id, course_id, review_content, review_score, review_date) VALUES (6, 'user06', 6, 'Comprehensive and easy to follow.', 4, TO_DATE('2024-04-25', 'YYYY-MM-DD'));
-
-INSERT INTO Books (book_id, course_id, book_price, book_title) VALUES (1, 1, 20, 'Backend Development for Beginners');
-INSERT INTO Books (book_id, course_id, book_price, book_title) VALUES (2, 2, 25, 'Frontend Essentials with HTML and CSS');
-INSERT INTO Books (book_id, course_id, book_price, book_title) VALUES (3, 3, 30, 'AI for the Curious Minds');
-INSERT INTO Books (book_id, course_id, book_price, book_title) VALUES (4, 4, 20, 'Advanced Backend Strategies');
-INSERT INTO Books (book_id, course_id, book_price, book_title) VALUES (5, 5, 25, 'Creative Frontend Design Patterns');
-INSERT INTO Books (book_id, course_id, book_price, book_title) VALUES (6, 6, 30, 'Machine Learning from Scratch');
-
-
 ALTER TABLE lectures
 ADD (img_path VARCHAR2(255));
-
-update lectures set video_link = 'https://www.youtube.com/watch?v=G3Y9FXZdM8U' where lecture_id=1 and course_id=1;
-update lectures set video_link = 'https://www.youtube.com/watch?v=z1h1tUlqErM' where lecture_id=2 and course_id=1;
-select Courses_course_id.nextval from courses;
-select Courses_course_id.currval from courses;
-
-ALTER SEQUENCE Courses_course_id MINVALUE 1 START WITH 1 INCREMENT BY 1;
 
 -- 시퀀스 생성
 drop sequence courses_course_id
@@ -323,9 +251,6 @@ ALTER TABLE enrollments
 ADD CONSTRAINT fk_enrollment_roadmap FOREIGN KEY (roadmap_id)
 REFERENCES roadmap (roadmap_id);
 
-insert into roadmap (roadmap_id, roadmap_title, roadmap_description, img_path, user_id) 
-values (ROADMAP_ROADMAP_ID.nextval,'백엔드 완성', '백엔드 완성을 위한 로드맵', '/Project/project1/images/backend.png', 'user02');
-
 ALTER TABLE roadmap RENAME COLUMN img_path TO roadmap_img;
 update courses set roadmap_id = 1 where course_id=1;
 update courses set roadmap_id = 1 where course_id=4;
@@ -339,10 +264,7 @@ nocycle
 nocache
 noorder;
 
-delete from lectures;
-delete from courses;
 ALTER TABLE lectures MODIFY (duration VARCHAR2(100));
-DROP SEQUENCE lectures_lecture_id;
 create sequence lectures_lecture_id
 increment BY 1
 start with 1
@@ -352,18 +274,18 @@ nocycle
 nocache
 noorder;
 
+create table Teachers (
+    teacher_id varchar2(100) primary key,
+    teacher_name varchar2(100),
+    constraint fk_teachers foreign key(teacher_id) references users(user_id)
+    on delete cascade
+);
 
-update courses
-set img_path = 'java.png'
-where course_id = 1;
-update courses
-set img_path = 'BootAndJPA.png'
-where course_id = 4;
+alter table enrollments rename column user_id to student_id;
+commit;
+
 alter table users rename column instruct_course to interest;
 commit;
-commit;
-select * from roadmap inner join courses on roadmap.roadmap_id = courses.roadmap_id where roadmap.roadmap_id = 1;   
-select course_id from courses where user_id='user' and course_title='eeeee';
 select * from users;
 select * from categories;
 select * from lectures;
