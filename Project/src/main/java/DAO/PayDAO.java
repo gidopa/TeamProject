@@ -65,7 +65,7 @@ public class PayDAO {
 			e.printStackTrace();
 		}
 	}
-
+// 결제완료후 결제 정보 insert
 	public void insertPayTable(HttpServletRequest request, String id) {
 		String userId = id;
 		String paymentId = request.getParameter("payment_id");
@@ -78,7 +78,6 @@ public class PayDAO {
 		String email = request.getParameter("email");
 		int courseId = Integer.parseInt( request.getParameter("courseId"));
 		try {
-			// to_date(paymentDate, YYYY-MMt-DD)
 			con = dataSource.getConnection();
 			String sql = "insert into payments (payment_id, user_id, course_id, payment_date, payment_amount, payment_status, user_name,phone_number,email,course_title)"
 												+ " values (?,?,?,sysdate, ?,?,?,?,?,?)";

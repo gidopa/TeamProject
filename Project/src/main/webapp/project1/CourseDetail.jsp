@@ -48,19 +48,18 @@
                 	 console.log(rsp);
                      if ( rsp.success ) { //결제 성공시
                        var msg = '결제가 완료되었습니다.';
-                       var result = {
-                         "mpaynum" : rsp.merchant_uid, //결제번호
-                         "membernum" :[[${member.membernum}]], //회원번호
-                         "mpaymethod":rsp.pay_method, //결제수단
-                         "mpayproduct":rsp.name, //헬스장 이름 + 상품이름
-                         "mpayprice":rsp.paid_amount, // 결제금액
-                         "mpaydate" : new Date().toISOString().slice(0, 10), //결제일
-                         "mpaytime" : "",
-                         "tgoodsint" : null,
-                       }
+//                        var result = {
+//                          "mpaynum" : rsp.merchant_uid, //결제번호
+//                          "membernum" :[[${member.membernum}]], //회원번호
+//                          "mpaymethod":rsp.pay_method, //결제수단
+//                          "mpayproduct":rsp.name, //헬스장 이름 + 상품이름
+//                          "mpayprice":rsp.paid_amount, // 결제금액
+//                          "mpaydate" : new Date().toISOString().slice(0, 10), //결제일
+//                          "mpaytime" : "",
+//                          "tgoodsint" : null,
+//                        }
                        makePaymentDTO(rsp); // 결제 DTO 생성
                        $("#payment_success_form").submit(); // 서브밋		
-                       console.log(result);
                   	  alert(msg);
                     } else {
                         alert("결제에 실패하였습니다. 에러 내용: " + rsp.error_msg);

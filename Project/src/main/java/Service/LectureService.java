@@ -1,11 +1,22 @@
 package Service;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.slf4j.Logger;
+
+import com.oreilly.servlet.MultipartRequest;
+import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 import DAO.CourseDAO;
 import DAO.LectureDAO;
@@ -61,6 +72,7 @@ public class LectureService {
 			
 			return lectureDAO.registration(courseId,lectureNumber,duration,lectureTitle,lectureSummary,videoLink,imgpath);
 		}
+		
 		// 강의 수정 하는 로직 
 		public List<LectureVO> modifyLecture(HttpServletRequest request) {
 			int courseId = Integer.parseInt(request.getParameter("courseId"));
@@ -81,7 +93,7 @@ public class LectureService {
 			CourseDAO courseDAO = new CourseDAO();
 			return courseDAO.getCourseListById(id); // 여기부터
 		}
-
+		
 	
 	
 	

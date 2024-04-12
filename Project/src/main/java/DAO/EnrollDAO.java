@@ -65,7 +65,7 @@ public class EnrollDAO {
 			e.printStackTrace();
 		}
 	}
-
+// 결제 한 user의 정보들을 enroll table에 insert
 	public void updatePurchase(HttpServletRequest request, String userId) {
 		String id = userId;
 		String paymentId = request.getParameter("payment_id");
