@@ -15,8 +15,10 @@ import javax.servlet.http.HttpSession;
 import DAO.CourseDAO;
 import Service.CourseService;
 import Service.LectureService;
+import Service.UsersService;
 import VO.CourseVO;
 import VO.LectureVO;
+import VO.UsersVO;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -24,10 +26,12 @@ import lombok.extern.slf4j.Slf4j;
 public class CourseController extends HttpServlet {
 	
 	private CourseService courseService;
+	private UsersService userService;
 	
 	@Override
 	public void init() throws ServletException {
 		courseService = new CourseService();
+		userService = new UsersService();
 	}
 
 	@Override
@@ -63,7 +67,9 @@ public class CourseController extends HttpServlet {
 			//상세페이지 보여주는 화면
 			//강의 VO 받아오는 메소드
 			CourseVO courseVO = courseService.getDetail(request);
+			UsersVO userVO = userService.getUserInfo(request);
 			request.setAttribute("courseVO", courseVO);
+			request.setAttribute("userVO",userVO);
 			request.setAttribute("center", "CourseDetail.jsp");
 			nextPage=main;
 			// 회원이 구매한 강의들 조회

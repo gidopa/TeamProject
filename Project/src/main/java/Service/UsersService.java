@@ -85,6 +85,13 @@ public class UsersService {
 		String pre_pwd = request.getParameter("pre_pwd");
 		usersDAO.ModUser(name,pwd,phone_number,email,address,interest,id,pre_pwd);
 	}
+
+	public UsersVO getUserInfo(HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		String id = (String)session.getAttribute("id");
+		UsersVO vo = usersDAO.selectUser(id);
+		return vo;
+	}
 	
 	
 }

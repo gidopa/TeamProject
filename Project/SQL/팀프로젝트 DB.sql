@@ -299,3 +299,11 @@ select * from roadmap;
 desc roadmap;
 desc lectures;
 
+ALTER TABLE payments
+MODIFY (PAYMENT_ID VARCHAR2(255));
+ALTER TABLE delivery
+MODIFY (PAYMENT_ID VARCHAR2(255));
+ALTER TABLE enrollments
+MODIFY (enrollment_id VARCHAR2(255));
+commit;
+
