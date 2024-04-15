@@ -20,9 +20,10 @@
         <option value="">코스를 선택하세요</option>
         <c:forEach items="${courseList}" var="course">
             <option value="${course.courseId}">${course.courseTitle}</option>
+            <input type="hidden" name="courseTitle" value="${course.courseTitle}">
         </c:forEach>
     </select>
-
+	
     <input type="text" name="commentText" placeholder="댓글을 입력하세요" required>
     <label>
     <input type="radio" name="rating" value="1" /> 1 별
@@ -62,15 +63,9 @@ $('#commentForm').submit(function(event) {
         url: '${contextPath}/Review/comment',
         type: 'POST',
         data: $(this).serialize(),
+        dataType: 'html',
         success: function(response) {
-        	 var newCommentHtml = '<div>' +
-             '<p><b>작성자:</b> ' + response.userId + '</p>' +
-             '<p><b>강좌명:</b> ' + response.courseTitle + '</p>' +
-             '<p><b>댓글:</b> ' + response.reviewContent + '</p>' +
-             '<p><b>평점:</b> ' + response.reviewScore + ' 별</p>' +
-             '<p><b>작성 시간:</b> ' + formatDate(response.reviewDate) + '</p>' +
-             '</div>';
-         $('#commentsContainer').prepend(newCommentHtml);
+        	 $('#commentsContainer').prepend(response);
         }
     });
 });

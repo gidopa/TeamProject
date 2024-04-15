@@ -1,6 +1,7 @@
 package Controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -76,6 +77,19 @@ public class ReviewController extends HttpServlet {
 			break;
 		case "/comment":
 			reviewService.insertComment(request);
+		    String courseTitle = request.getParameter("courseTitle"); // 예시 파라미터, 실제 구현에 맞게 조정 필요
+		    String reviewContent = request.getParameter("commentText");
+		    int reviewScore = Integer.parseInt(request.getParameter("rating"));
+		    String reviewDate = new SimpleDateFormat("yyyy-MM-dd").format(new java.util.Date());
+		    // HTML 응답 구성
+		    PrintWriter out = response.getWriter();
+		    out.println("<div>");
+		    out.println("<p><b>작성자:</b> " + id + "</p>");
+		    out.println("<p><b>강좌명:</b> " + courseTitle + "</p>");
+		    out.println("<p><b>댓글:</b> " + reviewContent + "</p>");
+		    out.println("<p><b>평점:</b> " + reviewScore + " 별</p>");
+		    out.println("<p><b>작성 시간:</b> " + reviewDate + "</p>");
+		    out.println("</div>");
 			return;
 		default:
 			throw new IllegalArgumentException("ReviewController Unexpected value: " + action);
