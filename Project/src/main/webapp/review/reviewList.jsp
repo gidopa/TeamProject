@@ -36,7 +36,7 @@
             </select>
         </div>
         <div class="mb-3">
-            <input type="text" name="commentText" class="form-control" placeholder="댓글을 입력하세요" required>
+            <input type="text" name="commentText" class="form-control" placeholder="후기를 입력하세요" required>
         </div>
         <div class="rating">
             <input type="hidden" name="rating" id="ratingInput">
