@@ -307,3 +307,18 @@ ALTER TABLE enrollments
 MODIFY (enrollment_id VARCHAR2(255));
 commit;
 
+
+select * from reviews inner join courses on reviews.course_id = courses.course_id;
+select * from reviews;
+select * from courses;
+delete from reviews;
+create sequence Reviews_review_id
+increment BY 1
+start with 1
+minvalue 1
+maxvalue 9999
+nocycle
+nocache
+noorder;
+commit;
+
