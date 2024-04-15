@@ -216,15 +216,12 @@ public class CourseDAO {
 		String name = null;
 		try {
 			con = dataSource.getConnection();
-			String sql = "SELECT U.user_name "
-					+ "FROM Enrollments E "
-					+ "JOIN Courses C ON E.course_id = C.course_id "
-					+ "JOIN Users U ON C.user_id = U.user_id "
-					+ "WHERE E.student_id = ?";
+			String sql = "SELECT U.user_name " + "FROM Enrollments E " + "JOIN Courses C ON E.course_id = C.course_id "
+					+ "JOIN Users U ON C.user_id = U.user_id " + "WHERE E.student_id = ?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, id);
 			rs = pstmt.executeQuery();
-			if(rs.next()) {
+			if (rs.next()) {
 				name = rs.getString("user_name");
 			}
 		} catch (Exception e) {
@@ -235,6 +232,24 @@ public class CourseDAO {
 
 		return name;
 	}
-	
-	
+
+	public CourseVO getTitleAndCategory(int courseId) {
+		CourseVO vo = new CourseVO();
+		try {
+			con = dataSource.getConnection();
+			String sql = "select * from courses where course_id = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, courseId);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				vo.setCourseCategory(rs.getString("course_category"));
+				vo.setCourseTitle(rs.getString("course_title"));
+			}
+		} catch (Exception e) {
+			log.error("getTitleAndCategory error : {}", e);
+		} finally {
+			resourceRelease();
+		}
+		return vo;
+	}
 }

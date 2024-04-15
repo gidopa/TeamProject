@@ -74,6 +74,13 @@ public class CourseService {
 	public String getInstructorNameById(String id) {
 		return courseDAO.getInstructorNameById(id);
 	}
+
+
+	public CourseVO selectTitleAndCategory(int courseId) {
+		CourseVO vo = new CourseVO();
+		vo = courseDAO.getTitleAndCategory(courseId);
+		return vo;
+	}
 	
 	
 
