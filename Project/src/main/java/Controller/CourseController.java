@@ -82,9 +82,9 @@ public class CourseController extends HttpServlet {
 			LectureService lectureService = new LectureService();
 //			String id = "user01";
 			List<CourseVO> purchasedList = new ArrayList<>(); 
-			// 회원이 구매한 강의를 받아올 메소드
+			// 회원이 구매한 강좌 리스트를 받아올 메소드
 			purchasedList = courseService.getCoursePurchased(id);
-			// 회원이 구매한 강의의 강사 명을 select 해옴
+			// 회원이 구매한 강좌의 강사 명을 select 해옴
 			String name = courseService.getInstructorNameById(id);
 			List<CourseVO> registeredList = new ArrayList<CourseVO>();
 			// 회원이 등록한 강좌 리스트를 받아옴
