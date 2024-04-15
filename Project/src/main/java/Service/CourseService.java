@@ -81,7 +81,52 @@ public class CourseService {
 		vo = courseDAO.getTitleAndCategory(courseId);
 		return vo;
 	}
-	
+	public List<CourseVO> modifyCourseList(HttpServletRequest request, HttpSession session) {
+		String UserId = (String)session.getAttribute("id");
+		
+		List<CourseVO> list = courseDAO.modifyCourseList(UserId);
+		return list;
+	}
+
+
+	public CourseVO modifyCourse(HttpServletRequest request, HttpSession session) {
+		String UserId = (String)session.getAttribute("id");
+		int courseId = Integer.parseInt(request.getParameter("courseId")) ;
+//		System.out.println("CourseService에서 호출한 courseId : " + courseId);
+		CourseVO courseVO = courseDAO.modifyCourse(UserId, courseId);
+		return courseVO;
+	}
+
+
+	public int reqModCourse(HttpServletRequest request) {
+		int courseId = Integer.parseInt(request.getParameter("courseId"));
+		String courseTitle = request.getParameter("courseTitle");
+		String courseDescription = request.getParameter("courseDescription");
+		String imgPath = request.getParameter("imgPath");
+		int coursePrice = Integer.parseInt(request.getParameter("coursePrice"));
+		
+		int update = courseDAO.reqModCourse(courseId, courseTitle, courseDescription, imgPath, coursePrice);
+		return update;
+	}
+
+
+	public int delCourse(HttpServletRequest request) {
+		
+		
+		int courseId = Integer.parseInt(request.getParameter("courseId"));
+//		String courseTitle = request.getParameter("courseTitle");
+//		int coursePrice = Integer.parseInt(request.getParameter("coursePrice"));
+
+		
+		int update = courseDAO.delCourse(courseId);
+		
+		return update;
+	}
+
+
+	public List<CourseVO> getEnrollCoursesListById(String id) {
+		return courseDAO.getEnrollCoursesListById(id);
+	}
 	
 
 

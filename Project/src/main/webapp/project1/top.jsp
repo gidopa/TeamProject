@@ -92,7 +92,7 @@ request.setCharacterEncoding("UTF-8");
 							href="<%=contextPath%>/RoadMap/"> <span>로드맵</span>
 						</a></li>
 						<li class="header-gnbitem"><a class="header-gnblink"
-							href="javascript:void(0)"> <span>수강후기</span>
+							href="<%=contextPath%>/Review/"> <span>수강후기</span>
 						</a></li>
 
 						<li class="header-gnbitem"><a class="header-gnblink"

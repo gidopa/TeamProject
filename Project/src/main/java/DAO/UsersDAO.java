@@ -99,8 +99,7 @@ public class UsersDAO {
 	}
 
 	public void insertUser(UsersVO usersVO) {
-		
-		
+
 		try {
 			con = dataSource.getConnection();
 
@@ -155,23 +154,23 @@ public class UsersDAO {
 		}
 		return check;// 1 또는 0 또는 -1 을 반화
 	}
-	
+
 	public UsersVO selectUser(String id) {
 		UsersVO vo = null;
-		
+
 		try {
 			con = dataSource.getConnection();
-			
+
 			String sql = "select * from users where user_id=?";
-			
+
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, id);
-			
+
 			rs = pstmt.executeQuery();
-			
-			if(rs.next()) {
+
+			if (rs.next()) {
 				vo = new UsersVO();
-				
+
 				vo.setUser_id(rs.getString("user_id"));
 				vo.setUser_name(rs.getString("user_name"));
 				vo.setPassword(rs.getString("password"));
@@ -184,7 +183,7 @@ public class UsersDAO {
 		} finally {
 			ResourceClose();
 		}
-		
+
 		return vo;
 	}
 
@@ -222,14 +221,15 @@ public class UsersDAO {
 		return result;
 	}
 
-	public void ModUser(String name, String pwd, String phone_number, String email, String address, String interest, String id, String pre_pwd) {
+	public void ModUser(String name, String pwd, String phone_number, String email, String address, String interest,
+			String id, String pre_pwd) {
 		String sql = "";
-		
+
 		try {
 			con = dataSource.getConnection();
-			if(pwd.length()!=0 || !pwd.equals("")) {
+			if (pwd.length() != 0 || !pwd.equals("")) {
 				sql = "update users set user_name=?, email=?, password=?, phone_number=?, address=?, interest=? where user_id=? and password=?";
-				
+
 				pstmt = con.prepareStatement(sql);
 				pstmt.setString(1, name);
 				pstmt.setString(2, email);
@@ -241,7 +241,7 @@ public class UsersDAO {
 				pstmt.setString(8, pre_pwd);
 			} else {
 				sql = "update users set user_name=?, email=?, phone_number=?, address=?, interest=? where user_id=? and password=?";
-				
+
 				pstmt = con.prepareStatement(sql);
 				pstmt.setString(1, name);
 				pstmt.setString(2, email);
@@ -259,5 +259,34 @@ public class UsersDAO {
 		}
 	}
 
-	
+	public int registerTeacher(String id) {
+		String sql1 = "";
+		String sql2 = "";
+		int t = 0; // 삽입성공여부 확인할 정수
+		try {
+			con = dataSource.getConnection();
+			// 먼저 강사에 등록되어 있는지 여부부터 확인
+			sql1 = "select * from teachers where teacher_id=?";
+			pstmt = con.prepareStatement(sql1);
+			pstmt.setString(1, id);
+			rs = pstmt.executeQuery();
+			if (!rs.next()) {	// 만약 강사에 등록되어 있지 않다면
+
+				sql2 = "insert into teachers (teacher_id, teacher_name) select user_id, user_name from users where user_id = ?";
+
+				pstmt = con.prepareStatement(sql2);
+				pstmt.setString(1, id);
+
+				t = pstmt.executeUpdate();
+			} else {	// 만약 강사에 등록되어 있다면
+				t=0;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			ResourceClose();
+		}
+
+		return t;
+	}
 }

@@ -252,4 +252,156 @@ public class CourseDAO {
 		}
 		return vo;
 	}
+	
+	public List<CourseVO> modifyCourseList(String userId) {
+		List<CourseVO> list = new ArrayList<CourseVO>();
+		
+		String sql = "";
+		
+		try {
+			sql = "select * from courses where user_id=?";
+			
+			con = dataSource.getConnection();
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, userId);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				courseVO = new CourseVO();
+				courseVO.setCourseId(rs.getInt("course_id"));
+				courseVO.setCourseTitle(rs.getString("course_title"));
+				courseVO.setCourseDescription(rs.getString("course_description"));
+				courseVO.setUserId(rs.getString("user_id"));
+				courseVO.setCoursePrice(rs.getInt("course_price"));
+				courseVO.setRegistrtionDate(rs.getDate("registration_date"));
+				courseVO.setEnrollCount(rs.getInt("enrollment_count"));
+				courseVO.setCourseCategory(rs.getString("course_category"));
+				courseVO.setImgPath(rs.getString("img_path"));
+				list.add(courseVO);
+			}
+			
+		} catch (Exception e) {
+			log.error("CourseDAO의 modifyCourseList error : {}",e);
+			e.printStackTrace();
+		} finally {
+			resourceRelease();
+		}
+		
+		return list;
+	}
+
+	public CourseVO modifyCourse(String userId, int courseId) {
+		
+		
+		String sql = "";
+		
+		try {
+			sql = "select course_id, course_title, course_description, course_category, course_price, img_path "
+					+ "from courses where user_id=? and course_id=?";
+			
+			con = dataSource.getConnection();
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, userId);
+			pstmt.setInt(2, courseId);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				courseVO = new CourseVO();
+				courseVO.setCourseId(rs.getInt("course_id"));
+				courseVO.setCourseTitle(rs.getString("course_title"));
+				courseVO.setCourseDescription(rs.getString("course_description"));
+				courseVO.setCoursePrice(rs.getInt("course_price"));
+				courseVO.setCourseCategory(rs.getString("course_category"));
+				courseVO.setImgPath(rs.getString("img_path"));
+			}
+			
+		} catch (Exception e) {
+			log.error("CourseDAO의 modifyCourse error : {}",e);
+			e.printStackTrace();
+		} finally {
+			resourceRelease();
+		}
+		
+		return courseVO;
+	}
+
+	public int reqModCourse(int courseId, String courseTitle, String courseDescription, String imgPath, int coursePrice) {
+		String sql = "";
+		int update = 0;
+		try {
+			sql = "update courses set course_title = ?, "
+									+ "course_description = ?, "
+									+ "img_path = ?, "
+									+ "course_price = ?"
+									+ "where course_id = ?";
+			con = dataSource.getConnection();
+			pstmt = con.prepareStatement(sql);
+			
+			pstmt.setString(1, courseTitle);
+			pstmt.setString(2, courseDescription);
+			pstmt.setString(3, imgPath);
+			pstmt.setInt(4, coursePrice);
+			pstmt.setInt(5, courseId);
+			
+			update = pstmt.executeUpdate();
+			
+		} catch (Exception e) {
+			log.error("CourseDAO의 reqModCourse error : {}",e);
+			e.printStackTrace();
+		} finally {
+			resourceRelease();
+		}
+		
+		return update;
+	}
+
+	public int delCourse(int courseId) {
+		String sql = "";
+		int update = 0;
+		try {
+			sql = "delete from courses where "
+					+ "course_id = ?";
+			con = dataSource.getConnection();
+			pstmt = con.prepareStatement(sql);
+			
+//			pstmt.setString(1, userId);
+			pstmt.setInt(1, courseId);
+			
+			
+			update = pstmt.executeUpdate();
+			
+				
+		} catch (Exception e) {
+			log.error("CourseDAO의 delCourse error : {}",e);
+			e.printStackTrace();
+		} finally {
+			resourceRelease();
+		}
+		return update;
+	}
+
+	public List<CourseVO> getEnrollCoursesListById(String id) { // 여기부터 자기가 등록한 강의를 조회할 수 있도록 join 해서 가져와야함
+		List<CourseVO> list = new ArrayList<CourseVO>();
+		CourseVO vo = null;
+		try {
+			con = dataSource.getConnection();
+			String sql = "select * from enrollments where user_id = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, id);
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				vo = new CourseVO();
+				vo.setCourseCategory(rs.getString("course_category"));
+				vo.setCourseId(rs.getInt("course_id"));
+				vo.setCourseTitle(rs.getString("course_title"));
+				vo.setEnrollCount(rs.getInt("enrollment_count"));
+				list.add(vo);
+			}
+		} catch (Exception e) {
+			log.debug("getCourseListById error : {}", e);
+		} finally {
+			resourceRelease();
+		}
+
+		return list;
+	}
 }
