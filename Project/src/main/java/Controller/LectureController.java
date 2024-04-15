@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import DAO.LectureDAO;
+import Service.CourseService;
 import Service.LectureService;
 import VO.CourseVO;
 import VO.LectureVO;
@@ -118,7 +119,16 @@ public class LectureController extends HttpServlet {
 			request.setAttribute("center", "modLecture.jsp");
 			nextPage="/project1/modLecture.jsp";
 		}else if(action.equals("/myList")){ // ajax로 여기로 요청 보냄
+			CourseService courseService = new CourseService();
 			int courseId = Integer.parseInt(request.getParameter("courseId")) ;
+			 CourseVO vo = courseService.selectTitleAndCategory(courseId);
+			 String courseTitle = vo.getCourseTitle();
+			 String courseCategory = vo.getCourseCategory();
+			 
+			 request.setAttribute("courseTitle", courseTitle);
+			 request.setAttribute("courseCategory", courseCategory);
+			 request.setAttribute("courseId", courseId);
+			 request.setAttribute("center", "lectureRegistration.jsp");
 		    List<LectureVO> list = lectureService.getLecturesInfo(courseId);
 		    request.setAttribute("list", list);
 		    nextPage = "/project1/lectureList.jsp";

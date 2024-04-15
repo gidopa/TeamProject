@@ -1,3 +1,7 @@
+<%@page import="VO.CourseVO"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="Service.UsersService"%>
+<%@page import="DAO.UsersDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" 
 	 %>
 
@@ -6,6 +10,10 @@
 <% 
 	request.setCharacterEncoding("UTF-8"); 
 	String contextPath = request.getContextPath();
+	
+	//조회된 글목록 얻기 
+	//BoardController에서 재요청해서 전달한 request에 담긴 ArrayList배열 꺼내오기 	
+	ArrayList list = (ArrayList)request.getAttribute("list");
 %>
 
 
@@ -27,6 +35,16 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3">
 
 <link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet">
+	<%-- <script type="text/javascript">
+		function regFunction() {
+			if(<%=t%>==1) {
+				alert('강사등록에 성공하였습니다.');
+			} else {
+				alert('강사등록에 실패하였습니다.');
+			}
+			
+		}
+	</script> --%>
 
     <style>
       .bd-placeholder-img {
@@ -258,53 +276,93 @@
                 <svg class="bi"><use xlink:href="#file-earmark"/></svg>
                 Orders
               </a>
-            </li>-->
-            <li class="nav-item">
+            </li> -->
+            <%-- <li class="nav-item">
               <a class="nav-link d-flex align-items-center gap-2" href="<%=contextPath%>/user/myCart.jsp">
                 <svg class="bi"><use xlink:href="#cart"/></svg>
                 장바구니
               </a>
+            </li> --%>
+            
+           <!--  <li class="nav-item">
+              <a class="nav-link d-flex align-items-center gap-2" href="#">
+                <svg class="bi"><use xlink:href="#graph-up"/></svg>
+                Reports
+              </a>
             </li>
-          
+            <li class="nav-item">
+              <a class="nav-link d-flex align-items-center gap-2" href="#">
+                <svg class="bi"><use xlink:href="#puzzle"/></svg>
+                Integrations
+              </a>
+            </li> -->
           </ul>
 
+         <!-- <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-body-secondary text-uppercase">
+            <span>Saved reports</span>
+            <a class="link-secondary" href="#" aria-label="Add a new report">
+              <svg class="bi"><use xlink:href="#plus-circle"/></svg>
+            </a>
+          </h6>
+          <ul class="nav flex-column mb-auto">
+            <li class="nav-item">
+              <a class="nav-link d-flex align-items-center gap-2" href="#">
+                <svg class="bi"><use xlink:href="#file-earmark-text"/></svg>
+                Current month
+              </a>
+            </li>
+             <li class="nav-item">
+              <a class="nav-link d-flex align-items-center gap-2" href="#">
+                <svg class="bi"><use xlink:href="#file-earmark-text"/></svg>
+                Last quarter
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link d-flex align-items-center gap-2" href="#">
+                <svg class="bi"><use xlink:href="#file-earmark-text"/></svg>
+                Social engagement
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link d-flex align-items-center gap-2" href="#">
+                <svg class="bi"><use xlink:href="#file-earmark-text"/></svg>
+                Year-end sale
+              </a>
+            </li> -->
           </ul>
 
           <hr class="my-3">
-			
-			<ul class="nav flex-column mb-auto">
+
+          <ul class="nav flex-column mb-auto">
           	<li class="nav-item">
               <a class="nav-link d-flex align-items-center gap-2" href="<%=contextPath%>/users/registerTeacher.me";>
                 <svg class="bi"><use xlink:href="#people"/></svg>
                 강사 등록하기
               </a>
             </li>
-          <ul class="nav flex-column mb-auto">
+          	
             <li class="nav-item">
               <a class="nav-link d-flex align-items-center gap-2" href="<%=contextPath%>/user/modUser.jsp">
                 <svg class="bi"><use xlink:href="#gear-wide-connected"/></svg>
                 회원정보 수정하기
               </a>
             </li>
-              <li class="nav-item">
-              <a class="nav-link d-flex align-items-center gap-2" href="<%=contextPath%>/Courses/ModCoursesList">
+            
+            
+            <li class="nav-item">
+              <a class="nav-link d-flex align-items-center gap-2" href="<%=contextPath%>/Courses/courseMod">
                 <svg class="bi"><use xlink:href="#file-earmark"/></svg>
                 강좌 수정하기
               </a>
             </li>
-             <li class="nav-item">
-              <a class="nav-link d-flex align-items-center gap-2" href="<%=contextPath%>/Lecture/list">
-                <svg class="bi"><use xlink:href="#door-closed"/></svg>
-                강의 수정
-              </a>
-            </li>
+            
+
             <li class="nav-item">
               <a class="nav-link d-flex align-items-center gap-2" href="<%=contextPath%>/users/logout.me">
                 <svg class="bi"><use xlink:href="#door-closed"/></svg>
                 로그아웃
               </a>
             </li>
-           
             <!-- 회원탈퇴하기 구현중 -->
             <li class="nav-item">
               <a class="nav-link d-flex align-items-center gap-2" href="<%=contextPath%>/user/delUser.jsp">
@@ -320,61 +378,107 @@
     <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
       <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
         <h1 class="h2"><b>마이페이지</b></h1>
-      
+        <!-- <div class="btn-toolbar mb-2 mb-md-0">
+          <div class="btn-group me-2">
+            <button type="button" class="btn btn-sm btn-outline-secondary">Share</button>
+            <button type="button" class="btn btn-sm btn-outline-secondary">Export</button>
+          </div>
+          <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle d-flex align-items-center gap-1">
+            <svg class="bi"><use xlink:href="#calendar3"/></svg>
+            This week
+          </button>
+        </div> -->
       </div>
 
 <%--       <canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas> --%>
 
-      <h2>내가 수강 중인 강의</h2>
+<!--       <h2>내가 수강 중인 강의</h2>
       <br><br>
       <div class="table-responsive small">
         <table class="table table-striped table-sm">
           <thead>
             <tr>
-              <th scope="col">강의 식별 번호</th>
+              <th scope="col">번호</th>
               <th scope="col">강의명</th>
               <th scope="col">강사명</th>
               <th scope="col">강의 카테고리</th>
             </tr>
           </thead>
           <tbody>
-          <c:forEach items="${purchasedList}" var="list">
             <tr>
-              <td>${list.courseId}</td>
-              <td>${list.courseTitle}</td>
-              <td>${requestScope.name}</td>
-              <td>${list.courseCategory}</td>
+              <td>1,001</td>
+              <td>random</td>
+              <td>data</td>
+              <td>placeholder</td>
             </tr>
-            </c:forEach>
-            
+            <tr>
+              <td>1,002</td>
+              <td>placeholder</td>
+              <td>irrelevant</td>
+              <td>visual</td>
+            </tr>
+            <tr>
+              <td>1,003</td>
+              <td>data</td>
+              <td>rich</td>
+              <td>dashboard</td>
+            </tr>
+            <tr>
+              <td>1,003</td>
+              <td>information</td>
+              <td>placeholder</td>
+              <td>illustrative</td>
+            </tr>
             
           </tbody>
         </table>
       </div>
-      <br><hr><br>
-      <h2>내가 개설 중인 강의</h2>
+      <br><hr><br> -->
+      <h2>내가 개설 중인 강좌</h2>
       <br><br>
       <div class="table-responsive small">
         <table class="table table-striped table-sm">
           <thead>
             <tr>
-              <th scope="col">강의 식별 번호</th>
-              <th scope="col">강의명</th>
-              <th scope="col">수강 중인 학생 수</th>
+              <th scope="col">강좌 아이디</th>
+              <th scope="col">강좌명</th>
+              <th scope="col">강좌 세부 내용</th>
               <th scope="col">강의 카테고리</th>
+              <th scope="col">가격</th>
             </tr>
           </thead>
           <tbody>
-           <c:forEach items="${registeredList}" var="list">
-            <tr>
-              <td>${list.courseId}</td>
-              <td>${list.courseTitle}</td>
-              <td>${list.enrollCount}</td>
-              <td>${list.courseCategory}</td>
-            </tr>
-            </c:forEach>
-            
-            
+    <%
+	//테이블에서 조회된 글이 없다면?
+	if(list.isEmpty()){ 
+	%>		 
+		<tr align="center">
+			<td colspan="5">등록된 글이 없습니다.</td>
+		</tr>
+    <%} else {		// 조회된 글이 있을 경우
+    	for(int i = 0; i < list.size(); i++) {
+    		CourseVO courseVO = (CourseVO)list.get(i);
+    	
+    	
+    	
+    %>
+    
+    	<tr>
+    	
+    		<td><%=courseVO.getCourseId() %></td>
+    		<td><a href="<%=contextPath%>/Courses/CourseMod?courseId=<%=courseVO.getCourseId()%>"><%=courseVO.getCourseTitle() %></a></td>
+    		<td><%=courseVO.getCourseDescription() %></td>
+    		<td><%=courseVO.getCourseCategory() %></td>
+    		<td><%=courseVO.getCoursePrice() %></td>
+    		
+    	</tr> 	
+    <%
+    	}
+    }    
+    %>
+          
+          
+      
           </tbody>
         </table>
       </div>

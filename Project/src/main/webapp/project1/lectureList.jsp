@@ -129,7 +129,7 @@ request.setCharacterEncoding("UTF-8");
 	</div>
 	<br>
 	<br>
-<form action="${contextPath}/Lecture/addRegistraion">
+<form action="${contextPath}/Lecture/addRegistraion" method="post">
  		<input type="hidden" name="courseId" value="${courseId}">
         <input type="hidden" name="courseTitle" value="${courseTitle}">
         <input type="hidden" name="courseCategory" value="${courseCategory}">

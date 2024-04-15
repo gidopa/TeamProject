@@ -136,7 +136,7 @@ body {
 %>
 	<div class="purchase-button-container">
 	 <div class="roadmap-price-display"><strong>로드맵 가격</strong> : ₩<fmt:formatNumber value="<%=roadMapPrice%>" type="number" pattern="#,##0" /></div>
-	<form action="post" action="#">
+	<form method="post" action="#">
 		<input type="hidden" name="roadMapPrice" value="<%=roadMapPrice%>"> 
 		<input type="submit" class="purchase-btn" value="로드맵 결제">
 		</form>

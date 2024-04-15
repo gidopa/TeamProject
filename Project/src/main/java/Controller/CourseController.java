@@ -1,6 +1,7 @@
 package Controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,8 +16,10 @@ import javax.servlet.http.HttpSession;
 import DAO.CourseDAO;
 import Service.CourseService;
 import Service.LectureService;
+import Service.UsersService;
 import VO.CourseVO;
 import VO.LectureVO;
+import VO.UsersVO;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -24,10 +27,12 @@ import lombok.extern.slf4j.Slf4j;
 public class CourseController extends HttpServlet {
 	
 	private CourseService courseService;
+	private UsersService userService;
 	
 	@Override
 	public void init() throws ServletException {
 		courseService = new CourseService();
+		userService = new UsersService();
 	}
 
 	@Override
@@ -63,7 +68,9 @@ public class CourseController extends HttpServlet {
 			//상세페이지 보여주는 화면
 			//강의 VO 받아오는 메소드
 			CourseVO courseVO = courseService.getDetail(request);
+			UsersVO userVO = userService.getUserInfo(request);
 			request.setAttribute("courseVO", courseVO);
+			request.setAttribute("userVO",userVO);
 			request.setAttribute("center", "CourseDetail.jsp");
 			nextPage=main;
 			// 회원이 구매한 강의들 조회
@@ -103,6 +110,67 @@ public class CourseController extends HttpServlet {
 			 request.setAttribute("center", "lectureRegistration.jsp");
 			 request.setAttribute("vo",vo);
 			 nextPage=main;
+		}else if(action.equals("/ModCoursesList")) {
+			
+			List<CourseVO> list = new ArrayList<>(); 
+			list = courseService.modifyCourseList(request, session);
+			request.setAttribute("list", list);
+			nextPage="/project1/CourseModifyList.jsp";
+		
+			
+			// 본 수정화면 띄워줌
+		} else if(action.equals("/CourseMod")) {
+			int courseId = Integer.parseInt(request.getParameter("courseId"));
+			
+			CourseVO courseVO = courseService.modifyCourse(request, session);
+			request.setAttribute("center", "CourseModify.jsp");
+			request.setAttribute("vo", courseVO);
+			
+			request.setAttribute("courseId", courseId);
+//			System.out.println("CourseController에서 호출한 courseId : " + courseId);
+			nextPage=main;
+			
+		} else if(action.equals("/ReqModCourse")) {
+			int update = courseService.reqModCourse(request);
+			
+			System.out.println("update변수 : " +update);
+			
+			PrintWriter out = response.getWriter();
+			
+			if(update == 1) {
+				out.print("<script>");
+				out.print("alert('강좌 수정에 성공하였습니다.');");
+				out.print("location.href='/Project/project1/main.jsp'");
+				out.print("</script>");
+				return;
+			} else {
+				out.print("<script>");
+				out.print("alert('강좌 수정에 실패하였습니다.');");
+				out.print("history.go(-1);");
+				out.print("</script>");
+				return;
+			}
+			
+
+		} else if(action.equals("/deleteCourse")) {
+//			session = request.getSession();
+			int update = courseService.delCourse(request);
+			PrintWriter out = response.getWriter();
+			
+			if(update == 1) {
+				out.print("<script>");
+				out.print("alert('강좌가 삭제되었습니다.');");
+				out.print("location.href='/Project/user/myPage.jsp'");
+				out.print("</script>");
+				return;
+			} else {
+				out.print("<script>");
+				out.print("alert('강좌 삭제에 실패하였습니다. 다시 확인해주세요.');");
+				out.print("history.go(-1);");
+				out.print("</script>");
+				return;
+			}
+			
 		}
 		else { // getPathInfo 한 action 변수가 조건 아무것도 못타면 예외 발생
 			response.setStatus(HttpServletResponse.SC_NOT_FOUND);
