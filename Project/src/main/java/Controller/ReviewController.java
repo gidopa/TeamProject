@@ -76,6 +76,7 @@ public class ReviewController extends HttpServlet {
 			nextPage = main;
 			break;
 		case "/comment":
+			String contextPath = request.getContextPath();
 			reviewService.insertComment(request);
 		    String courseTitle = request.getParameter("courseTitle"); // 예시 파라미터, 실제 구현에 맞게 조정 필요
 		    String reviewContent = request.getParameter("commentText");
@@ -83,13 +84,14 @@ public class ReviewController extends HttpServlet {
 		    String reviewDate = new SimpleDateFormat("yyyy-MM-dd").format(new java.util.Date());
 		    // HTML 응답 구성
 		    PrintWriter out = response.getWriter();
-		    out.println("<div>");
-		    out.println("<p><b>작성자:</b> " + id + "</p>");
-		    out.println("<p><b>강좌명:</b> " + courseTitle + "</p>");
-		    out.println("<p><b>댓글:</b> " + reviewContent + "</p>");
-		    out.println("<p><b>평점:</b> " + reviewScore + " 별</p>");
-		    out.println("<p><b>작성 시간:</b> " + reviewDate + "</p>");
+		    out.println("<div class=\"card mb-3\">");
+		    out.println("<div class=\"card-body\">");
+		    out.println("<h5 class=\"card-title\">" + courseTitle + " - 평점: " + reviewScore + "</h5>");
+		    out.println("<p class=\"card-text\">" + reviewContent + "</p>");
+		    out.println("<p class=\"card-text\"><small class=\"text-muted\">작성자: " + id + " 작성 시간: " + reviewDate + "</small></p>");
 		    out.println("</div>");
+		    out.println("</div>");
+
 			return;
 		default:
 			throw new IllegalArgumentException("ReviewController Unexpected value: " + action);
