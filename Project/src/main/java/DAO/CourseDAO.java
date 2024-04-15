@@ -384,7 +384,7 @@ public class CourseDAO {
 		CourseVO vo = null;
 		try {
 			con = dataSource.getConnection();
-			String sql = "select * from enrollments inner join courses on enrollments.course_id = courses.course_id where user_id = ?";
+			String sql = "select * from enrollments inner join courses on enrollments.course_id = courses.course_id where student_id = ?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, id);
 			rs = pstmt.executeQuery();
