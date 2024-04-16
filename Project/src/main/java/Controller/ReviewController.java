@@ -98,6 +98,7 @@ public class ReviewController extends HttpServlet {
 			return;
 		case "/delete":
 			reviewService.deleteReview(request);
+			return;
 		default:
 			throw new IllegalArgumentException("ReviewController Unexpected value: " + action);
 		}

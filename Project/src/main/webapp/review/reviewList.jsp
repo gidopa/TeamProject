@@ -158,38 +158,38 @@ request.setCharacterEncoding("UTF-8");
 				}
 			});
 		}
-		function editComment(reviewId) {
-		    var contentElement = document.getElementById('review-content-' + reviewId);
-		    var currentText = contentElement.innerHTML;
-		    var currentScore = document.getElementById('review-score-' + reviewId).innerText;
+// 		function editComment(reviewId) {
+// 		    var contentElement = document.getElementById('review-content-' + reviewId);
+// 		    var currentText = contentElement.innerHTML;
+// 		    var currentScore = document.getElementById('review-score-' + reviewId).innerText;
 		    
-		    // 텍스트 수정 입력 필드 생성
-		    var inputHtml = '<input type="text" id="input-' + reviewId + '" value="' + currentText + '">';
+// 		    // 텍스트 수정 입력 필드 생성
+// 		    var inputHtml = '<input type="text" id="input-' + reviewId + '" value="' + currentText + '">';
 
-		    // 평점 수정 별 표시 생성
-		    inputHtml += '<div class="rating-edit">';
-		    for (let i = 1; i <= 5; i++) {
-		        inputHtml += '<i class="star fa-star ' + (i <= currentScore ? 'fas' : 'far') + '" data-value="' + i + '" onclick="setRating(' + reviewId + ', ' + i + ')"></i>';
-		    }
-		    inputHtml += '</div>';
+// 		    // 평점 수정 별 표시 생성
+// 		    inputHtml += '<div class="rating-edit">';
+// 		    for (let i = 1; i <= 5; i++) {
+// 		        inputHtml += '<i class="star fa-star ' + (i <= currentScore ? 'fas' : 'far') + '" data-value="' + i + '" onclick="setRating(' + reviewId + ', ' + i + ')"></i>';
+// 		    }
+// 		    inputHtml += '</div>';
 		    
-		    inputHtml += '<button onclick="saveComment(' + reviewId + ')">저장</button>';
-		    contentElement.innerHTML = inputHtml;
-		}
+// 		    inputHtml += '<button onclick="saveComment(' + reviewId + ')">저장</button>';
+// 		    contentElement.innerHTML = inputHtml;
+// 		}
 
-		function setRating(reviewId, rating) {
-		    var stars = document.querySelectorAll('#rating-edit-' + reviewId + ' .star');
-		    stars.forEach(star => {
-		        if (parseInt(star.getAttribute('data-value')) <= rating) {
-		            star.classList.remove('far');
-		            star.classList.add('fas');
-		        } else {
-		            star.classList.remove('fas');
-		            star.classList.add('far');
-		        }
-		    });
-		    document.getElementById('review-score-' + reviewId).innerText = rating;
-		}
+// 		function setRating(reviewId, rating) {
+// 		    var stars = document.querySelectorAll('#rating-edit-' + reviewId + ' .star');
+// 		    stars.forEach(star => {
+// 		        if (parseInt(star.getAttribute('data-value')) <= rating) {
+// 		            star.classList.remove('far');
+// 		            star.classList.add('fas');
+// 		        } else {
+// 		            star.classList.remove('fas');
+// 		            star.classList.add('far');
+// 		        }
+// 		    });
+// 		    document.getElementById('review-score-' + reviewId).innerText = rating;
+// 		}
 
 		function editComment(reviewId) {
 		    var contentElement = document.getElementById('review-content-' + reviewId);
