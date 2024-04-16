@@ -306,8 +306,8 @@
             </li>
            
             <!-- 회원탈퇴하기 구현중 -->
-            <li class="nav-item">
-              <a class="nav-link d-flex align-items-center gap-2" href="<%=contextPath%>/user/delUser.jsp">
+             <li class="nav-item">
+              <a class="nav-link d-flex align-items-center gap-2" id="delete" onclick="delUser();" href="<%=contextPath%>/users/delUser.me" >
                 회원 탈퇴하기
               </a>
             </li>
@@ -382,6 +382,12 @@
   </div>
 </div>
 <script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
+<script type="text/javascript">
+	function delUser() {
+		confirm("정말로 회원을 탈퇴하시겠습니까?"); // 사용자에게 삭제 여부를 확인합니다.
 
+		
+	}
+</script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.3.2/dist/chart.umd.js" integrity="sha384-eI7PSr3L1XLISH8JdDII5YN/njoSsxfbrkCTnJrzXt+ENP5MOVBxD+l6sEG4zoLp" crossorigin="anonymous"></script><script src="<%=contextPath %>/user/dashboard.js"></script></body>
 </html>

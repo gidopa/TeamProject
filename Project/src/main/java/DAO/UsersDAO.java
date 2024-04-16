@@ -9,6 +9,8 @@ import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
 import VO.UsersVO;
+import lombok.extern.java.Log;
+import lombok.extern.log4j.Log4j;
 
 public class UsersDAO {
 	// 위 4가지 접속 설정값을 이용해서 오라클 DB와 접속한 정보를 지니고 있는 Connection객체를 저장할 참조변수 선언
@@ -288,5 +290,26 @@ public class UsersDAO {
 		}
 
 		return t;
+	}
+
+	public int deleteUser(String id) {
+		int del = 0;
+		String sql = "";
+		try {
+			sql = "delete from users where user_id=?";
+			con = dataSource.getConnection();
+			
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, id);
+			
+			del = pstmt.executeUpdate();
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			ResourceClose();
+		}
+		return del;
 	}
 }

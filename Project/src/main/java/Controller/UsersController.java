@@ -10,6 +10,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import Service.UsersService;
 
@@ -52,8 +53,8 @@ public class UsersController extends HttpServlet {
 		// 클라이언트가 요청한 전체 주소 중에서 2단계 요청 주소 얻기
 		String action = request.getPathInfo();
 
-		// /usersregisterPro.me <- 회원가입 2단계 요청 주소
-
+		
+		// /usersregisterPro.me <- 회원가입 2단계 요청 주소	
 		switch (action) {
 		// 회원가입시 입력하는 화면 요청이 들어옴
 //			case "/register.jsp":
@@ -162,6 +163,25 @@ public class UsersController extends HttpServlet {
 			}
 			break;
 		
+		case "/delUser.me":		// 회원 탈퇴하기 눌렀을때
+			
+			int del = usersService.deleteUser(request);
+			
+			if (del == 1) {
+				out.print("<script>");
+				out.print("window.alert('회원탈퇴 하였습니다.');");
+				out.print("location.href='/Project/project1/main.jsp'");
+				out.print("</script>");
+				return;
+				
+			} else if (del == 0){
+				out.print("<script>");
+				out.print("window.alert('회원탈퇴에 실패하였습니다.');");
+				out.print("history.go(-1);");
+				out.print("</script>");
+				return;
+			}
+			break;
 			
 		default:
 			throw new IllegalArgumentException("UsersController Unexpected value: " + action);

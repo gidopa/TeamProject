@@ -90,9 +90,20 @@ public class UsersService {
 		HttpSession session = request.getSession();
 		String id = (String)session.getAttribute("id");
 		int t = usersDAO.registerTeacher(id);
-		System.out.println("아이디 : " + id);
-		System.out.println("dao값 : " + t);
+//		System.out.println("아이디 : " + id);
+//		System.out.println("dao값 : " + t);
 		return t;
+	}
+
+	public int deleteUser(HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		
+		String id = (String)session.getAttribute("id");
+		
+		int del = usersDAO.deleteUser(id);
+//		System.out.println("deleteUser에서 id값 : " + id);
+		session.invalidate();
+		return del;
 	}
 	
 	public UsersVO getUserInfo(HttpServletRequest request) {
@@ -101,6 +112,5 @@ public class UsersService {
 		UsersVO vo = usersDAO.selectUser(id);
 		return vo;
 	}
-	
 	
 }
