@@ -191,6 +191,39 @@ request.setCharacterEncoding("UTF-8");
 		    document.getElementById('review-score-' + reviewId).innerText = rating;
 		}
 
+		function editComment(reviewId) {
+		    var contentElement = document.getElementById('review-content-' + reviewId);
+		    var currentText = contentElement.innerText; // innerHTML 대신 innerText 사용하여 HTML 태그를 제거
+		    var currentScore = parseInt(document.getElementById('review-score-' + reviewId).innerText);
+
+		    // 텍스트 수정 입력 필드 생성
+		    var textareaHtml = '<textarea id="input-' + reviewId + '" class="form-control" rows="4">' + currentText.trim() + '</textarea>';
+
+		    // 평점 수정 별 표시 생성
+		    textareaHtml += '<div class="rating-edit" id="rating-edit-' + reviewId + '">';
+		    for (let i = 1; i <= 5; i++) {
+		        textareaHtml += '<i class="star fa-star ' + (i <= currentScore ? 'fas' : 'far') + '" data-value="' + i + '" onclick="setRating(' + reviewId + ', ' + i + ')"></i>';
+		    }
+		    textareaHtml += '</div>';
+		    
+		    textareaHtml += '<button onclick="saveComment(' + reviewId + ')" class="btn btn-success">저장</button>';
+		    contentElement.innerHTML = textareaHtml;
+		}
+
+		function setRating(reviewId, rating) {
+		    var stars = document.querySelectorAll('#rating-edit-' + reviewId + ' .star');
+		    stars.forEach(star => {
+		        if (parseInt(star.getAttribute('data-value')) <= rating) {
+		            star.classList.remove('far');
+		            star.classList.add('fas');
+		        } else {
+		            star.classList.remove('fas');
+		            star.classList.add('far');
+		        }
+		    });
+		    document.getElementById('review-score-' + reviewId).innerText = rating;
+		}
+
 		function saveComment(reviewId) {
 		    var inputValue = document.getElementById('input-' + reviewId).value;
 		    var inputRating = document.getElementById('review-score-' + reviewId).innerText;
@@ -209,19 +242,22 @@ request.setCharacterEncoding("UTF-8");
 		        }
 		    });
 		}
-		
-		function deleteComment(reviewId){
-			$.ajax({
-				url: '${contextPath}/Review/delete',
-				type: 'POST',
-				data: {
-					reviewId: reviewId
-				},
-				success: function(response){
-					alert("삭제가 완료 되었습니다");
-					document.getElementById('comment-' + reviewId).remove();
-				}
-			})
+
+		function deleteComment(reviewId) {
+		    if (confirm('이 댓글을 삭제하시겠습니까?')) {
+		        $.ajax({
+		            url: '${contextPath}/Review/delete',
+		            type: 'POST',
+		            data: { reviewId: reviewId },
+		            success: function(response) {
+		                alert('댓글이 삭제되었습니다.');
+		                document.getElementById('comment-' + reviewId).remove();
+		            },
+		            error: function() {
+		                alert('댓글 삭제에 실패했습니다.');
+		            }
+		        });
+		    }
 		}
 	</script>
 </body>
