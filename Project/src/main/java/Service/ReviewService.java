@@ -11,7 +11,9 @@ import DAO.ReviewDAO;
 import DAO.UsersDAO;
 import VO.ReviewVO;
 import VO.UsersVO;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 public class ReviewService {
 	private ReviewDAO reviewDAO;
 
@@ -33,6 +35,18 @@ public class ReviewService {
 		reviewDAO.insertComment(id,content,courseId,courseRating);
 		
 		
+	}
+
+	public void updateReview(HttpServletRequest request) {
+		int reviewId = Integer.parseInt(request.getParameter("reviewId"));
+		String reviewContent = request.getParameter("reviewContent");
+		Double reviewRating = Double.parseDouble(request.getParameter("reviewScore"));
+		reviewDAO.updateReview(reviewId, reviewContent, reviewRating);
+	}
+
+	public void deleteReview(HttpServletRequest request) {
+		int reviewId = Integer.parseInt(request.getParameter("reviewId"));
+		reviewDAO.deleteReview(reviewId);
 	}
 
 }

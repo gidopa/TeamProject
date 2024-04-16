@@ -24,6 +24,10 @@ request.setCharacterEncoding("UTF-8");
 	top: 10px;
 	right: 10px;
 }
+
+.btn-edit, .btn-delete {
+	margin-right: 5px;
+}
 </style>
 </head>
 <body>
@@ -67,22 +71,30 @@ request.setCharacterEncoding("UTF-8");
 		</form>
 		<div id="commentsContainer">
 			<c:forEach items="${comments}" var="comment">
-				<div class="card mb-3">
+				<div id="comment-${comment.reviewId}" class="card mb-3">
 					<div class="card-body">
-						<h5 class="card-title">${comment.courseTitle}- 평점:
-							${comment.reviewScore}</h5>
-						<p class="card-text">${comment.reviewContent}</p>
+						<h5 class="card-title" id="review-rating-${comment.reviewId}">
+							${comment.courseTitle} - 평점: <span
+								id="review-score-${comment.reviewId}">${comment.reviewScore}</span>
+						</h5>
+						<p class="card-text" id="review-content-${comment.reviewId}">${comment.reviewContent}</p>
+						<div class="rating" id="rating-${comment.reviewId}">
+<%-- 							<c:forEach begin="1" end="5" var="i"> --%>
+<!-- 								<i -->
+<%-- 									class="star far fa-star ${i <= comment.reviewScore ? 'fas' : 'far'}" --%>
+<%-- 									data-value="${i}"></i> --%>
+<%-- 							</c:forEach> --%>
+						</div>
 						<p class="card-text">
 							<small class="text-muted">작성자: ${comment.userId} 작성 시간: <fmt:formatDate
 									value="${comment.reviewDate}" pattern="yyyy-MM-dd" /></small>
 						</p>
 						<c:if test="${id == comment.userId}">
 							<div class="card-actions float-right">
-								<a
-									href="${contextPath}/Review/edit?reviewId=${comment.reviewId}"
-									class="card-link">수정</a> <a
-									href="${contextPath}/Review/delete?reviewId=${comment.reviewId}"
-									class="card-link">삭제</a>
+								<button type="button" class="btn btn-primary btn-edit"
+									onclick="editComment(${comment.reviewId})">수정</button>
+								<button type="button" class="btn btn-danger btn-delete"
+									onclick="deleteComment(${comment.reviewId})">삭제</button>
 							</div>
 						</c:if>
 					</div>
@@ -98,7 +110,7 @@ request.setCharacterEncoding("UTF-8");
 		<c:forEach items="${comments}" var="comment">
 			<div class="card mb-3">
 				<div class="card-body">
-					<h5 class="card-title">${comment.courseTitle}- 평점:
+					<h5 class="card-title">${comment.courseTitle}-평점:
 						${comment.reviewScore}</h5>
 					<p class="card-text">${comment.reviewContent}</p>
 					<p class="card-text">
@@ -145,6 +157,71 @@ request.setCharacterEncoding("UTF-8");
 					$(this).removeClass('fas').addClass('far');
 				}
 			});
+		}
+		function editComment(reviewId) {
+		    var contentElement = document.getElementById('review-content-' + reviewId);
+		    var currentText = contentElement.innerHTML;
+		    var currentScore = document.getElementById('review-score-' + reviewId).innerText;
+		    
+		    // 텍스트 수정 입력 필드 생성
+		    var inputHtml = '<input type="text" id="input-' + reviewId + '" value="' + currentText + '">';
+
+		    // 평점 수정 별 표시 생성
+		    inputHtml += '<div class="rating-edit">';
+		    for (let i = 1; i <= 5; i++) {
+		        inputHtml += '<i class="star fa-star ' + (i <= currentScore ? 'fas' : 'far') + '" data-value="' + i + '" onclick="setRating(' + reviewId + ', ' + i + ')"></i>';
+		    }
+		    inputHtml += '</div>';
+		    
+		    inputHtml += '<button onclick="saveComment(' + reviewId + ')">저장</button>';
+		    contentElement.innerHTML = inputHtml;
+		}
+
+		function setRating(reviewId, rating) {
+		    var stars = document.querySelectorAll('#rating-edit-' + reviewId + ' .star');
+		    stars.forEach(star => {
+		        if (parseInt(star.getAttribute('data-value')) <= rating) {
+		            star.classList.remove('far');
+		            star.classList.add('fas');
+		        } else {
+		            star.classList.remove('fas');
+		            star.classList.add('far');
+		        }
+		    });
+		    document.getElementById('review-score-' + reviewId).innerText = rating;
+		}
+
+		function saveComment(reviewId) {
+		    var inputValue = document.getElementById('input-' + reviewId).value;
+		    var inputRating = document.getElementById('review-score-' + reviewId).innerText;
+		    $.ajax({
+		        url: '${contextPath}/Review/update',
+		        type: 'POST',
+		        data: {
+		            reviewId: reviewId,
+		            reviewContent: inputValue,
+		            reviewScore: inputRating
+		        },
+		        success: function(response) {
+		            // 성공적으로 처리된 경우, 입력 폼을 원래 텍스트와 평점으로 변경
+		            document.getElementById('review-content-' + reviewId).innerHTML = inputValue;
+		            document.getElementById('review-score-' + reviewId).innerText = inputRating;
+		        }
+		    });
+		}
+		
+		function deleteComment(reviewId){
+			$.ajax({
+				url: '${contextPath}/Review/delete',
+				type: 'POST',
+				data: {
+					reviewId: reviewId
+				},
+				success: function(response){
+					alert("삭제가 완료 되었습니다");
+					document.getElementById('comment-' + reviewId).remove();
+				}
+			})
 		}
 	</script>
 </body>

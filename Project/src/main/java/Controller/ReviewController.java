@@ -93,6 +93,11 @@ public class ReviewController extends HttpServlet {
 		    out.println("</div>");
 
 			return;
+		case "/update":
+			reviewService.updateReview(request);
+			return;
+		case "/delete":
+			reviewService.deleteReview(request);
 		default:
 			throw new IllegalArgumentException("ReviewController Unexpected value: " + action);
 		}

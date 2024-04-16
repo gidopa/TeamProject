@@ -116,4 +116,35 @@ public class ReviewDAO {
 		}
 	}
 
+	public void updateReview(int reviewId, String reviewContent, Double reviewRating) {
+		try {
+			con = dataSource.getConnection();
+			String sql = "update reviews set review_content = ? , review_score = ? where review_id = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, reviewContent);
+			pstmt.setDouble(2, reviewRating);
+			pstmt.setInt(3,reviewId);
+			pstmt.executeUpdate();
+		} catch (Exception e) {
+			log.error("updateReview error : {}", e);
+		} finally {
+			ResourceClose();
+		}
+	}
+
+	public void deleteReview(int reviewId) {
+		try {
+			con = dataSource.getConnection();
+			String sql = "delete from reviews where review_id=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1,reviewId);
+			pstmt.executeUpdate();
+		} catch (Exception e) {
+			log.error("deleteReview error : {}", e);
+		} finally {
+			ResourceClose();
+		}
+		
+	}
+
 }
