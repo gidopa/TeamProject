@@ -182,7 +182,10 @@ public class UsersController extends HttpServlet {
 				return;
 			}
 			break;
-			
+		case "/NaverJoin.do":
+			usersService.naverlogin(request);
+			nextPage="/project1/main.jsp";
+			break;
 		default:
 			throw new IllegalArgumentException("UsersController Unexpected value: " + action);
 		}

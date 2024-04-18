@@ -272,7 +272,7 @@ public class UsersDAO {
 			pstmt = con.prepareStatement(sql1);
 			pstmt.setString(1, id);
 			rs = pstmt.executeQuery();
-			if (!rs.next()) {	// 만약 강사에 등록되어 있지 않다면
+			if (!rs.next()) { // 만약 강사에 등록되어 있지 않다면
 
 				sql2 = "insert into teachers (teacher_id, teacher_name) select user_id, user_name from users where user_id = ?";
 
@@ -280,8 +280,8 @@ public class UsersDAO {
 				pstmt.setString(1, id);
 
 				t = pstmt.executeUpdate();
-			} else {	// 만약 강사에 등록되어 있다면
-				t=0;
+			} else { // 만약 강사에 등록되어 있다면
+				t = 0;
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -298,18 +298,37 @@ public class UsersDAO {
 		try {
 			sql = "delete from users where user_id=?";
 			con = dataSource.getConnection();
-			
+
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, id);
-			
+
 			del = pstmt.executeUpdate();
-			
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			ResourceClose();
 		}
 		return del;
+	}
+
+	public void NaverJoin(UsersVO userVO) {
+		try {
+			con = dataSource.getConnection();
+			String sql = "INSERT INTO Users (user_id, user_name, email, password, phone_number, address, interest) VALUES (?, ?, ?, ?, ?, ?, ?)";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, userVO.getUser_id());
+			pstmt.setString(2, userVO.getUser_name());
+			pstmt.setString(3, userVO.getEmail());
+			pstmt.setString(4, userVO.getPassword());
+			pstmt.setString(5, userVO.getPhone_number());
+			pstmt.setString(6, userVO.getAddress());
+			pstmt.setString(7, userVO.getInterest());
+			pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			ResourceClose();
+		}
 	}
 }
