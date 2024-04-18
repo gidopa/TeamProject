@@ -191,7 +191,7 @@ alter table books modify book_title not null;
 ALTER TABLE Payments ADD user_name VARCHAR2(100);
 ALTER TABLE Payments ADD phone_number VARCHAR(20);
 ALTER TABLE Payments ADD email VARCHAR2(100);
-ALTER TABLE Payments ADD course_title VARCHAR2(200);
+ALTER TABLE Payments ADD roadmap_id VARCHAR2(200);
 
 ALTER TABLE Payments MODIFY user_name not null;
 ALTER TABLE Payments MODIFY phone_number not null;
