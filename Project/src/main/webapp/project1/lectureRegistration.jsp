@@ -72,7 +72,7 @@
 <body>
 
 <div class="container">
-    <form action="${contextPath}/Lecture/registraion" method="post">
+    <form action="${contextPath}/Lecture/registraion" method="post" onsubmit="return validateForm()">
         <h1 style="text-align:center">강의 상세 등록</h1>
         <br><br>
        <input type="hidden" name="courseTitle" value="${requestScope.vo.courseTitle}">
@@ -104,5 +104,24 @@
         </div>
     </form>
 </div>
+
+<script>
+    function validateForm() {
+        var lectureNumber = document.getElementById("lectureNumber").value;
+        var videoLink = document.getElementById("videoLink").value;
+        if (isNaN(lectureNumber) || lectureNumber.trim() === "") {
+            alert("강의 번호는 숫자만 입력해주세요.");
+            return false; // 폼 제출 막기
+        }
+        
+  	   // 강의 링크 유효성 검사 - "http://"로 시작하는지 확인
+        if (!videoLink.startsWith("https://")) {
+            alert("강의 링크는 'https://'로 시작해야 합니다.");
+            return false; // 폼 제출 막기
+        }
+        return true; // 유효성 검사 통과 시 폼 제출 허용
+    }
+</script>
+
 </body>
 </html>

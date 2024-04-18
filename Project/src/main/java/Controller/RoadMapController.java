@@ -1,6 +1,7 @@
 package Controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -81,6 +82,75 @@ public class RoadMapController extends HttpServlet {
 			request.setAttribute("courseVOList", courseVOList);
 			request.setAttribute("center", "RoadMapDetail.jsp");
 			nextPage=main; //RoadMapDetail.jsp 만져야함 
+			break;
+		case "/addRoadMap"	:
+			request.setAttribute("center", "addRoadMap.jsp");
+			nextPage=main;
+			break;
+			
+		//로드맵 정보 넣고 등록하기 눌러서 DB에 인서트하는 메소드	+courses테이블의 roadMap_id값이 null인값만 보여주기		
+		case "/roadMapPlus" :
+			roadMapId = roadMapService.registerRoadMap(request);
+			ArrayList<CourseVO> arrayList = (ArrayList<CourseVO>)roadMapService.registerRoadMapList(request);
+			request.setAttribute("roadMapId", roadMapId);
+			request.setAttribute("arrayList", arrayList);
+			request.setAttribute("center", "registerRoadMapList.jsp");
+			nextPage=main;
+			break;
+			
+		//로드맵에 등록할 강의 리스트를 클릭후에 DB에 CouresId와 RoadMapID를 맞추는 작업			
+		case "/postRoadMap" :
+			roadMapService.postRoadMap(request);
+	
+			request.setAttribute("center", "RoadMapList.jsp");
+			nextPage="/RoadMap/";
+			
+			break;
+			
+		//로드맵 수정/삭제 버튼을 눌렀을때 내 로드맵을 보여주기위한 화면			
+		case "/MyRoadMapList" :
+				list =  roadMapService.MyRoadMapList(request);
+			request.setAttribute("list", list);
+			request.setAttribute("center", "MyRoadMapList.jsp");
+			nextPage=main;
+		break;	
+		
+		//로드맵 수정 버튼을 눌렀을때 강의 조회 해서 가져오는 메소드
+		case "/updateRoadMap" : 
+			arrayList = (ArrayList<CourseVO>)roadMapService.updateRoadMap(request);
+			request.setAttribute("RoadMap_RoadMapId", request.getParameter("roadMapId"));
+			request.setAttribute("arrayList", arrayList);
+			request.setAttribute("center", "updateRoadMap.jsp");
+			nextPage=main;
+			break;
+			
+		//로드맵에 등록할 강의 목록을 체크후 수정버튼을 누르면 DB에 RoadMap_id를 업데이트
+		case "/updateRoadMapInsert" :
+			roadMapService.updateRoadMapInsert(request);
+			request.setAttribute("center", "RoadMapList.jsp");
+			nextPage="/RoadMap/";
+			break;
+			
+		//로드맵리스트에서 삭제 버튼을 눌러 DB에 저장된 로드맵을 삭제하는 메소드
+		case "/deleteRoadMap":
+			roadMapService.deleteRoadMap(request);
+			
+			request.setAttribute("center", "RoadMapList.jsp");
+			nextPage="/RoadMap/";
+			break;
+			
+		//로드맵 등록시 Title 값이 DB에 존재하는지 유효성검사	
+		case "/checkRoadMapTitle":	
+			 //true -> 중복, fasle -> 중복아님   둘중 하나를 반환 받음 
+			   boolean result = roadMapService.checkRoadMapTitle(request);
+			  PrintWriter out = response.getWriter();
+			   if(result == true) { //중복			   
+				   out.write("exists");
+				   return;
+			   }else if(result == false){//중복아님
+				   out.write("usable");
+				   return;
+			   }
 			break;
 		default:
 			throw new IllegalArgumentException("RoadMapController Unexpected value: " + action);

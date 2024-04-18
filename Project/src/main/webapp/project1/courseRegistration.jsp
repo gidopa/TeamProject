@@ -26,6 +26,7 @@
 
         .form-group {
             margin-bottom: 20px;
+            
         }
 
         .form-group label {
@@ -41,6 +42,12 @@
             border: 1px solid #ccc;
             border-radius: 3px;
         }
+        .form-group textarea {
+		    width: calc(70%);
+		    padding: 8px;
+		    border: 1px solid #ccc;
+		    border-radius: 3px;
+		}
 
         .form-group button {
             padding: 8px 20px;
@@ -86,6 +93,9 @@
         .form-group>label{
         	align : center;
         }
+        
+
+        
     </style>
 </head>
 <body>
@@ -114,9 +124,10 @@
         </div>
         <div class="form-group">
             <label for="price">강의 가격 : </label>
-            <input type="text" id="price" name="price">
+            <input type="text" id="price" name="price">원
+            <p id="priceInput"></p>
         </div>
-        <div class="form-group">
+        <div class="form-group" align="center">
             <label for="category">강의 분야</label>
         </div>   
         <div>   
@@ -130,25 +141,45 @@
                 <input type="radio" id="ai" name="category" value="ai">
                 <label for="ai">인공지능 (AI)</label>
             </div>
+            <p id="form-radio"></p>
         </div>
         <div class="form-group">
             <label for="title">강의 제목 : </label>
             <input type="text" id="title" name="title">
+            <p id="titleInput"></p> 
         </div>
-        <div class="form-group">
-            <label for="description">강의 내용 : </label>        
-            <input type="text" id="description" name="description">
-        </div>
+<!--         <div class="form-group"> -->
+<!--             <label for="description">강의 내용 : </label>         -->
+<!--             <input type="text" id="description" name="description"> -->
+<!--         </div> -->
+
+		<div class="form-group" style="width: 100%;">
+		    <div style="position: relative;">
+		        <label for="description" style="position: absolute; top: 0; left: 0;">강의 내용 : </label>  
+		        <textarea id="description" name="description" rows="10" style="width: calc(90% - 100px); margin-left: 100px;"></textarea>
+		    </div>
+		</div>
+		
         <div class="form-group">
             <label for="img">강의 이미지 : </label>
             <input type="text" id="img" name="img" placeholder="example.png">
         </div>
         <div class="form-group" style="text-align: center;">
-            <button type="submit">강의 등록</button>
-            <button type="reset">다시입력</button>
+       
+    <button onclick="if (!check()) return false;" type="submit">강의 등록</button>
+    <button type="reset">다시입력</button>
+
+<!--             <button type="submit">강의 등록</button> -->
+<!--             <button type="reset">다시입력</button> -->
         </div>
     </form>
 </div>
+
+ <script  src="https://code.jquery.com/jquery-latest.min.js"></script>
+ 
+<%-- 강의등록 유효성 검사 체크 --%>
+<script src="<%=request.getContextPath()%>/resources/js/course.js"></script>
+
 
 </body>
 </html>

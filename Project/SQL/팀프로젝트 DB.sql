@@ -57,6 +57,7 @@ CREATE TABLE Enrollments (
     user_id varchar2(100),
     course_id NUMBER,
     enrollment_date DATE,
+    roadmap_id varcahr2(100)
 
     constraints fk_enrollments1 foreign key(user_id)
     references Users(user_id)

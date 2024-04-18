@@ -119,6 +119,213 @@ public class RoadMapDAO {
 		return map;
 	}
 	
+	//로드맵을 DB에 등록 하면서roadMapId가져오는 작업  
+		public int registerRoadMap(String userId, String roadMapTitle, String roadMapDescription, String imgPath) {
+			int roadMapId=0;
+		
+			try {
+				con = dataSource.getConnection(); 
+				String sql = "insert into ROADMAP(roadMap_Id,roadMap_Title,roadMap_Description,RoadMap_IMG,user_Id) "
+							+ "values(RoadMap_roadmap_id.nextVal,?,?,?,?)";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setString(1,roadMapTitle);
+				pstmt.setString(2,roadMapDescription);
+				pstmt.setString(3,imgPath);
+				pstmt.setString(4,userId);
+				pstmt.executeUpdate();
+				
+				sql = "select roadMap_id from RoadMap where roadMap_title = ? and user_id = ?";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setString(1,roadMapTitle);
+				pstmt.setString(2,userId);
+				rs = pstmt.executeQuery();
+					if(rs.next()) {
+						roadMapId = rs.getInt("roadMap_Id");
+					}
+			}catch (Exception e) {
+				log.debug("RoadMapDAO registerRoadMap error : {}", e);
+			}finally {
+				resourceRelease();
+			}
+			return roadMapId;
+		}
+		//RoadMap등록시 userId를 받아서 내가 등록한 강의들의 리스트를 받아오는 메소드
+		public List<CourseVO> registerRoadMapList(String userId) {
+				List list = new ArrayList<>();
+				try {
+					con = dataSource.getConnection(); 
+					String sql = "select * from Courses where (user_id=? and roadmap_id IS NULL)";//
+					pstmt = con.prepareStatement(sql);
+					pstmt.setString(1, userId);
+					rs = pstmt.executeQuery();
+					while(rs.next()) {
+						courseVO = new CourseVO();
+						courseVO.setCourseId(rs.getInt("course_id"));
+						courseVO.setCourseTitle(rs.getString("course_title"));
+						courseVO.setCourseDescription(rs.getString("course_description"));
+						courseVO.setUserId(rs.getString("user_id"));
+						courseVO.setCoursePrice(rs.getInt("course_price"));
+						list.add(courseVO);
+					}
+				}catch (Exception e) {
+					log.debug("RoadMapDAO registerRoadMapList error : {}", e);
+				}finally {
+					resourceRelease();
+				}
+				return list;
+		}
+		//체크박스에 체크된 강의만 모아서 로드맵에 등록하는 메소드
+		public void postRoadMap(HttpServletRequest request) {
+			try {
+			int roadMapId = Integer.parseInt(request.getParameter("roadMapId"));
+			int couserId = 0;
+			List<Integer> selectedCourseIds = new ArrayList<>();
+			String[] courseIds = request.getParameterValues("course_id");
+			if(courseIds != null) {
+				con = dataSource.getConnection(); 
+				    for(String courseId : courseIds) {
+				         couserId = Integer.parseInt(courseId);
+				 			String sql = "update courses set roadmap_id = ? where course_id=?";
+				 			pstmt = con.prepareStatement(sql);
+				 			pstmt.setInt(1, roadMapId);
+				 			pstmt.setInt(2, couserId);
+				 			pstmt.executeUpdate();
+				    }
+			}
+			}catch (Exception e) {
+	 			log.debug("RoadMapDAO postRoadMap error : {}", e);
+	 		}finally {
+	 			resourceRelease();
+			}	
+		}
+		//로드맵 수정/삭제 버튼을 눌렀을때 내 로드맵을 가져와서 보여주는 메소드
+		public List<RoadMapVO> MyRoadMapList(String id) {
+			List list = new ArrayList<>();
+			try {
+				con = dataSource.getConnection(); 
+				String sql = "select * from roadMap where user_id=? ";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setString(1, id);
+				rs = pstmt.executeQuery();
+				while(rs.next()) {
+					RoadMapVO roadMapVO = new RoadMapVO();
+					roadMapVO.setRoadMapId(rs.getInt("roadmap_id"));
+					roadMapVO.setRoadMapTitle(rs.getString("roadMap_title"));
+					roadMapVO.setUserId(rs.getString("user_id"));
+					
+					list.add(roadMapVO);
+				}
+			}catch (Exception e) {
+				log.debug("RoadMapDAO MyRoadMapList error : {}", e);
+			}finally {
+				resourceRelease();
+			}
+			return list;
+		}
+		//로드맵 리스트 화면에서 수정 버튼을 눌렀을때 내가 등록한 강의들을 가져와서 보여주는 메소드 
+		//  +내가 등록한 강의중 수정을 누른 로드맵 강의와 courses테이블의 roadmap_id가 null인값만 보여주기 
+		public ArrayList<CourseVO> updateRoadMap(String userId, int roadMapId) {
+			List list = new ArrayList<>();
+			try {	
+				con = dataSource.getConnection(); 
+				String sql = "SELECT * FROM Courses WHERE (user_id = ? AND roadmap_id = ?) "
+								+ "OR (user_id = ? AND roadmap_id IS NULL)";
+				
+				pstmt = con.prepareStatement(sql);
+				pstmt.setString(1, userId);
+				pstmt.setInt(2, roadMapId);
+				pstmt.setString(3, userId);
+				rs = pstmt.executeQuery();
+				while(rs.next()) {
+					courseVO = new CourseVO();
+					courseVO.setCourseId(rs.getInt("course_id"));
+					courseVO.setCourseTitle(rs.getString("course_title"));
+					courseVO.setCourseDescription(rs.getString("course_description"));
+					courseVO.setUserId(rs.getString("user_id"));
+					courseVO.setCoursePrice(rs.getInt("course_price"));
+					courseVO.setRoadMapId(rs.getInt("roadMap_Id"));
+					list.add(courseVO);
+				}
+			}catch (Exception e) {
+				log.debug("RoadMapDAO registerRoadMapList error : {}", e);
+			}finally {
+				resourceRelease();
+			}
+			return (ArrayList<CourseVO>) list;
+		}
+		//로드맵의 내 강의리스트에서 체크한 강의들만 다시 DB에 저장하는 메소드(수정)
+		public void updateRoadMapInsert(HttpServletRequest request) {
+			try {
+				int roadMapId = Integer.parseInt(request.getParameter("roadMapId"));
+				int couserId = 0;
+				List<Integer> selectedCourseIds = new ArrayList<>();
+				String[] courseIds = request.getParameterValues("course_id");
+				if(courseIds != null) {
+					con = dataSource.getConnection(); 
+					String sql = "update courses set roadmap_id = null where roadmap_id =?";
+					pstmt = con.prepareStatement(sql);
+					pstmt.setInt(1, roadMapId);
+					pstmt.executeUpdate();
+					    for(String courseId : courseIds) {
+					    		couserId = Integer.parseInt(courseId);
+					 			sql = "update courses set roadmap_id = ? where course_id=?";
+					 			pstmt = con.prepareStatement(sql);
+					 			pstmt.setInt(1, roadMapId);
+					 			pstmt.setInt(2, couserId);
+					 			pstmt.executeUpdate();
+					    }
+				}
+			}catch (Exception e) {
+	 			log.debug("RoadMapDAO updateRoadMapInsert error : {}", e);
+	 		}finally {
+	 			resourceRelease();
+			}				
+		}
+		//로드맵 리스트 화면에서 삭제 버튼을 눌러 DB에서 로드맵을 삭제하는 메소드
+		public void deleteRoadMap(int roadMapId) {
+			String sql= null;
+			try {	
+				con = dataSource.getConnection(); 
+				sql = "update courses set roadmap_id = null where roadmap_id =?";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setInt(1, roadMapId);
+				pstmt.executeUpdate();
+				sql = "delete from roadMap where roadMap_id =?";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setInt(1, roadMapId);
+				pstmt.executeUpdate();
+			}catch (Exception e) {
+				log.debug("RoadMapDAO deleteRoadMap error : {}", e);
+			}finally {
+				resourceRelease();
+			}
+		}
+		//로드맵 제목 등록시 DB에 존재하는지 유효성검사
+		public boolean checkRoadMapTitle(String roadMapTitle) {
+			boolean result = false;
+			try {
+				 con = dataSource.getConnection();
+
+				 String sql = "select  decode(count(*), 1, 'true', 'false') as result from roadMap where ROADMAP_TITLE=?";
+				 
+				 pstmt = con.prepareStatement(sql);
+				 pstmt.setString(1, roadMapTitle); 
+				 rs = pstmt.executeQuery();
+				 rs.next();
+				 String value = rs.getString("result");
+				 result = Boolean.parseBoolean(value); 
+				 
+				 System.out.println("result : " + result);
+				 
+			} catch (Exception e) {
+				log.debug("checkRoadMapTitle error : {}", e);
+			} finally {
+				resourceRelease();
+			}
+			
+			return result;
+		}
+	
 	
 
 }
