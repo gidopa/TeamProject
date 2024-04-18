@@ -1,6 +1,7 @@
 package VO;
 
 import java.sql.Date;
+import java.util.Objects;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -8,8 +9,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
-@Setter 
-@NoArgsConstructor 
+@Setter
+@NoArgsConstructor
 @AllArgsConstructor
 public class CourseVO {
 	private int courseId;
@@ -21,4 +22,7 @@ public class CourseVO {
 	private int enrollCount;
 	private String courseCategory;
 	private String imgPath;
+	private int roadMapId;
+
+	
 }

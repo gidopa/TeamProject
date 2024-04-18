@@ -128,6 +128,21 @@ public class CourseService {
 		return courseDAO.getEnrollCoursesListById(id);
 	}
 	
+	//강의 등록을 할때 강의제목열의 값이 DB에 중복되어있을경우 유효성검사
+			public boolean coursesTitleCheck(HttpServletRequest request) {
+				//입력한 제목 얻기
+				String courseTitle = request.getParameter("title");
+				
+				//true -> 중복,  false-> 중복아님    둘중 하나를 반환받음 
+				return courseDAO.coursesTitleCheck(courseTitle);
+				
+			}
+
+
+			public List<CourseVO> getCourseListInRoadMap(String id) {
+				return courseDAO.getCourseListInRoadMap(id);
+			}
+	
 
 
 	

@@ -3,7 +3,9 @@ package Controller;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -77,9 +79,21 @@ public class CourseController extends HttpServlet {
 		}else if(action.equals("/lecture")) {
 			String id = (String)session.getAttribute("id");
 //			String id = "user01";
-			List<CourseVO> list = new ArrayList<>(); 
-			// 회원이 구매한 강의를 받아올 메소드
-			list = courseService.getCoursePurchased(id);
+			List<CourseVO> courselist = new ArrayList<>(); 
+			List<CourseVO> courseListInRoadMap = new ArrayList<CourseVO>();
+			// 로드맵중에서 이미 구매한 강좌를 제외한 강좌들의 정보가 있는 List
+			courseListInRoadMap = courseService.getCourseListInRoadMap(id);
+			log.debug("CourseListInRoadMap size : {}", courseListInRoadMap.size());
+			// 회원이 구매한 강좌를 받아올 메소드
+			courselist = courseService.getCoursePurchased(id);
+			// 중복을 피하기 위해 HashSet에 List를 담은다음 다시 List로 반환
+			Set<CourseVO> set = new HashSet<>(courselist);
+			set.addAll(courseListInRoadMap); // 중복된 요소는 자동으로 제거됨
+			List<CourseVO> list = new ArrayList<>(set);
+			for(CourseVO vo : list) {
+				System.out.println("강의 : " + vo.getCourseTitle());
+			}  
+		
 			request.setAttribute("list", list);
 			request.setAttribute("center", "SelectCourse.jsp");
 			nextPage=main;
@@ -170,8 +184,23 @@ public class CourseController extends HttpServlet {
 				out.print("</script>");
 				return;
 			}
+			//강의 등록을 할때 강의제목열의 값이 DB에 중복되어있을경우 유효성검사     //0417추가
+		}else if(action.equals("/coursesTitleCheck")) {
+			   //true -> 중복, fasle -> 중복아님   둘중 하나를 반환 받음 
+			   boolean result = courseService.coursesTitleCheck(request);
+			   
+			   System.out.println(result);
+			   
+			  PrintWriter out = response.getWriter();
+			   if(result == true) { //중복			   
+				   out.write("not_usable");
+				   return;
+			   }else if(result == false){//중복아님
+				   out.write("usable");
+				   return;
+			   }
 			
-		}
+			}
 		else { // getPathInfo 한 action 변수가 조건 아무것도 못타면 예외 발생
 			response.setStatus(HttpServletResponse.SC_NOT_FOUND);
 			throw new IllegalArgumentException("doHandle .Unexpected value: " + action);
