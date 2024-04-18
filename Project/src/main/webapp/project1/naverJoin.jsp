@@ -34,7 +34,7 @@
 	<div class="container">
 				
 		<div class="col-6">
-				<label>회원 종류</label>
+				<label>관심 분야</label>
 				<p id="adminInput"></p> 
 				<hr> 
 				backend
