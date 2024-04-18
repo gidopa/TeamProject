@@ -16,6 +16,7 @@ import javax.sql.DataSource;
 import VO.CourseVO;
 import VO.LectureVO;
 import VO.RoadMapVO;
+import VO.UsersVO;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -100,6 +101,7 @@ public class RoadMapDAO {
 				courseVO = new CourseVO();
 				roadMapVO.setRoadMapTitle(rs.getString("roadmap_title"));
 				roadMapVO.setRoadMapDescription(rs.getString("roadmap_description")); // roadMapVO 값 세팅
+				roadMapVO.setRoadMapId(roadMapId);
 				courseVO.setCourseId(rs.getInt("course_id"));
 				courseVO.setCourseDescription(rs.getString("course_description"));
 				courseVO.setCourseTitle(rs.getString("course_title"));
@@ -324,6 +326,29 @@ public class RoadMapDAO {
 			}
 			
 			return result;
+		}
+		
+		public UsersVO getPayDetail(String user_id){
+			UsersVO list=new UsersVO();
+			try {
+				con = dataSource.getConnection(); 
+				String sql = "select * from users where user_id=?";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setString(1, user_id);
+				rs = pstmt.executeQuery();
+				while(rs.next()) {
+					UsersVO userVO=new UsersVO();
+					list.setUser_name(rs.getString("user_name"));
+					list.setEmail(rs.getString("email"));
+					list.setPhone_number(rs.getString("phone_number"));
+					list.setAddress(rs.getString("address"));
+				}
+			} catch (Exception e) {
+				log.debug("getPayDetail error : {}",e);
+			}finally {
+				resourceRelease();
+			}
+			return list;
 		}
 	
 	

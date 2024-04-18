@@ -19,6 +19,7 @@ import Service.RoadMapService;
 import VO.CourseVO;
 import VO.LectureVO;
 import VO.RoadMapVO;
+import VO.UsersVO;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -66,6 +67,7 @@ public class RoadMapController extends HttpServlet {
 			// 특정 로드맵 클릭했을때 로드맵 세부 내용을 조회
 		case "/detail":
 			int roadMapId = Integer.parseInt(request.getParameter("roadMapId")) ;
+			String user_id= (String)session.getAttribute("id") ;
 			RoadMapVO roadMapVO = new RoadMapVO();
 			List<CourseVO> courseVOList = new ArrayList<>();
 			Map<String, Object> map  = new HashMap<String, Object>();
@@ -73,15 +75,19 @@ public class RoadMapController extends HttpServlet {
 			// HashMap으로 받아온 값들을 꺼내서 바인딩 jsp에서 꺼내는것보다 여기서 하는게 편할것같아서 ,,,
 			roadMapVO = (RoadMapVO)map.get("roadMapVO");
 			courseVOList = (List<CourseVO>)map.get("courseVO");
+			UsersVO userList = new UsersVO();
+			userList=roadMapService.getPayDetail(user_id);
 			log.debug("roadMapVO : {}", roadMapVO.getRoadMapTitle());
 			log.debug("list : {}", courseVOList.size());
 			for(CourseVO vo : courseVOList) {
 				System.out.println(vo.getCourseTitle());
 			}
+			System.out.println("왜 널이지 ?? : "+userList.getUser_name());
 			request.setAttribute("roadMapVO", roadMapVO);
 			request.setAttribute("courseVOList", courseVOList);
+			request.setAttribute("userVO", userList);
 			request.setAttribute("center", "RoadMapDetail.jsp");
-			nextPage=main; //RoadMapDetail.jsp 만져야함 
+			nextPage=main;
 			break;
 		case "/addRoadMap"	:
 			request.setAttribute("center", "addRoadMap.jsp");

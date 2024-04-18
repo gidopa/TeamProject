@@ -12,6 +12,7 @@ import DAO.LectureDAO;
 import DAO.RoadMapDAO;
 import VO.CourseVO;
 import VO.RoadMapVO;
+import VO.UsersVO;
 
 public class RoadMapService {
 	private RoadMapDAO roadMapDAO;
@@ -83,6 +84,12 @@ public class RoadMapService {
 			//true -> 중복,  false-> 중복아님    둘중 하나를 반환받음 
 			return roadMapDAO.checkRoadMapTitle(roadMapTitle);
 			
+		}
+		
+		public UsersVO getPayDetail(String user_id){
+			UsersVO list=new UsersVO();
+			list=roadMapDAO.getPayDetail(user_id);
+			return list;
 		}
 	
 	

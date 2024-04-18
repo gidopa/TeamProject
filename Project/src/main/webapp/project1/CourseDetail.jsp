@@ -1,25 +1,22 @@
- <%@page import="VO.CourseVO"%>
-            <%@ page language="java" contentType="text/html; charset=UTF-8"
-                pageEncoding="UTF-8"%>
-                <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-            <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-            <c:set var="contextPath"   value="${pageContext.request.contextPath}"/> 
+
+<%@page import="VO.CourseVO"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
-    <title>강의 정보 VIEW</title>
-    <link rel="stylesheet" href="/Project/project1/css/Detailpage.css" />
-      <script
-            type="text/javascript"
-            src="https://code.jquery.com/jquery-1.12.4.min.js"
-    ></script>
-    <!-- iamport.payment.js -->
-    <script
-            type="text/javascript"
-            src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"
-    ></script>
-    <script>
+<meta charset="UTF-8">
+<title>강의 정보 VIEW</title>
+<link rel="stylesheet" href="/Project/project1/css/Detailpage.css" />
+<script type="text/javascript"
+	src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+<!-- iamport.payment.js -->
+<script type="text/javascript"
+	src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
+<script>
     const date = new Date();
     const year = date.getFullYear();
     const month = ('0' + (date.getMonth() + 1)).slice(-2);
@@ -145,60 +142,71 @@
             $("#payment_success_form").append(email);
         }
     </script>
-   
+
 </head>
 <body>
-    <div class="center-container">
-        <div class="course-info">
-           
-            <%
-                request.setCharacterEncoding("utf-8");
-                String contextPath = request.getContextPath();
-                CourseVO courseVO = (CourseVO)request.getAttribute("courseVO");
-            %>
-              <br><br><br><br><br>
-            
-            <h1 class="center1">강의 정보</h1>
-          
-<%--             <form action="<%=contextPath%>/Pay/check" method="post"> --%>
-                <table>
-                    <tr>
-                        <td rowspan="4" class="center1"><a href="<%=contextPath%>/Courses/lecture"><img src="${contextPath}/project1/images/${courseVO.imgPath}" alt="강의 이미지"  width="500"></a></td>
-                        <th>강의 카테고리</th>
-                        <td>${courseVO.courseCategory}</td>
-                    </tr>
-                    <tr>
-                        <th>강의명</th>
-                        <td>${courseVO.courseTitle}</td>
-                    </tr>
-                    <tr>
-                        <th>강사명</th>
-                        <td>${courseVO.userId}</td> 
-                    </tr>
-                    <tr>
-                        <th>강의 금액</th>
-                        <td>₩<fmt:formatNumber value="${courseVO.coursePrice}" type="number" pattern="#,##0" /></td>
-                    </tr>
-                    </table>
-                      <div class="btn-container">
-                    <input type="hidden" name="courseTitle" value="${courseVO.courseTitle}">
-                    <input type="hidden" name="coursePrice" value="${courseVO.coursePrice}">
-                    <input type="button" class="btn" value="이전" onclick="history.back();">
-<!--                     <input type="submit" class="btn" value="결제하기" onclick="requestPay()"> -->
-                    <button class="btn" onclick="requestPay()">결제하기</button>
-                </div>
-<!--                 <button onclick="requestPay()">결제하기</button> -->
-<!--             </form> -->
-            <div class="course-info">
-                <p><b>강의 정보</b></p>
-                <p>${courseVO.courseDescription}</p> 
-            </div>
-        </div>
-    </div>
-    <form action="${contextPath}/Pay/payConfirm" id="payment_success_form">
+	<div class="center-container">
+		<div class="course-info">
+
+			<%
+			request.setCharacterEncoding("utf-8");
+			String contextPath = request.getContextPath();
+			CourseVO courseVO = (CourseVO) request.getAttribute("courseVO");
+			%>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+
+			<h1 class="center1">강의 정보</h1>
+
+			<%--             <form action="<%=contextPath%>/Pay/check" method="post"> --%>
+			<table>
+				<tr>
+					<td rowspan="4" class="center1"><a
+						href="<%=contextPath%>/Courses/lecture"><img
+							src="${contextPath}/project1/images/${courseVO.imgPath}"
+							alt="강의 이미지" width="500"></a></td>
+					<th>강의 카테고리</th>
+					<td>${courseVO.courseCategory}</td>
+				</tr>
+				<tr>
+					<th>강의명</th>
+					<td>${courseVO.courseTitle}</td>
+				</tr>
+				<tr>
+					<th>강사명</th>
+					<td>${courseVO.userId}</td>
+				</tr>
+				<tr>
+					<th>강의 금액</th>
+					<td>₩<fmt:formatNumber value="${courseVO.coursePrice}"
+							type="number" pattern="#,##0" /></td>
+				</tr>
+			</table>
+			<div class="btn-container">
+				<input type="hidden" name="courseTitle"
+					value="${courseVO.courseTitle}"> <input type="hidden"
+					name="coursePrice" value="${courseVO.coursePrice}"> <input
+					type="button" class="btn" value="이전" onclick="history.back();">
+				<!--                     <input type="submit" class="btn" value="결제하기" onclick="requestPay()"> -->
+				<button class="btn" onclick="requestPay()">결제하기</button>
+			</div>
+			<!--                 <button onclick="requestPay()">결제하기</button> -->
+			<!--             </form> -->
+			<div class="course-info">
+				<p>
+					<b>강의 정보</b>
+				</p>
+				<p>${courseVO.courseDescription}</p>
+			</div>
+		</div>
+	</div>
+	<form action="${contextPath}/Pay/payConfirm" id="payment_success_form">
 		<!-- 결제 완료 후 정보 삽입 -->
 		<input type="hidden" name="courseId" value="${courseVO.courseId }">
-    </form>
-     
+	</form>
+
 </body>
 </html>

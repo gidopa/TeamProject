@@ -48,7 +48,7 @@ public class PayController extends HttpServlet {
 		log.debug("action = {}",action);
 		if(action.equals("/payConfirm")) {
 			String id = (String)session.getAttribute("id");
-			payService.insertPayTale(request,id);
+			payService.insertPayTable(request,id);
 			nextPage=main;
 		}else { // getPathInfo 한 action 변수가 조건 아무것도 못타면 예외 발생
 			response.setStatus(HttpServletResponse.SC_NOT_FOUND);

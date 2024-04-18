@@ -19,7 +19,7 @@ public class PayService {
 	}
 
 
-	public void insertPayTale(HttpServletRequest request, String id) {
+	public void insertPayTable(HttpServletRequest request, String id) {
 		String userId = id; 
 //		String paymentId = request.getParameter("payment_id");
 //		String userName = request.getParameter("userName");
@@ -33,7 +33,10 @@ public class PayService {
 		enrollDAO.updatePurchase(request,userId);
 	}
 	
-	
+	public void insertEnrollTable(HttpServletRequest request, String id) {
+		String userId=id;
+		payDAO.insertEnrollTable(request, userId);
+	}
 	
 	
 }

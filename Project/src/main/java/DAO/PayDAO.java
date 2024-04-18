@@ -79,8 +79,8 @@ public class PayDAO {
 		int courseId = Integer.parseInt( request.getParameter("courseId"));
 		try {
 			con = dataSource.getConnection();
-			String sql = "insert into payments (payment_id, user_id, course_id, payment_date, payment_amount, payment_status, user_name,phone_number,email,course_title)"
-												+ " values (?,?,?,sysdate, ?,?,?,?,?,?)";
+			String sql = "insert into payments (payment_id, user_id, course_id, payment_date, payment_amount, payment_status, user_name,phone_number,email,roadmap_id)"
+												+ " values (?,?,?,sysdate, ?,?,?,?,?,null)";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, paymentId);
 			pstmt.setString(2, userId);
@@ -90,7 +90,6 @@ public class PayDAO {
 			pstmt.setString(6, userName);
 			pstmt.setString(7, phoneNumber);
 			pstmt.setString(8, email);
-			pstmt.setString(9, courseTitle);
 			pstmt.executeUpdate();
 
 		} catch (Exception e) {
@@ -100,4 +99,38 @@ public class PayDAO {
 		}
 
 	}
+	
+	//로드맵을 사면 강의 여러개를 한번에 사는거니까 해시맵이나 리스트에 담아서 와야 하는건가?
+		public void insertEnrollTable(HttpServletRequest request, String id) {
+			String userId = id;
+			String paymentId = request.getParameter("payment_id");
+			String userName = request.getParameter("userName");
+			log.debug("userName : {}",userName);
+			String phoneNumber = request.getParameter("phone_number");
+			String email = request.getParameter("email");
+			String paymentDate = request.getParameter("payment_date");
+			int paymentAmount = Integer.parseInt(request.getParameter("payment_amount"));
+			String paymentStatus = request.getParameter("payment_status");
+			int roadMapId=Integer.parseInt(request.getParameter("roadMapId"));
+			try {
+				con = dataSource.getConnection();
+				String sql = "insert into payments (payment_id, user_id, course_id, payment_date,"
+						+ " payment_amount, payment_status, user_name, phone_number, email,"
+						+ " roadmap_id) values(?,?,null,sysdate,?,?,?,?,?,?)";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setString(1, paymentId);
+				pstmt.setString(2, userId);
+				pstmt.setInt(3, paymentAmount);
+				pstmt.setString(4, paymentStatus); 
+				pstmt.setString(5, userName);
+				pstmt.setString(6, phoneNumber);
+				pstmt.setString(7, email);
+				pstmt.setInt(8, roadMapId);
+				pstmt.executeUpdate();
+			} catch (Exception e) {
+				log.error("insertEnrollTable error : {}", e);
+			} finally {
+				ResourceClose();
+			}
+		}
 }

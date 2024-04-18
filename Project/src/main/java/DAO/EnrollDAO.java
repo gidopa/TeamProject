@@ -87,5 +87,26 @@ public class EnrollDAO {
 			ResourceClose();
 		}
 	}
+	
+	public void enrollRoadMap(HttpServletRequest request, String id) {
+		String paymentId = request.getParameter("payment_id");
+		System.out.println("student_name = ");
+		String paymentDate = request.getParameter("payment_date");
+		int roadMapId=Integer.parseInt(request.getParameter("roadMapId"));
+		try {
+			con = dataSource.getConnection();
+			String sql = "insert into enrollments(enrollment_id, student_id, course_id,"
+					+ " enrollment_date, roadmap_id) values(?, ?, null, sysdate, ?)";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, paymentId);
+			pstmt.setString(2, id);
+			pstmt.setInt(3, roadMapId);
+			pstmt.executeUpdate();
+		} catch (Exception e) {
+			log.debug("enrollRoadMap error :{}", e);
+		} finally {
+			ResourceClose();
+		}
+	}
 
 }
