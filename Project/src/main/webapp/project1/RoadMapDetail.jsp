@@ -1,3 +1,4 @@
+<%@page import="ch.qos.logback.core.recovery.ResilientSyslogOutputStream"%>
 <%@page import="VO.UsersVO"%>
 <%@page import="VO.CourseVO"%>
 <%@page import="java.util.List"%>
@@ -132,8 +133,9 @@ body {
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <%
 	List<CourseVO> courseVOList = (List<CourseVO>)request.getAttribute("courseVOList");
+List<CourseVO> courseToPurchase = (List<CourseVO>)request.getAttribute("courseToPurchase");
 	int roadMapPrice = 0;
-	for(CourseVO vo : courseVOList){
+	for(CourseVO vo : courseToPurchase){
 		roadMapPrice += vo.getCoursePrice();
 	}
 	UsersVO userList = (UsersVO)request.getAttribute("userList");
@@ -266,7 +268,7 @@ body {
 <body>
 
 	<div class="purchase-button-container">
-		<div class="roadmap-price-display"><strong>로드맵 가격</strong> : ₩<fmt:formatNumber value="<%=roadMapPrice%>" type="number" pattern="#,##0" /></div>
+		<div class="roadmap-price-display"><small>(*이미 구매한 강의는 제외됩니다)</small><br><strong>로드맵 가격</strong> : ₩<fmt:formatNumber value="<%=roadMapPrice%>" type="number" pattern="#,##0" /></div>
 		<form action="#" method="post">
 			<input type="hidden" name="roadMapPrice" value="<%=roadMapPrice%>">
 			<input type="button" class="purchase-btn" value="로드맵 결제하기" onclick="requestPay()">

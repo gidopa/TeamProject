@@ -211,7 +211,7 @@ public class CourseDAO {
 
 		return list;
 	}
-
+// 강사의 
 	public String getInstructorNameById(String id) {
 		String name = null;
 		try {
@@ -232,7 +232,7 @@ public class CourseDAO {
 
 		return name;
 	}
-
+// 강좌의 카테고리, 제목을 얻음
 	public CourseVO getTitleAndCategory(int courseId) {
 		CourseVO vo = new CourseVO();
 		try {
@@ -252,7 +252,7 @@ public class CourseDAO {
 		}
 		return vo;
 	}
-
+// 강좌 조회
 	public List<CourseVO> modifyCourseList(String userId) {
 		List<CourseVO> list = new ArrayList<CourseVO>();
 
@@ -289,7 +289,7 @@ public class CourseDAO {
 
 		return list;
 	}
-
+// ?
 	public CourseVO modifyCourse(String userId, int courseId) {
 
 		String sql = "";
@@ -322,7 +322,7 @@ public class CourseDAO {
 
 		return courseVO;
 	}
-
+// 강좌 수정
 	public int reqModCourse(int courseId, String courseTitle, String courseDescription, String imgPath,
 			int coursePrice) {
 		String sql = "";
@@ -350,7 +350,7 @@ public class CourseDAO {
 
 		return update;
 	}
-
+// 강좌 삭제
 	public int delCourse(int courseId) {
 		String sql = "";
 		int update = 0;
@@ -372,7 +372,7 @@ public class CourseDAO {
 		}
 		return update;
 	}
-
+// 등록한 강의 조회
 	public List<CourseVO> getEnrollCoursesListById(String id) { // 여기부터 자기가 등록한 강의를 조회할 수 있도록 join 해서 가져와야함
 		List<CourseVO> list = new ArrayList<CourseVO>();
 		CourseVO vo = null;
@@ -418,17 +418,17 @@ public class CourseDAO {
 		}
 		return result;
 	}
-
+// 로드맵에 저장되어 있는 강좌 중 이미 구매한 강좌들
 	public List<CourseVO> getCourseListInRoadMap(String id) {
 		List<CourseVO> list = new ArrayList<CourseVO>();
 		try {
 			con = dataSource.getConnection();
-			String sql = "select * from enrollments inner join courses on enrollments.roadmap_id = courses.roadmap_id where enrollments.student_id = ? "
-					+ "and not exists (select course_id from enrollments where enrollments.course_id = courses.course_id)";
+			String sql = "SELECT c.*, c.course_id AS ccid FROM courses c JOIN enrollments e ON e.roadmap_id = c.roadmap_id AND e.student_id = ? LEFT JOIN enrollments ec ON ec.course_id = c.course_id AND ec.student_id = ? WHERE ec.course_id IS NULL";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, id);
+			pstmt.setString(2, id);
 			rs = pstmt.executeQuery();
-			while(rs.next()) {
+			while (rs.next()) {
 				courseVO = new CourseVO();
 				courseVO.setCourseId(rs.getInt("course_id"));
 				courseVO.setCourseTitle(rs.getString("course_title"));
@@ -443,6 +443,28 @@ public class CourseDAO {
 			}
 		} catch (Exception e) {
 			log.error("getCourseListInRoadMap error : {}", e);
+		} finally {
+			resourceRelease();
+		}
+		return list;
+	}
+// 로드맵의 강의중 이미 구매한 강의를 제외한 나머지의 가격을 추출하기 위한 메소드
+	public List<CourseVO> getCourseListToPurchase(int roadMapId, String user_id) {
+		List<CourseVO> list = new ArrayList<CourseVO>();
+		try {
+			con = dataSource.getConnection();
+			String sql = "SELECT * FROM Courses c WHERE c.roadmap_id = ? AND NOT EXISTS ( SELECT 1 FROM Enrollments e WHERE e.student_id = ? AND (e.course_id = c.course_id or e.roadmap_id = c.roadmap_id))";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, roadMapId);
+			pstmt.setString(2, user_id);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				courseVO = new CourseVO();
+				courseVO.setCoursePrice(rs.getInt("course_price"));
+				list.add(courseVO);
+			}
+		} catch (Exception e) {
+			log.error("getCourseListToPurchase error : {}", e);
 		} finally {
 			resourceRelease();
 		}

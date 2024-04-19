@@ -142,6 +142,12 @@ public class CourseService {
 			public List<CourseVO> getCourseListInRoadMap(String id) {
 				return courseDAO.getCourseListInRoadMap(id);
 			}
+
+
+			public List<CourseVO> getCourseListToPurchase(int roadMapId,String user_id) {
+				
+				return courseDAO.getCourseListToPurchase(roadMapId,user_id);
+			}
 	
 
 

@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import Service.CourseService;
 import Service.RoadMapService;
 import VO.CourseVO;
 import VO.LectureVO;
@@ -67,22 +68,28 @@ public class RoadMapController extends HttpServlet {
 			// 특정 로드맵 클릭했을때 로드맵 세부 내용을 조회
 		case "/detail":
 			int roadMapId = Integer.parseInt(request.getParameter("roadMapId")) ;
+			CourseService courseService = new CourseService();
 			String user_id= (String)session.getAttribute("id") ;
 			RoadMapVO roadMapVO = new RoadMapVO();
 			List<CourseVO> courseVOList = new ArrayList<>();
+			List<CourseVO> courseToPurchase = new ArrayList<>();
+			List<CourseVO> courseToPurchase2 = new ArrayList<>();
+			courseToPurchase = courseService.getCourseListToPurchase(roadMapId,user_id);
 			Map<String, Object> map  = new HashMap<String, Object>();
 			map = roadMapService.getRoadMapDetail(roadMapId);
 			// HashMap으로 받아온 값들을 꺼내서 바인딩 jsp에서 꺼내는것보다 여기서 하는게 편할것같아서 ,,,
 			roadMapVO = (RoadMapVO)map.get("roadMapVO");
 			courseVOList = (List<CourseVO>)map.get("courseVO");
+			
 			UsersVO userList = new UsersVO();
 			userList=roadMapService.getPayDetail(user_id);
 			log.debug("roadMapVO : {}", roadMapVO.getRoadMapTitle());
 			log.debug("list : {}", courseVOList.size());
+			log.debug("courseToPurchase size : {}", courseToPurchase.size());
 			for(CourseVO vo : courseVOList) {
-				System.out.println(vo.getCourseTitle());
+				log.debug("로드맵 강의 제목 : {}", vo.getCourseTitle());
 			}
-			System.out.println("왜 널이지 ?? : "+userList.getUser_name());
+			request.setAttribute("courseToPurchase", courseToPurchase);
 			request.setAttribute("roadMapVO", roadMapVO);
 			request.setAttribute("courseVOList", courseVOList);
 			request.setAttribute("userVO", userList);

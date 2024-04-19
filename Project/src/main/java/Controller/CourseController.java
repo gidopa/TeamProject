@@ -84,16 +84,23 @@ public class CourseController extends HttpServlet {
 			// 로드맵중에서 이미 구매한 강좌를 제외한 강좌들의 정보가 있는 List
 			courseListInRoadMap = courseService.getCourseListInRoadMap(id);
 			log.debug("CourseListInRoadMap size : {}", courseListInRoadMap.size());
+			for(CourseVO vo : courseListInRoadMap) {
+				log.debug("courseListInRoadMap id : {}",vo.getCourseId()); 
+			}
 			// 회원이 구매한 강좌를 받아올 메소드
 			courselist = courseService.getCoursePurchased(id);
+			for(CourseVO vo : courselist) {
+				log.debug("courselist id : {}",vo.getCourseId()); 
+			}
 			// 중복을 피하기 위해 HashSet에 List를 담은다음 다시 List로 반환
 			Set<CourseVO> set = new HashSet<>(courselist);
 			set.addAll(courseListInRoadMap); // 중복된 요소는 자동으로 제거됨
 			List<CourseVO> list = new ArrayList<>(set);
+			log.debug("list size : {}",list.size());
 			for(CourseVO vo : list) {
-				System.out.println("강의 : " + vo.getCourseTitle());
-			}  
-		
+				log.debug("강좌 id : {}",vo.getCourseId()); 
+			}
+					
 			request.setAttribute("list", list);
 			request.setAttribute("center", "SelectCourse.jsp");
 			nextPage=main;
