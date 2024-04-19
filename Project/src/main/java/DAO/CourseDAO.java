@@ -423,7 +423,8 @@ public class CourseDAO {
 		List<CourseVO> list = new ArrayList<CourseVO>();
 		try {
 			con = dataSource.getConnection();
-			String sql = "SELECT c.*, c.course_id AS ccid FROM courses c JOIN enrollments e ON e.roadmap_id = c.roadmap_id AND e.student_id = ? LEFT JOIN enrollments ec ON ec.course_id = c.course_id AND ec.student_id = ? WHERE ec.course_id IS NULL";
+			String sql = "SELECT c.*, c.course_id AS ccid FROM courses c JOIN enrollments e ON e.roadmap_id = c.roadmap_id AND e.student_id = ? "
+					+ "LEFT JOIN enrollments ec ON ec.course_id = c.course_id AND ec.student_id = ? WHERE ec.course_id IS NULL";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, id);
 			pstmt.setString(2, id);
