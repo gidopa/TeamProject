@@ -19,8 +19,8 @@
 ### :computer: 기술 스택
 #### Platform
 ![Windows](https://img.shields.io/badge/Windows-0078D6?style=for-the-badge&logo=windows&logoColor=white)
-![Eclipse](https://img.shields.io/badge/Eclipse-0078D6.svg?style=for-the-badge&logo=Eclipse&logoColor=#2C2255)
-![apachetomcat](https://img.shields.io/badge/tomcat-0078D6.svg?style=for-the-badge&logo=apachetomcat&logoColor=white)
+![Eclipse](https://img.shields.io/badge/Eclipse-0078D6.svg?style=for-the-badge&logo=Eclipse&logoColor=purple)
+![apachetomcat](https://img.shields.io/badge/tomcat-0078D6.svg?style=for-the-badge&logo=apachetomcat&logoColor=yellow)
 #### RDBMS
 ![Oracle](https://img.shields.io/badge/Oracle-0078D6?style=for-the-badge&logo=oracle&logoColor=red)
 #### Templates
