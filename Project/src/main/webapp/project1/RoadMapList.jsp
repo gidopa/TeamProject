@@ -88,7 +88,7 @@
                 <td>
                     <div class="course-container">
                         <a href="${contextPath}/RoadMap/detail?roadMapId=${list.roadMapId}">
-                           <img src="${list.imgPath }">
+                           <img src="${contextPath }/project1/images/${list.imgPath}">
                             <div class="course-info">
                                 <p><strong>로드맵명</strong> : ${list.roadMapTitle}</p>
                                 <p><i class="fas fa-tag fa-icon"></i><strong>설명</strong>  : ${list.roadMapDescription} </p>

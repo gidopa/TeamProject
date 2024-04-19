@@ -259,10 +259,16 @@
                 Orders
               </a>
             </li>-->
-            <li class="nav-item">
-              <a class="nav-link d-flex align-items-center gap-2" href="<%=contextPath%>/user/myCart.jsp">
+             <li class="nav-item">
+              <a class="nav-link d-flex align-items-center gap-2" href="<%=contextPath%>/RoadMap/addRoadMap">
                 <svg class="bi"><use xlink:href="#cart"/></svg>
-                장바구니
+                로드맵 등록
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link d-flex align-items-center gap-2" href="<%=contextPath%>/RoadMap/MyRoadMapList">
+                <svg class="bi"><use xlink:href="#cart"/></svg>
+                로드맵 수정/삭제
               </a>
             </li>
           
