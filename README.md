@@ -19,19 +19,23 @@
 ### :computer: 기술 스택
 #### Platform
 ![Windows](https://img.shields.io/badge/Windows-0078D6?style=for-the-badge&logo=windows&logoColor=white)
-![Eclipse](https://img.shields.io/badge/Eclipse-0078D6.svg?style=for-the-badge&logo=Eclipse&logoColor=white)
-![apachetomcat](https://img.shields.io/badge/apachetomcat-0078D6.svg?style=for-the-badge&logo=apachetomcat&logoColor=white)
+![Eclipse](https://img.shields.io/badge/Eclipse-0078D6.svg?style=for-the-badge&logo=Eclipse&logoColor=#2C2255)
+![apachetomcat](https://img.shields.io/badge/tomcat-0078D6.svg?style=for-the-badge&logo=apachetomcat&logoColor=white)
 #### RDBMS
-![Oracle](https://img.shields.io/badge/Oracle-0078D6?style=for-the-badge&logo=oracle&logoColor=white)
+![Oracle](https://img.shields.io/badge/Oracle-0078D6?style=for-the-badge&logo=oracle&logoColor=red)
 #### Templates
 ![JSP](https://img.shields.io/badge/JSP-0078D6.svg?style=for-the-badge&logo=Laravel&logoColor=white)
 ![CSS3](https://img.shields.io/badge/css3-0078D6.svg?style=for-the-badge&logo=css3&logoColor=white)
- ![BOOTSTRAP](https://img.shields.io/badge/Bootstrap-0078D6?style=for-the-badge&logo=bootstrap&logoColor=white)
-#### Application Development
+ ![BOOTSTRAP](https://img.shields.io/badge/Bootstrap-0078D6?style=for-the-badge&logo=bootstrap&logoColor=#7952B3)
+#### Application Development / Skills
 ![Java](https://img.shields.io/badge/Java-0078D6?style=for-the-badge&logo=openjdk&logoColor=white)
 ![JavaScript](https://img.shields.io/badge/javascript-0078D6.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E)
  ![Jquery](https://img.shields.io/badge/jQuery-0078D6?style=for-the-badge&logo=jquery&logoColor=white)
- ![Jquery](https://img.shields.io/badge/logback-0078D6?style=for-the-badge&logo=loopback&logoColor=white)
+ ![Logback](https://img.shields.io/badge/Logback-0078D6?style=for-the-badge&logo=loopback&logoColor=white)
+
+![kakao](https://img.shields.io/badge/kakao%20API-0078D6?style=for-the-badge&logo=kakaotalk&logoColor=#F80000)
+  ![naver](https://img.shields.io/badge/naver%20API-0078D6?style=for-the-badge&logo=naver&logoColor=green)
+ ![JSON](https://img.shields.io/badge/json%20web%20tokens-0078D6?style=for-the-badge&logo=json-web-tokens&logoColor=pink)
  
 <hr>
 
