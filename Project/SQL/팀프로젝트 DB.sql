@@ -191,7 +191,7 @@ alter table books modify book_title not null;
 ALTER TABLE Payments ADD user_name VARCHAR2(100);
 ALTER TABLE Payments ADD phone_number VARCHAR(20);
 ALTER TABLE Payments ADD email VARCHAR2(100);
-ALTER TABLE Payments ADD course_title VARCHAR2(200);
+ALTER TABLE Payments ADD roadmap_id VARCHAR2(200);
 
 ALTER TABLE Payments MODIFY user_name not null;
 ALTER TABLE Payments MODIFY phone_number not null;
@@ -306,9 +306,11 @@ ALTER TABLE delivery
 MODIFY (PAYMENT_ID VARCHAR2(255));
 ALTER TABLE enrollments
 MODIFY (enrollment_id VARCHAR2(255));
+alter table payments 
 commit;
 
-
+alter table payments rename COLUMN course_title to roadmap_id; 
+alter table payments modify (roadmap_id null);
 select * from reviews inner join courses on reviews.course_id = courses.course_id;
 select * from reviews;
 select * from courses;
