@@ -25,6 +25,7 @@ String contextPath = request.getContextPath();
 						<div class="swiper-slide">
 							<img class="contents-backimg img-pc"
 								src="../resources/images/img_mainvisual_01.png" alt="배너 PC 이미지" />
+<!-- 								../resources/images/img_mainvisual_01.png -->
 							<img class="contents-backimg img-mobile"
 								src="../resources/images/img_mainvisual_mobile_01.png"
 								alt="배너 모바일 이미지" />
@@ -130,11 +131,12 @@ String contextPath = request.getContextPath();
 							노하우를 전수해드립니다. 실제 현업에서 사용하는 핵심 스프링을 중심으로, 실무에서 쓰이지 않거나 오래된 기능은
 							과감하게 생략한 실무 노하우를 학습할 수 있습니다.</p>
 						<a class="textset-link aboutus-imgitem btnset btnset-mono"
-							href="<%=contextPath%>/RoadMap/"> View more </a>
+							href="<%=contextPath%>/RoadMap/detail?roadMapId=5"> View more </a>
 					</div>
 				</div>
 				<div class="contents-right">
-					<img src="../resources/images/img_product_01.png" alt="메인이미지" />
+					<img src="../project1/images/jpakim.png" alt="메인이미지" />
+<%-- 					<%=contextPath %>/project1/images/jpakim.png --%>
 				</div>
 			</div>
 		</div>
@@ -144,18 +146,18 @@ String contextPath = request.getContextPath();
 				<div class="contents-left">
 					<div class="textset textset-h2">
 						<span class="textset-name">Courses</span>
-						<h2 class="textset-tit">스타강사 신상국 !!</h2>
+						<h2 class="textset-tit">코딩애플의 미친 Front?</h2>
 					</div>
 					<div class="textset">
 						<p class="textset-desc">
-							일단 들어봐 <br /> jsp 들어봐 <br /> 엌ㅋㅋ <br /> 강의 설명
+							일단 들어봐 <br /> 유류바는 다르다 <br /> 재밌는 설명과 함께 <br /> 완벽한 프런트 가이드
 						</p>
 						<a class="textset-link aboutus-imgitem btnset btnset-mono"
-							href="javascript:void(0)"> View more </a>
+							href="<%=contextPath%>/RoadMap/detail?roadMapId=6"> View more </a>
 					</div>
 				</div>
 				<div class="contents-right">
-					<img src="../resources/images/img_product_01.png" alt="메인이미지" />
+					<img src="../project1/images/reactRoadmap.png" alt="메인이미지" />
 				</div>
 			</div>
 		</div>

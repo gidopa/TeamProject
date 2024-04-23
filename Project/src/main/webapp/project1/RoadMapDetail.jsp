@@ -58,11 +58,20 @@ body {
 	flex-direction: column;
 	align-items: center; /* 센터 정렬 수정 */
 	margin-top: 50px; /* 상단 여백 조정 */
+	
 }
+.roadMap {
+    width: 80%; /* 콘텐츠 너비 조정 */
+    max-width: 1000px; /* 최대 너비 설정 */
+    height: 300px; /* 높이 설정, 필요에 따라 조정 */
+    overflow: auto; /* 내용이 넘칠 경우 스크롤바 표시 */
+}
+
 
 .main-content, .roadMap {
 	width: 80%; /* 콘텐츠 너비 조정 */
 	max-width: 1000px; /* 최대 너비 설정 */
+	overflow: auto;
 }
 
 .course-card {
@@ -104,6 +113,15 @@ body {
 	font-size: 20px;
 	color: #888;
 	margin-bottom: 15px;
+}
+
+.course-description{
+font-size: 20px;
+	color: #888;
+	margin-bottom: 15px;
+	white-space: nowrap; /* 텍스트를 한 줄에 표시 */
+            overflow: hidden; /* 컨테이너 너비를 넘어가는 텍스트 숨기기 */
+            text-overflow: ellipsis; /* 넘치는 텍스트를 말줄임표로 표시 */
 }
 
 .purchase-button-container {
@@ -303,7 +321,7 @@ List<CourseVO> courseToPurchase = (List<CourseVO>)request.getAttribute("courseTo
 							<div class="text-container">
 								<!-- 새로운 div로 감싸 텍스트와 설명을 세로로 정렬 -->
 								<div class="course-text">${course.courseTitle}</div>
-								<div class="course-price">${course.courseDescription}</div>
+								<div class="course-description">${course.courseDescription}</div>
 								<div class="course-price">₩<fmt:formatNumber value="${course.coursePrice }" type="number" pattern="#,##0" /></div>
 							</div>
 						</div>

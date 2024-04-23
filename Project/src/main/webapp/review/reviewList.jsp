@@ -43,16 +43,15 @@ request.setCharacterEncoding("UTF-8");
 		<form id="commentForm" class="mb-3"
 			action="${contextPath}/Review/comment" method="POST">
 			<div class="mb-3">
-				<label for="courseDropdown" class="form-label">코스 선택:</label> <select
-					id="courseDropdown" name="courseId" class="form-select">
-					<option value="">코스를 선택하세요</option>
-					<c:forEach items="${courseList}" var="course">
-						<option value="${course.courseId}">${course.courseTitle}</option>
-						<input type="hidden" name="courseTitle"
-							value="${course.courseTitle}">
-					</c:forEach>
-				</select>
-			</div>
+    <label for="courseDropdown" class="form-label">코스 선택:</label> 
+    <select id="courseDropdown" name="courseId" class="form-select" onchange="setCourseTitle(this)">
+        <option value="">코스를 선택하세요</option>
+        <c:forEach items="${courseList}" var="course">
+            <option value="${course.courseId}">${course.courseTitle}</option>
+        </c:forEach>
+    </select>
+    <input type="hidden" id="courseTitle" name="courseTitle" value="">
+</div>
 			<div class="mb-3">
 				<input type="text" name="commentText" class="form-control"
 					placeholder="후기를 입력하세요" required>
@@ -252,12 +251,18 @@ request.setCharacterEncoding("UTF-8");
 		            success: function(response) {
 		                alert('댓글이 삭제되었습니다.');
 		                document.getElementById('comment-' + reviewId).remove();
+		                $("#comment-"+reviewId).remove();
 		            },
 		            error: function() {
 		                alert('댓글 삭제에 실패했습니다.');
 		            }
 		        });
 		    }
+		}
+		
+		function setCourseTitle(selectElement) {
+		    var title = selectElement.options[selectElement.selectedIndex].text;
+		    document.getElementById('courseTitle').value = title;
 		}
 	</script>
 </body>
