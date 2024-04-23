@@ -138,4 +138,26 @@ public class UsersService {
 		session.setAttribute("id", request.getParameter("m_id"));
 	}
 	
+	public void kakaoJoin(HttpServletRequest request) {
+		UsersVO userVO = new UsersVO();
+				
+				
+				userVO.setUser_id(request.getParameter("m_id"));
+				userVO.setPassword(request.getParameter("m_pass"));
+				userVO.setUser_name(request.getParameter("m_name"));
+				userVO.setEmail(request.getParameter("m_email"));
+				userVO.setPhone_number(request.getParameter("m_hp"));
+				userVO.setInterest(request.getParameter("m_admin"));
+				userVO.setAddress(request.getParameter("address1")+" "+
+						   		 request.getParameter("address2")+
+						   		 request.getParameter("address3")+ ", " +
+						   		 request.getParameter("address4")+
+						   		 request.getParameter("address5")
+								);
+				usersDAO.KakaoJoin(userVO);
+				
+				HttpSession session = request.getSession();
+				session.setAttribute("id", request.getParameter("m_id"));
+			}
+	
 }

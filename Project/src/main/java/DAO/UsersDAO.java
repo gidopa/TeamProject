@@ -331,4 +331,26 @@ public class UsersDAO {
 			ResourceClose();
 		}
 	}
+	
+	public void KakaoJoin(UsersVO userVO) {
+		try {
+			con = dataSource.getConnection();
+			String sql = "update Users set user_name=?, email=?, password=?, phone_number=?, address=?, interest=? where user_id = ?";
+			pstmt = con.prepareStatement(sql);
+			
+			pstmt.setString(1, userVO.getUser_name());
+			pstmt.setString(2, userVO.getEmail());
+			pstmt.setString(3, userVO.getPassword());
+			pstmt.setString(4, userVO.getPhone_number());
+			pstmt.setString(5, userVO.getAddress());
+			pstmt.setString(6, userVO.getInterest());
+			pstmt.setString(7, userVO.getUser_id());
+			
+			pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			ResourceClose();
+		}
+	}
 }

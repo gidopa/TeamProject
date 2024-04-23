@@ -313,7 +313,7 @@
            
             <!-- 회원탈퇴하기 구현중 -->
              <li class="nav-item">
-              <a class="nav-link d-flex align-items-center gap-2" id="delete" onclick="delUser();" href="<%=contextPath%>/users/delUser.me" >
+              <a class="nav-link d-flex align-items-center gap-2" id="delete" href="javascript:delUser();" >
                 회원 탈퇴하기
               </a>
             </li>
@@ -390,8 +390,12 @@
 <script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
 <script type="text/javascript">
 	function delUser() {
-		confirm("정말로 회원을 탈퇴하시겠습니까?"); // 사용자에게 삭제 여부를 확인합니다.
-
+		var del = confirm("정말로 회원을 탈퇴하시겠습니까?"); // 사용자에게 삭제 여부를 확인합니다.
+		console.log(del);
+		
+		if(del == true) {
+			window.location.href="<%=contextPath%>/users/delUser.me";
+		}
 		
 	}
 </script>

@@ -58,6 +58,8 @@ public class KakaoLoginController extends HttpServlet {
 
 		String contextPath = request.getContextPath();
 		String nextPage = null;
+		
+		String action = request.getPathInfo();
 		try {
 			/* 얻어온 code로 토큰 발급 POST 요청 */
 			URL url = new URL("https://kauth.kakao.com/oauth/token");
@@ -130,9 +132,7 @@ public class KakaoLoginController extends HttpServlet {
 			System.out.println("result user : " + result);
 
 			// Json 데이터 Vo 저장 후 반환
-//			String json = "{\"id\":123456,\"nickname\":ddd,\"email\":jwonb0323@hotmail.com,\"phoneNumber\":01067515559}";
-//			kakaoLoginVO = gson.fromJson(json, KakaoLoginVO.class);
-//			System.out.println(kakaoLoginVO.getNickname());
+			
 			try {
 				JSONParser parser = new JSONParser();
 				JSONObject jsonObject = (JSONObject)parser.parse(result);
@@ -147,28 +147,37 @@ public class KakaoLoginController extends HttpServlet {
 				// id 값이 테이블에 존재하는지 여부 확인
 				int resultInt1 = kakaoLoginService.serviceCheckId(kakaoLoginVO, request);
 				String id = "";
-			
+				System.out.println("resultInt1값 : " + resultInt1);
 				if(resultInt1 == 0) {
 					KakaoLoginVO KakaoLoginVO1 = kakaoLoginService.serviceLogin(kakaoLoginVO, request);
-//					request.setAttribute("center", "user/kakaoRegister.jsp");
+					request.setAttribute("center", "kakaoJoin.jsp");
 					request.setAttribute("KakaoLoginVO", KakaoLoginVO1);
+					
+					
+					
 				} else {
 					id = jsonObject.get("id").toString();
 					HttpSession session = request.getSession();
 					session.setAttribute("id", id);
+					
+					
 				}
+				nextPage = "/project1/main.jsp";
 			
 			} catch (Exception e) {
 				System.out.println("JSON 파싱 에러 : " + e);
 				e.printStackTrace();
 			} 
 			
-			nextPage = "/project1/main.jsp";
+			
 			
 			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		
+		
+		
 		
 		RequestDispatcher dispatch = request.getRequestDispatcher(nextPage);		
 		dispatch.forward(request, response);

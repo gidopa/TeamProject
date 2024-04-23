@@ -83,7 +83,7 @@ public class KakaoLoginDAO {
 		try {
 			con = dataSource.getConnection();
 
-			sql = "INSERT INTO users (user_id, user_name, email, password, phone_number, address) values(?,?,?,' ',?,' ')";
+			sql = "INSERT INTO users (user_id, user_name, email, phone_number, password, address) values(?,?,?,?,' ',' ')";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, m_id);
 			pstmt.setString(2, kakaoLoginVO.getName());
@@ -102,8 +102,9 @@ public class KakaoLoginDAO {
 			if (rs.next()) {
 				kakaoLoginVO1 = new KakaoLoginVO();
 				kakaoLoginVO1.setUserId(rs.getLong("user_id"));
-//				kakaoLoginVO1.setNickname(rs.getString("m_name"));
+				kakaoLoginVO1.setName(rs.getString("user_name"));
 				kakaoLoginVO1.setEmail(rs.getString("email"));
+				kakaoLoginVO1.setPhoneNumber(rs.getString("phone_number"));
 			}
 
 		} catch (Exception e) {

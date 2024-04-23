@@ -1,5 +1,7 @@
 package Service;
 
+import java.net.http.HttpClient.Redirect;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -21,7 +23,7 @@ public class KakaoLoginService {
 			HttpSession session = request.getSession();
 			session.setAttribute("m_id", String.valueOf(kakaoLoginVO.getUserId()));
 			session.setAttribute("m_admin", resultStr);
-		}
+		} 
 		
 		return resultInt;
 	}
@@ -30,7 +32,7 @@ public class KakaoLoginService {
 		KakaoLoginVO result = kakaoLoginDAO.kakaoLogin(kakaoLoginVO);
 
 		HttpSession session = request.getSession();
-		session.setAttribute("id", String.valueOf(result.getUserId()));
+		session.setAttribute("m_id", String.valueOf(result.getUserId()));
 		session.setAttribute("m_admin", "1");
 
 		return result;
