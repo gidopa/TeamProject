@@ -353,4 +353,28 @@ public class UsersDAO {
 			ResourceClose();
 		}
 	}
+
+
+	public UsersVO memberOne(String loginid) {
+		UsersVO vo = null;
+		try {
+			con = dataSource.getConnection(); //DB와연결
+			String sql = "select email, user_name from users where user_id=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, loginid);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				vo = new UsersVO();
+				vo.setEmail(rs.getString("email"));
+				vo.setUser_name(rs.getString("user_name"));
+				vo.setUser_id(loginid);
+			}
+		} catch (Exception e) {
+			System.out.println("MemberDAO의  memberOne메소드 내부에서 오류 : " + e);
+		} finally {
+			ResourceClose();
+		}
+		return vo;
+	}
+	
 }
