@@ -100,7 +100,7 @@ request.setCharacterEncoding("UTF-8");
 						</a></li>
 						
 						<li class="header-gnbitem"><a class="header-gnblink"
-							href="javascript:void(0)"> <span>공지사항</span>
+							href="<%=contextPath%>/board2/list.bo"> <span>공지사항</span>
 						</a></li>
 					</ul>
 				</div>

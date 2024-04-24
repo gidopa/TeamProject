@@ -1,24 +1,24 @@
-<%@page import="VO.UsersVO"%> 
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@page import="VO.UsersVO"%>
+<%@ page language="java" contentType="text/html; charset=EUC-KR" pageEncoding="EUC-KR"%>
 <% 
 	request.setCharacterEncoding("UTF-8");
 	String contextPath = request.getContextPath();
 // 	String nowPage = request.getParameter("nowPage");
 // 	String nowBlock = request.getParameter("nowBlock");
 
-	//ì¡°íšŒí•œ ì´ë©”ì¼, ì´ë¦„, ì•„ì´ë”” ë¥¼ ì–»ê¸° ìœ„í•´
-	//requestì— ë°”ì¸ë”©ëœ ì¡°íšŒëœ ì •ë³´ ì–»ê¸° 
-	UsersVO vo = (UsersVO)request.getAttribute("membervo");
+	//Á¶È¸ÇÑ ÀÌ¸ŞÀÏ, ÀÌ¸§, ¾ÆÀÌµğ ¸¦ ¾ò±â À§ÇØ
+	//request¿¡ ¹ÙÀÎµùµÈ Á¶È¸µÈ Á¤º¸ ¾ò±â 
+	UsersVO vo = (UsersVO)request.getAttribute("usersvo"); 
 	String email = vo.getEmail();
 	String name = vo.getUser_name();
 %>
  
 <%
 	String id = (String)session.getAttribute("id");
-	if(id == null){//ë¡œê·¸ì¸ í•˜ì§€ ì•Šì•˜ì„ê²½ìš°
+	if(id == null){//·Î±×ÀÎ ÇÏÁö ¾Ê¾ÒÀ»°æ¿ì
 %>		
 	<script>	
-		alert("ë¡œê·¸ì¸ í•˜ê³  ê¸€ì„ ì‘ì„±í•˜ì„¸ìš”!"); 
+		alert("·Î±×ÀÎ ÇÏ°í ±ÛÀ» ÀÛ¼ºÇÏ¼¼¿ä!"); 
 		history.back(); 
  	</script>
 <% 	}%>
@@ -31,33 +31,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-
-
-
-<script>
-// ë‹µê¸€ ë“±ë¡ ì²˜ë¦¬
-$("#submitReply").click(function() {
-    var commentId = $("input[name=commentId]").val();
-    var replyContent = $("textarea[name=replyContent]").val();
-    
-    $.ajax({
-        type: "POST",
-        url: "ë‹µê¸€ ì²˜ë¦¬ë¥¼ ìœ„í•œ ì„œë²„ URL",
-        data: {
-            commentId: commentId,
-            replyContent: replyContent
-        },
-        success: function(response) {
-            // ë‹µê¸€ ë“±ë¡ ì„±ê³µ ì‹œ ì²˜ë¦¬
-            alert("ë‹µê¸€ì´ ë“±ë¡ë˜ì—ˆìŠµë‹ˆë‹¤.");
-        },
-        error: function(xhr, status, error) {
-            // ë‹µê¸€ ë“±ë¡ ì‹¤íŒ¨ ì‹œ ì²˜ë¦¬
-            alert("ë‹µê¸€ ë“±ë¡ì— ì‹¤íŒ¨í–ˆìŠµë‹ˆë‹¤.");
-        }
-    });
-});
-</script>
 
 <table width="90%" border="0" cellspacing="0" cellpadding="0">
   <tr height="40"> 
@@ -82,13 +55,13 @@ $("#submitReply").click(function() {
                 <table width="100%" height="373" border="0" cellpadding="0" cellspacing="1" class="border1">
                   <tr> 
                     <td width="13%" height="29" bgcolor="#e4e4e4" class="text2">
-                    	<div align="center">ì‘ ì„± ì</div>
+                    	<div align="center">ÀÛ ¼º ÀÚ</div>
                     </td>
                     <td width="34%" bgcolor="#f5f5f5" style="text-align: left">
                     	<input type="text" name="writer" size="20" class="text2" value="<%=name%>" readonly />
                     </td>
                     <td width="13%" height="29" bgcolor="#e4e4e4" class="text2">
-                    	<div align="center">ì•„ ì´ ë””</div>
+                    	<div align="center">¾Æ ÀÌ µğ</div>
                     </td>
                     <td width="34%" bgcolor="#f5f5f5" style="text-align: left">
                     	<input type="text" name="writer_id" 
@@ -98,7 +71,7 @@ $("#submitReply").click(function() {
                    <tr>
                     <td width="13%" bgcolor="#e4e4e4">
                     	<div align="center"> 
-                        	<p class="text2">ë©”ì¼ì£¼ì†Œ</p>
+                        	<p class="text2">¸ŞÀÏÁÖ¼Ò</p>
                       	</div>
                     </td>
                     <td colspan="3" bgcolor="#f5f5f5" style="text-align: left">
@@ -107,7 +80,7 @@ $("#submitReply").click(function() {
                   </tr>             
                   <tr> 
                     <td height="31" bgcolor="#e4e4e4" class="text2">
-                    	<div align="center">ì œ&nbsp;&nbsp;&nbsp;ëª©</div>
+                    	<div align="center">Á¦&nbsp;&nbsp;&nbsp;¸ñ</div>
                     </td>
                     <td colspan="3" bgcolor="#f5f5f5" style="text-align: left">
                     	<input type="text" name="title" size="70"/>
@@ -115,7 +88,7 @@ $("#submitReply").click(function() {
                   </tr>
                   <tr> 
                     <td bgcolor="#e4e4e4" class="text2">
-                    	<div align="center">ë‚´ &nbsp;&nbsp; ìš©</div>
+                    	<div align="center">³» &nbsp;&nbsp; ¿ë</div>
                     </td>
                     <td colspan="3" bgcolor="#f5f5f5" style="text-align: left">
                     	<textarea name="content" rows="15" cols="100"></textarea>
@@ -123,7 +96,7 @@ $("#submitReply").click(function() {
                   </tr>
                   <tr> 
                     <td bgcolor="#e4e4e4" class="text2">
-                    	<div align="center">íŒ¨ìŠ¤ì›Œë“œ</div>
+                    	<div align="center">ÆĞ½º¿öµå</div>
                     </td>
                     <td colspan="3" bgcolor="#f5f5f5" style="text-align: left">
                     	<input type="password" name="pass"/>
@@ -138,18 +111,18 @@ $("#submitReply").click(function() {
           </tr>
           <tr> 
             <td width="48%">
-            <!-- ë“±ë¡ ë²„íŠ¼ -->
+            <!-- µî·Ï ¹öÆ° -->
             <div align="right">
             	<a href="" id="registration1">
-            		<img src="<%=contextPath%>/boarders/images/confirm.gif" border="0"/>
+            		<img src="<%=contextPath%>/boarders2/images/confirm.gif" border="0"/>
            		</a>
             </div>
             </td>
             <td width="10%">
-            <!-- ëª©ë¡ë³´ê¸° -->
+            <!-- ¸ñ·Ïº¸±â -->
             <div align="center">
             	<a href="" id="list">
-            		<img src="<%=contextPath%>/boarders/images/list.gif" border="0"/>
+            		<img src="<%=contextPath%>/boarders2/images/list.gif" border="0"/>
             	</a>
             </div>
             </td>
@@ -164,37 +137,37 @@ $("#submitReply").click(function() {
 	
 	<script type="text/javascript">
 		
-	//ê¸€ëª©ë¡ ëˆŒë €ì„ë•Œ 
+	//±Û¸ñ·Ï ´­·¶À»¶§ 
 		$("#list").click(function(event) {
 			event.preventDefault();
-			//boardí…Œì´ë¸”ì— ì €ì¥ëœ ê¸€ì„ ì¡°íšŒ í•˜ëŠ” ìš”ì²­!
-			location.href="<%=contextPath%>/board/list.bo?nowBlock=0&nowPage=0"; 
+			//boardÅ×ÀÌºí¿¡ ÀúÀåµÈ ±ÛÀ» Á¶È¸ ÇÏ´Â ¿äÃ»!
+			location.href="<%=contextPath%>/board2/list.bo?nowBlock=0&nowPage=0"; 
 		})
 		
 	
 	
-		//ìƒˆê¸€ ì •ë³´ë¥¼ ì…ë ¥í•˜ê³  ë“±ë¡ ì´ë¯¸ì§€ë¥¼ ê°ì‹¸ê³  ìˆëŠ” <a>íƒœê·¸ë¥¼ í´ë¦­ í–ˆì„ë•Œ
+		//»õ±Û Á¤º¸¸¦ ÀÔ·ÂÇÏ°í µî·Ï ÀÌ¹ÌÁö¸¦ °¨½Î°í ÀÖ´Â <a>ÅÂ±×¸¦ Å¬¸¯ ÇßÀ»¶§
 		$("#registration1").click(function(event) {
 			
 			event.preventDefault();
 			
-			//ì‘ì„±ì ëª…ì„ ì…ë ¥í•  <input>ì„ ì„ íƒí•´
+			//ÀÛ¼ºÀÚ ¸íÀ» ÀÔ·ÂÇÒ <input>À» ¼±ÅÃÇØ
 			var writer = $("input[name=writer]").val();
-			//ì•„ì´ë”” ëª…ì„ ì…ë ¥í•  <input>ì„ ì„ íƒí•´
+			//¾ÆÀÌµğ ¸íÀ» ÀÔ·ÂÇÒ <input>À» ¼±ÅÃÇØ
 			var id = $("input[name=writer_id]").val();
-			//ì‘ì„±ìì˜ ì´ë©”ì¼ì„ ì…ë ¥ ë°›ì•„ ì–»ëŠ”ë‹¤.
+			//ÀÛ¼ºÀÚÀÇ ÀÌ¸ŞÀÏÀ» ÀÔ·Â ¹Ş¾Æ ¾ò´Â´Ù.
 			var email = $("input[name=email]").val();
-			//ê¸€ì œëª©ì„ ì…ë ¥ë°›ì•„ ì–»ëŠ”ë‹¤.
+			//±ÛÁ¦¸ñÀ» ÀÔ·Â¹Ş¾Æ ¾ò´Â´Ù.
 			var title = $("input[name=title]").val();
-			//ê¸€ë‚´ìš©ì„ ì…ë ¥ë°›ì•„ ì–»ëŠ”ë‹¤.
+			//±Û³»¿ëÀ» ÀÔ·Â¹Ş¾Æ ¾ò´Â´Ù.
 			var content = $("textarea[name=content]").val();
-			//ê¸€ ë¹„ë°€ë²ˆí˜¸ë¥¼ ì…ë ¥ë°›ì•„ ì–»ëŠ”ë‹¤.
+			//±Û ºñ¹Ğ¹øÈ£¸¦ ÀÔ·Â¹Ş¾Æ ¾ò´Â´Ù.
 			var pass = $("input[name=pass]").val();
 			
 			$.ajax({
 				type:"post",
 				async:true,
-				url:"<%=contextPath%>/board/writePro.bo",
+				url:"<%=contextPath%>/board2/writePro.bo",
 				data:{
 					w : writer,
 					i : id,
@@ -208,9 +181,12 @@ $("#submitReply").click(function() {
 					console.log(data);
 					
 					if(data == "1"){
-						$("#resultInsert").text("ê¸€ ì‘ì„± ì™„ë£Œ!").css("color","green");
+						$("#resultInsert").text("±Û ÀÛ¼º ¿Ï·á!").css("color","green");
+						setTimeout(function() {
+				            location.href = "<%=contextPath%>/board2/list.bo?nowBlock=0&nowPage=0";
+				        }, 500); // 0.5ÃÊ ´ë±â
 					}else{//"0"
-						$("#resultInsert").text("ê¸€ ì‘ì„± ì‹¤íŒ¨!").css("color","red");
+						$("#resultInsert").text("±Û ÀÛ¼º ½ÇÆĞ!").css("color","red");
 					}
 				},
 				

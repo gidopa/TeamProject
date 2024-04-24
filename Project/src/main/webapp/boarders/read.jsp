@@ -1,13 +1,14 @@
-<%@page import="VO.BoardVO"%> 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ page import="java.util.List"%>
+<%@ page import="VO.BoardVO"%>	
  
 
 <%
 	request.setCharacterEncoding("UTF-8");
 	String contextPath = request.getContextPath();
 	
-	//조회한 글정보 얻기
+	//조회한 주글정보 얻기
 	BoardVO vo = (BoardVO)request.getAttribute("vo");
 	String name = vo.getB_name();//조회한 글을 작성한 사람
 	String email = vo.getB_email();//조회한 글을 작성한 사람의 이메일
@@ -18,8 +19,9 @@
 	String nowPage = (String)request.getAttribute("nowPage");
 	String nowBlock = (String)request.getAttribute("nowBlock");
 	
-%>
 
+			  
+%>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -123,6 +125,7 @@
 								<%--답변달기 --%>
 									<input type="image" src="<%=contextPath%>/boarders/images/reply.gif" id="reply" />&nbsp;&nbsp; 
 								</div>
+								
 							</td>
 							<td width="10%">
 								<div align="center">
@@ -158,9 +161,6 @@
 			
 			
 		});
-	
-	
-	
 	
 		function deletePro(b_idx){
 			
@@ -263,10 +263,6 @@
 		});
 	
 	
-	
-	
-	
-	
 		//수정 삭제를 위해 비밀번호를 입력하고 포커스가 떠난 이벤트가 발생했을때...
 		$("#pass").on("focusout",function(){
 			
@@ -314,10 +310,20 @@
 				}
 			});
 		});
-	
 		
-	</script>
+
+
+		
+	</script>	
 	
+	
+
+
+
 	
 </body>
 </html>
+
+
+
+
